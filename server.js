@@ -12,10 +12,10 @@ app.use(function (req, res, done) {
 	// Здесь нужно написать журналирование в формате
 	// (журналирование - вывод в консоль)
 	// [время] [номер запроса по счету]
-	console.log(
-		Date() + " " +  reqCounter
+	console.log('[%s] #%s',
+              (new Date()).toLocaleString(),
+              ++reqCounter
 	);
-	++reqCounter;
 	done();
 });
 
