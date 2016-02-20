@@ -1,6 +1,6 @@
 node_modules
 .idea
-public_html
+dist
 
 # Node.JS
 npm-debug.log*
