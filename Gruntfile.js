@@ -60,6 +60,6 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-shell');
   grunt.loadNpmTasks('grunt-fest');
 
-  grunt.registerTask('default', ['concurrent:dev']);
+  grunt.registerTask('dev', ['concurrent:dev']);
 
 };
