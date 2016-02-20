@@ -4,7 +4,6 @@
   "description": "Cool sea battle",
   "license": "MIT",
   "devDependencies": {
-    "body-parser": "^1.14.2",
     "dateformat": "^1.0.12",
     "errorhandler": "^1.4.3",
     "express": "^4.13.4",
