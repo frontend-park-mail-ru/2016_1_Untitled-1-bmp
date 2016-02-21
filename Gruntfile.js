@@ -44,36 +44,8 @@ module.exports = function (grunt) {
       }
     },
 
-    sass: {
-      // https://www.npmjs.com/package/grunt-sass
-      dev: {
-        options: {
-          outputStyle: 'expanded',
-          sourcemap: false
-        },
-        files: {
-          'dist/css/main.css': 'assets/sass/main.scss'
-        }
-      },
-      prod: {
-        options: {
-          outputStyle: 'compressed',
-          sourcemap: false
-        },
-        files: {
-          'dist/css/main.css': 'assets/sass/main.scss'
-        }
-      }
-    },
-
     copy: {
       // https://www.npmjs.com/package/grunt-contrib-copy
-      fonts: {
-        cwd: 'assets/fonts',
-        src: [ '**' ],
-        dest: 'dist/fonts',
-        expand: true
-      },
       js_dev: {
         cwd: 'assets/js',
         src: [ '**' ],
@@ -131,22 +103,6 @@ module.exports = function (grunt) {
           atBegin: true
         }
       },
-      sass: {
-        files: ['assets/sass/**/*'],
-        tasks: ['sass:dev'],
-        options: {
-          interrupt: true,
-          atBegin: true
-        }
-      },
-      copy_fonts: {
-        files: ['assets/fonts/**/*'],
-        tasks: ['copy:fonts'],
-        options: {
-          interrupt: true,
-          atBegin: true
-        }
-      },
       copy_js_dev: {
         files: ['assets/js/**/*'],
         tasks: ['copy:js_dev'],
@@ -174,10 +130,9 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-fest');
   grunt.loadNpmTasks('grunt-jade');
   grunt.loadNpmTasks('grunt-requirejs');
-  grunt.loadNpmTasks('grunt-sass');
   grunt.loadNpmTasks('grunt-shell');
 
   grunt.registerTask('dev', ['concurrent:dev']);
-  grunt.registerTask('prod', ['fest', 'sass:prod', 'copy:fonts', 'jade:prod', 'requirejs:prod']);
+  grunt.registerTask('prod', ['fest', 'jade:prod', 'requirejs:prod']);
   grunt.registerTask('default', ['dev']);
 };
