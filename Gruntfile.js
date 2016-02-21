@@ -21,7 +21,7 @@ module.exports = function (grunt) {
       // https://www.npmjs.com/package/grunt-jade
       dev: {
         files: {
-          'dist': 'templates/index.jade'
+          'dist': 'templates/**/*.jade'
         },
         options: {
           pretty: true,
@@ -33,7 +33,7 @@ module.exports = function (grunt) {
       },
       prod: {
         files: {
-          'dist': 'templates/index.jade'
+          'dist': 'templates/**/*.jade'
         },
         options: {
           client: false,
