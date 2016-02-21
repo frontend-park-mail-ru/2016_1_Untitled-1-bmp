@@ -1,6 +1,22 @@
 module.exports = function (grunt) {
 
   grunt.initConfig({
+    requirejs: {
+      // https://www.npmjs.com/package/grunt-requirejs
+      prod: {
+        options: {
+          baseUrl: 'assets/js',
+          mainConfigFile: 'assets/js/config.js',
+          include: ['main'],
+          out: 'dist/js/main.min.js',
+          preserveLicenseComments: false
+          /* uncomment to debug */
+          // ,optimize: 'uglify2',
+          // generateSourceMaps: true
+        }
+      }
+    },
+
     jade: {
       // https://www.npmjs.com/package/grunt-jade
       dev: {
@@ -157,10 +173,11 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-fest');
   grunt.loadNpmTasks('grunt-jade');
+  grunt.loadNpmTasks('grunt-requirejs');
   grunt.loadNpmTasks('grunt-sass');
   grunt.loadNpmTasks('grunt-shell');
 
   grunt.registerTask('dev', ['concurrent:dev']);
-  grunt.registerTask('prod', ['fest', 'sass:prod', 'copy:fonts', 'jade:prod']);
+  grunt.registerTask('prod', ['fest', 'sass:prod', 'copy:fonts', 'jade:prod', 'requirejs:prod']);
   grunt.registerTask('default', ['dev']);
 };

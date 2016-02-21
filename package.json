@@ -13,6 +13,7 @@
     "grunt-contrib-watch": "^0.6.1",
     "grunt-fest": "^0.1.6",
     "grunt-jade": "^0.5.1",
+    "grunt-requirejs": "^0.4.2",
     "grunt-sass": "^1.1.0",
     "grunt-shell": "^1.1.2"
   },
