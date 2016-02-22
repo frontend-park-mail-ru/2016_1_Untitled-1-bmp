@@ -41,7 +41,7 @@ module.exports = function (grunt) {
       // https://www.npmjs.com/package/grunt-jade
       dev: {
         files: {
-          'dist': 'templates/**/*.jade'
+          'dist': 'layouts/**/*.jade'
         },
         options: {
           pretty: true,
@@ -53,7 +53,7 @@ module.exports = function (grunt) {
       },
       prod: {
         files: {
-          'dist': 'templates/**/*.jade'
+          'dist': 'layouts/**/*.jade'
         },
         options: {
           client: false,
@@ -109,7 +109,7 @@ module.exports = function (grunt) {
         options: {
           template: function (data) {
             return grunt.template.process(
-              'var <%= name %>Tmpl = <%= contents %> ;',
+              'define(function() { return <%= contents %> ; });',
               {data: data}
             );
           }
@@ -128,7 +128,7 @@ module.exports = function (grunt) {
         }
       },
       jade: {
-        files: ['templates/**/*.jade'],
+        files: ['layouts/**/*.jade'],
         tasks: ['jade:dev'],
         options: {
           interrupt: true,

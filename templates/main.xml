@@ -1,0 +1,15 @@
+<fest:template xmlns:fest="http://fest.mail.ru">
+    <div class="wrapper wrapper_narrow wrapper_center">
+        <h1>Эй, морячки!</h1>
+
+        <div class="mainmenu">
+            <div class="mainmenu__logo">
+                <img src="/img/logo/logo-grey-256.png" />
+            </div>
+
+            <a class="mainmenu__button" href="#new/game">Новая игра</a>
+            <a class="mainmenu__button" href="#login">Войти</a>
+            <a class="mainmenu__button" href="#scoreboard">Рекорды</a>
+        </div>
+    </div>
+</fest:template>

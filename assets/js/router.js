@@ -11,19 +11,23 @@ define(function(require) {
     },
 
     defaultAction: function() {
-      console.log('default');
+      var mainView = require('views/main');
+      $('#page').html(mainView.render().el);
     },
 
     scoreboardAction: function() {
-      console.log('scoreboard');
+      var scoreboardView = require('views/scoreboard');
+      $('#page').html(scoreboardView.render().el);
     },
 
     newGameAction: function() {
-      console.log('new/game');
+      var gameView = require('views/game');
+      $('#page').html(gameView.render().el);
     },
 
     loginAction: function() {
-      console.log('login');
+      var loginView = require('views/login');
+      $('#page').html(loginView.render().el);
     }
   });
 

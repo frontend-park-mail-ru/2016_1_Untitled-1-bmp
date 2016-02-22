@@ -1,0 +1,22 @@
+.mainmenu {
+  width: 50%;
+  margin: 0 auto;
+
+  &__logo {
+    text-align: center;
+
+    opacity: 1;
+    transition: 2s;
+
+    &:hover {
+      opacity: 0.6;
+      transition: 2s;
+    }
+  }
+
+  &__button {
+    &:extend(.btn all);
+    &:extend(.btn_primary all);
+    &:extend(.btn_block all);
+  }
+}

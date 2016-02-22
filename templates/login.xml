@@ -1,0 +1,6 @@
+<fest:template xmlns:fest="http://fest.mail.ru">
+    <div class="wrapper wrapper_narrow wrapper_center">
+        <h1>Форма входа</h1>
+        <h2><a href="#main">Главное меню →</a></h2>
+    </div>
+</fest:template>
