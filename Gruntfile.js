@@ -72,6 +72,12 @@ module.exports = function (grunt) {
         dest: 'dist/fonts',
         expand: true
       },
+      img: {
+        cwd: 'assets/img',
+        src: [ '**' ],
+        dest: 'dist/img',
+        expand: true
+      },
       js_dev: {
         cwd: 'assets/js',
         src: [ '**' ],
@@ -138,8 +144,16 @@ module.exports = function (grunt) {
         }
       },
       copy_fonts: {
-        files: ['asses/fonts/**/*'],
+        files: ['assets/fonts/**/*'],
         tasks: ['copy:fonts'],
+        options: {
+          interrupt: true,
+          atBegin: true
+        }
+      },
+      copy_img: {
+        files: ['assets/img/**/*'],
+        tasks: ['copy:img'],
         options: {
           interrupt: true,
           atBegin: true
@@ -176,6 +190,6 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-shell');
 
   grunt.registerTask('dev', ['concurrent:dev']);
-  grunt.registerTask('prod', ['fest', 'less:prod', 'copy:fonts', 'jade:prod', 'requirejs:prod']);
+  grunt.registerTask('prod', ['fest', 'less:prod', 'copy:fonts', 'copy:img', 'jade:prod', 'requirejs:prod']);
   grunt.registerTask('default', ['dev']);
 };
