@@ -1,0 +1,106 @@
+.header {
+  position: relative;
+  min-height: @navbar-height;
+  margin-bottom: @navbar-margin-bottom;
+  border: 1px solid transparent;
+
+  &:extend(.clearfix all);
+  .shadow();
+
+  @media (min-width: @grid-float-breakpoint) {
+    border-radius: @navbar-border-radius;
+  }
+
+  background-color: @navbar-default-bg;
+  border-color: @navbar-default-border;
+
+  &-container {
+    width: 100%;
+    max-width: @wrapper-width;
+    margin: 0 auto;
+  }
+
+  &-logo {
+    &:extend(.clearfix all);
+
+    @media (min-width: @grid-float-breakpoint) {
+      .pull-left();
+    }
+
+    &__text {
+      float: left;
+      padding: @navbar-padding-vertical @navbar-padding-horizontal;
+      font-size: @font-size-large;
+      line-height: @line-height-computed;
+      height: @navbar-height;
+      color: @navbar-default-brand-color;
+
+      &:hover,
+      &:focus {
+        color: @navbar-default-brand-hover-color;
+        background-color: @navbar-default-brand-hover-bg;
+        text-decoration: none;
+      }
+
+      > img {
+        display: block;
+      }
+    }
+  }
+
+  &-menu {
+    margin-bottom: 0;
+    padding-left: 0;
+    list-style: none;
+
+    &__item {
+      position: relative;
+      display: block;
+
+      a {
+        position: relative;
+        display: block;
+        padding: @nav-link-padding;
+        line-height: @line-height-computed;
+        color: @navbar-default-link-color;
+
+        &:hover,
+        &:focus {
+          color: @navbar-default-link-hover-color;
+          background-color: @navbar-default-link-hover-bg;
+          text-decoration: none;
+        }
+      }
+
+      &_active a {
+        &,
+        &:hover,
+        &:focus {
+          color: @navbar-default-link-active-color;
+          background-color: @navbar-default-link-active-bg;
+        }
+      }
+
+      &_disabled a {
+        &,
+        &:hover,
+        &:focus {
+          color: @navbar-default-link-disabled-color;
+          background-color: @navbar-default-link-disabled-bg;
+        }
+      }
+    }
+
+    @media (min-width: @grid-float-breakpoint) {
+      .pull-right();
+
+      &__item {
+        float: left;
+        a {
+          padding-top:    @navbar-padding-vertical;
+          padding-bottom: @navbar-padding-vertical;
+        }
+      }
+    }
+  }
+}

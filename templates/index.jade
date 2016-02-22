@@ -10,3 +10,16 @@ html
     else
       script(src='/js/vendor/require.js')
       script(src='/js/main.min.js')
+
+  body
+    .header
+      .header-container
+        .header-logo
+          .header-logo__text Морской бой
+        ul.header-menu
+          li.header-menu__item
+            a(href='#') Ссылка 1
+          li.header-menu__item.header-menu__item_active
+            a(href='#') Ссылка 2
+          li.header-menu__item.header-menu__item_disabled
+            a(href='#') Ссылка 3

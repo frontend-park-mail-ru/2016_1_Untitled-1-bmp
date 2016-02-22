@@ -1,6 +1,26 @@
 module.exports = function (grunt) {
 
   grunt.initConfig({
+    less: {
+      dev: {
+        options: {
+          paths: ['assets/less']
+        },
+        files: {
+          'dist/css/main.css': 'assets/less/main.less'
+        }
+      },
+      prod: {
+        options: {
+          paths: ['assets/less'],
+          compress: true
+        },
+        files: {
+          'dist/css/main.css': 'assets/less/main.less'
+        }
+      }
+    },
+
     requirejs: {
       // https://www.npmjs.com/package/grunt-requirejs
       prod: {
@@ -46,6 +66,12 @@ module.exports = function (grunt) {
 
     copy: {
       // https://www.npmjs.com/package/grunt-contrib-copy
+      fonts: {
+        cwd: 'assets/fonts',
+        src: [ '**' ],
+        dest: 'dist/fonts',
+        expand: true
+      },
       js_dev: {
         cwd: 'assets/js',
         src: [ '**' ],
@@ -103,6 +129,22 @@ module.exports = function (grunt) {
           atBegin: true
         }
       },
+      less: {
+        files: ['assets/less/**/*'],
+        tasks: ['less:dev'],
+        options: {
+          interrupt: true,
+          atBegin: true
+        }
+      },
+      copy_fonts: {
+        files: ['asses/fonts/**/*'],
+        tasks: ['copy:fonts'],
+        options: {
+          interrupt: true,
+          atBegin: true
+        }
+      },
       copy_js_dev: {
         files: ['assets/js/**/*'],
         tasks: ['copy:js_dev'],
@@ -126,6 +168,7 @@ module.exports = function (grunt) {
 
   grunt.loadNpmTasks('grunt-concurrent');
   grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-fest');
   grunt.loadNpmTasks('grunt-jade');
@@ -133,6 +176,6 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-shell');
 
   grunt.registerTask('dev', ['concurrent:dev']);
-  grunt.registerTask('prod', ['fest', 'jade:prod', 'requirejs:prod']);
+  grunt.registerTask('prod', ['fest', 'less:prod', 'copy:fonts', 'jade:prod', 'requirejs:prod']);
   grunt.registerTask('default', ['dev']);
 };
