@@ -25,6 +25,7 @@ npm install
 ```
 grunt
 ```
+The server will listen to your request on `http://localhost:8080`
 
 4b. Build the project for production:
 ```
