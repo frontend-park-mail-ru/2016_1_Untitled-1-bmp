@@ -1,4 +1,4 @@
-define(function(require) {
+define(function (require) {
   var Backbone = require('backbone');
 
   var Router = Backbone.Router.extend({
@@ -10,22 +10,22 @@ define(function(require) {
       '*default': 'defaultAction',
     },
 
-    defaultAction: function() {
+    defaultAction: function () {
       var mainView = require('views/main');
       $('#page').html(mainView.render().el);
     },
 
-    scoreboardAction: function() {
+    scoreboardAction: function () {
       var scoreboardView = require('views/scoreboard');
       $('#page').html(scoreboardView.render().el);
     },
 
-    newGameAction: function() {
+    newGameAction: function () {
       var gameView = require('views/game');
       $('#page').html(gameView.render().el);
     },
 
-    loginAction: function() {
+    loginAction: function () {
       var loginView = require('views/login');
       $('#page').html(loginView.render().el);
     }

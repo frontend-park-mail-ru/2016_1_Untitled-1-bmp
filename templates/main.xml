@@ -12,4 +12,5 @@
             <a class="mainmenu__button" href="#scoreboard">Рекорды</a>
         </div>
     </div>
+    <div class="wave"></div>
 </fest:template>
