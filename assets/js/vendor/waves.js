@@ -1,13 +1,12 @@
-var self = window;
+//var self = window;
 
-;
-  (function (self) {
+  define(
+  function (require) {
 
-    console.log("tell me i'm here");
     var canvas, context, wave1 = [], wave2 = [], wave3 = [], mouse = {
       x: innerWidth * 0.5,
       y: innerHeight * 0.3
-    }, angle = 0, mouseDown = interactive = true, FPS = 120;
+    }, angle = 0, mouseDown = interactive = true, FPS = 60;
 
     /*
      * Init.
@@ -15,9 +14,7 @@ var self = window;
 
 
     function init() {
-      console.log("tell and here");
       var body = document.querySelector('.wave');
-      console.log(body);
 
       canvas = document.createElement('canvas');
 
@@ -178,6 +175,7 @@ var self = window;
      */
 
     function createWaves() {
+      if (wave1.length > 0) return;
 
       var totalPoints = Math.round(canvas.width / 170);
 
@@ -234,6 +232,7 @@ var self = window;
       update();
       render();
 
+      //setTimeout(wave, 50);
       requestAnimFrame(wave);
 
     }
@@ -409,7 +408,6 @@ var self = window;
      * Request new frame by Paul Irish.
      * 60 FPS.
      */
-
     window.requestAnimFrame = (function () {
 
       return window.requestAnimationFrame ||
@@ -426,7 +424,9 @@ var self = window;
 
     })();
 
-    window.addEventListener ? window.addEventListener('load', init, false) : window.onload = init;
-
-  })(self);
-
+    //window.onload = init;
+    //window.addEventListener ? window.addEventListener('load', init, false) : window.onload = init;
+    //init();
+    return init;
+  }
+  );

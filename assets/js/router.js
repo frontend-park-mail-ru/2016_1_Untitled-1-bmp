@@ -13,6 +13,8 @@ define(function (require) {
     defaultAction: function () {
       var mainView = require('views/main');
       $('#page').html(mainView.render().el);
+      var wave = require('waves');
+      wave();
     },
 
     scoreboardAction: function () {
