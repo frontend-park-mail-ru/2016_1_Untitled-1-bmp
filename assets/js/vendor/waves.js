@@ -1,6 +1,4 @@
-//var self = window;
-
-  define(
+ define(
   function (require) {
 
     var canvas, context, wave1 = [], wave2 = [], wave3 = [], mouse = {
@@ -232,7 +230,6 @@
       update();
       render();
 
-      //setTimeout(wave, 50);
       requestAnimFrame(wave);
 
     }
@@ -402,7 +399,7 @@
 
       return Math.sqrt(dx * dx + dy * dy);
 
-    };
+    }
 
     /*
      * Request new frame by Paul Irish.
@@ -424,9 +421,6 @@
 
     })();
 
-    //window.onload = init;
-    //window.addEventListener ? window.addEventListener('load', init, false) : window.onload = init;
-    //init();
     return init;
   }
   );
