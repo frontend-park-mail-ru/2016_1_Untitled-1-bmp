@@ -30,7 +30,15 @@ define(function(require) {
     },
 
     render: function() {
-      var html = scoreboardTemplate();
+      console.log(this.collection);
+      var scores = this.collection.map(function(item) {
+        return {
+          name: item.get('name'),
+          score: item.get('score')
+        };
+      });
+      console.log(scores);
+      var html = scoreboardTemplate({'scores': scores});
       this.$el.html(html);
       return this;
     }
