@@ -7,7 +7,7 @@
                 <img src="/img/logo/logo-grey-256.png" />
             </div>
 
-            <a class="mainmenu__button" href="#new/game">Новая игра</a>
+            <a class="mainmenu__button" href="#game">Новая игра</a>
             <a class="mainmenu__button" href="#login">Войти</a>
             <a class="mainmenu__button" href="#scoreboard">Рекорды</a>
         </div>

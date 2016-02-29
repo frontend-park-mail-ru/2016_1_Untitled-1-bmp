@@ -5,7 +5,7 @@ define(function (require) {
     routes: {
       'main': 'defaultAction',
       'scoreboard': 'scoreboardAction',
-      'new/game': 'newGameAction',
+      'game': 'newGameAction',
       'login': 'loginAction',
       '*default': 'defaultAction',
     },
