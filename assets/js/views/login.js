@@ -1,20 +1,17 @@
 define(function(require) {
-  var $ = require('jquery');
   var Backbone = require('backbone');
-  var loginTemplate = require('templates/login');
 
-  var loginView = Backbone.View.extend({
-    template: loginTemplate,
+  var LoginView = Backbone.View.extend({
     initialize: function() {
+      this.template = require('templates/login');
       this.render();
     },
 
     render: function() {
-      var html = loginTemplate();
+      var html = this.template();
       this.$el.html(html);
-      return this;
     }
   });
 
-  return new loginView();
+  return new LoginView();
 });

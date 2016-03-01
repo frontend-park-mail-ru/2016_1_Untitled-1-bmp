@@ -1,20 +1,20 @@
 define(function(require) {
-  var $ = require('jquery');
   var Backbone = require('backbone');
-  var mainTemplate = require('templates/main');
 
-  var mainView = Backbone.View.extend({
-    template: mainTemplate,
+  var MainView = Backbone.View.extend({
     initialize: function() {
+      this.template = require('templates/main');
       this.render();
     },
 
     render: function() {
-      var html = mainTemplate();
+      var html = this.template();
       this.$el.html(html);
-      return this;
+
+      var wave = this.$el.find('.wave');
+      require('waves')(wave);
     }
   });
 
-  return new mainView();
+  return new MainView();
 });

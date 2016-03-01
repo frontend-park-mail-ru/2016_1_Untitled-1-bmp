@@ -1,18 +1,21 @@
- define(
+define(
   function (require) {
-
     var canvas, context, wave1 = [], wave2 = [], wave3 = [], mouse = {
       x: innerWidth * 0.5,
       y: innerHeight * 0.3
     }, angle = 0, mouseDown = interactive = true, FPS = 60;
 
+    var inited = false;
+
     /*
      * Init.
      */
+    function init($el) {
+      if($el.length === 0 || inited) {
+        return;
+      }
 
-
-    function init() {
-      var body = document.querySelector('.wave');
+      var body = $el[0];
 
       canvas = document.createElement('canvas');
 
@@ -55,6 +58,7 @@
 
         createWaves();
 
+        inited = true;
       }
 
       else {

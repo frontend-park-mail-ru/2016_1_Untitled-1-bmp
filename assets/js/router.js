@@ -3,33 +3,32 @@ define(function (require) {
 
   var Router = Backbone.Router.extend({
     routes: {
-      'main': 'defaultAction',
       'scoreboard': 'scoreboardAction',
-      'game': 'newGameAction',
-      'login': 'loginAction',
-      '*default': 'defaultAction',
+      'game':       'gameAction',
+      'login':      'loginAction',
+      '*default':   'defaultAction',
     },
+
+    $page: $('#page'),
 
     defaultAction: function () {
       var mainView = require('views/main');
-      $('#page').html(mainView.render().el);
-      var wave = require('waves');
-      wave();
+      this.$page.html(mainView.el);
     },
 
     scoreboardAction: function () {
       var scoreboardView = require('views/scoreboard');
-      $('#page').html(scoreboardView.render().el);
+      this.$page.html(scoreboardView.el);
     },
 
-    newGameAction: function () {
+    gameAction: function () {
       var gameView = require('views/game');
-      $('#page').html(gameView.render().el);
+      this.$page.html(gameView.el);
     },
 
     loginAction: function () {
       var loginView = require('views/login');
-      $('#page').html(loginView.render().el);
+      this.$page.html(loginView.el);
     }
   });
 

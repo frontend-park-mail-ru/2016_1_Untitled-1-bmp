@@ -1,48 +1,36 @@
 define(function(require) {
-  var $ = require('jquery');
   var Backbone = require('backbone');
-  var scoreboardTemplate = require('templates/scoreboard');
-  var scoreModel = require('models/score');
+  var ScoreBoardCollection = require('collections/scoreboard');
 
-  var scoreboardView = Backbone.View.extend({
-    template: scoreboardTemplate,
-    collection: null,
+  var ScoreboardView = Backbone.View.extend({
     initialize: function() {
-      var Collection = Backbone.Collection.extend({
-        model: function(attrs, options) {
-          return new scoreModel(attrs, options);
-        }
-      });
-
-      this.collection = new Collection();
-
-      this.collection.add([
-        {
-          name: 'AAA',
-          score: 100
-        },
-        {
-          name: 'New name'
-        }
-      ]);
+      this.template = require('templates/scoreboard');
+      this.collection = new ScoreBoardCollection(
+        [
+          { 'name': 'Владимир Кличко',      'score' : 100 },
+          { 'name': 'Халк',                 'score' : 509 },
+          { 'name': 'Виктор Пелевин',       'score' : 104 },
+          { 'name': 'Полковник',            'score' : 888 },
+          { 'name': 'Джон Леннон',          'score' : 930 },
+          { 'name': 'Михаил Ходорковский',  'score' : 391 },
+          { 'name': 'Дядя Вова',            'score' : 175 },
+          { 'name': 'Диего Дзодана',        'score' : 45 },
+          { 'name': 'Рома Широков',         'score' : 9 },
+          { 'name': 'Валерий Самерман',     'score' : 956 }
+        ]
+      );
 
       this.render();
     },
 
     render: function() {
-      console.log(this.collection);
-      var scores = this.collection.map(function(item) {
-        return {
-          name: item.get('name'),
-          score: item.get('score')
-        };
+      var html = this.template({
+        'scores': this.collection.toJSON()
       });
-      console.log(scores);
-      var html = scoreboardTemplate({'scores': scores});
+
       this.$el.html(html);
-      return this;
     }
   });
 
-  return new scoreboardView();
+  return new ScoreboardView();
 });

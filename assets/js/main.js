@@ -1,6 +1,6 @@
 define(function(require) {
   var Backbone = require('backbone');
-  var Router = require('router');
+  var router = require('router');
 
   Backbone.history.start();
 });

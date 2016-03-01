@@ -1,20 +1,17 @@
 define(function(require) {
-  var $ = require('jquery');
   var Backbone = require('backbone');
-  var gameTemplate = require('templates/game');
 
-  var gameView = Backbone.View.extend({
-    template: gameTemplate,
+  var GameView = Backbone.View.extend({
     initialize: function() {
+      this.template = require('templates/game');
       this.render();
     },
 
     render: function() {
-      var html = gameTemplate();
+      var html = this.template();
       this.$el.html(html);
-      return this;
     }
   });
 
-  return new gameView();
+  return new GameView();
 });
