@@ -1,6 +1,7 @@
 module.exports = function (grunt) {
 
   grunt.initConfig({
+    // https://www.npmjs.com/package/grunt-contrib-less
     less: {
       dev: {
         options: {
@@ -82,6 +83,12 @@ module.exports = function (grunt) {
         cwd: 'assets/js',
         src: [ '**' ],
         dest: 'dist/js',
+        expand: true
+      },
+      css: {
+        cwd: 'assets/css',
+        src: [ '**' ],
+        dest: 'dist/css',
         expand: true
       }
     },
@@ -166,6 +173,14 @@ module.exports = function (grunt) {
           interrupt: true,
           atBegin: true
         }
+      },
+      copy_css: {
+        files: ['assets/css/**/*'],
+        tasks: ['copy:css'],
+        options: {
+          interrupt: true,
+          atBegin: true
+        }
       }
     },
 
@@ -190,6 +205,6 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-shell');
 
   grunt.registerTask('dev', ['concurrent:dev']);
-  grunt.registerTask('prod', ['fest', 'less:prod', 'copy:fonts', 'copy:img', 'jade:prod', 'requirejs:prod']);
+  grunt.registerTask('prod', ['fest', 'copy:css', 'less:prod', 'copy:fonts', 'copy:img', 'jade:prod', 'requirejs:prod']);
   grunt.registerTask('default', ['dev']);
 };
