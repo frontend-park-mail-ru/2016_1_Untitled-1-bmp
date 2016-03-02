@@ -6,6 +6,7 @@ define(function (require) {
       'scoreboard': 'scoreboardAction',
       'game':       'gameAction',
       'login':      'loginAction',
+      'signup':     'signupAction',
       '*default':   'defaultAction',
     },
 
@@ -28,6 +29,11 @@ define(function (require) {
 
     loginAction: function () {
       var loginView = require('views/login');
+      this.$page.html(loginView.el);
+    },
+
+    signupAction: function () {
+      var loginView = require('views/signup');
       this.$page.html(loginView.el);
     }
   });

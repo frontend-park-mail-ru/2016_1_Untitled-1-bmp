@@ -9,6 +9,7 @@
 
             <a class="mainmenu__button" href="#game">Новая игра</a>
             <a class="mainmenu__button" href="#login">Войти</a>
+            <a class="mainmenu__button" href="#signup">Регистрация</a>
             <a class="mainmenu__button" href="#scoreboard">Рекорды</a>
         </div>
     </div>
