@@ -33,8 +33,9 @@ define(function (require) {
     },
 
     signupAction: function () {
-      var loginView = require('views/signup');
-      this.$page.html(loginView.el);
+      var SignupView = require('views/signup');
+      var signupView = new SignupView();
+      this.$page.html(signupView.el);
     }
   });
 

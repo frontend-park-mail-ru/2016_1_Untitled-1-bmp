@@ -50,5 +50,5 @@ define(function(require) {
     }
   });
 
-  return new SignupView();
+  return SignupView;
 });
