@@ -1,8 +1,9 @@
 define(function(require) {
   var Backbone = require('backbone');
+  var model = require('models/score');
 
   var ScoreBoard = Backbone.Collection.extend({
-    model: require('models/score'),
+    model: model,
     comparator: function(item) {
       return -item.get('score');
     }

@@ -38,7 +38,7 @@ define(function(require) {
         });
       }
 
-      if(errors.length > 0) {
+      if(errors.length) {
         return errors;
       }
     }

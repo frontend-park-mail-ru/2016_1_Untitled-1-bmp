@@ -1,6 +1,7 @@
 define(function(require) {
   var Backbone = require('backbone');
   var template = require('templates/main');
+  var waves = require('waves');
 
   var MainView = Backbone.View.extend({
     initialize: function() {
@@ -13,7 +14,7 @@ define(function(require) {
       this.$el.html(html);
 
       var wave = this.$el.find('.wave');
-      require('waves')(wave);
+      waves(wave);
     }
   });
 

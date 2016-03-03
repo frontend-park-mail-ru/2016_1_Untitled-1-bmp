@@ -1,6 +1,7 @@
 define(function(require) {
   var Backbone = require('backbone');
   var User = require('models/user');
+  var template = require('templates/signup');
 
   var SignupView = Backbone.View.extend({
     events: {
@@ -8,7 +9,7 @@ define(function(require) {
     },
 
     initialize: function() {
-      this.template = require('templates/signup');
+      this.template = template;
       this.render();
       this.fields = {
         'name': this.$el.find('.signup-form__name'),
@@ -43,7 +44,7 @@ define(function(require) {
         item.text('');
       });
 
-      if(errors != undefined && errors.length > 0) {
+      if(errors != undefined && errors.length) {
         var errorFields = this.errorFields;
         _.each(errors, function(error) {
           if(errorFields[error.field] !== undefined) {
