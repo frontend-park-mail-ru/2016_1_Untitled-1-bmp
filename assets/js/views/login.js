@@ -1,9 +1,10 @@
 define(function(require) {
   var Backbone = require('backbone');
+  var template = require('templates/login');
 
   var LoginView = Backbone.View.extend({
     initialize: function() {
-      this.template = require('templates/login');
+      this.template = template;
       this.render();
     },
 
@@ -13,5 +14,5 @@ define(function(require) {
     }
   });
 
-  return new LoginView();
+  return LoginView;
 });

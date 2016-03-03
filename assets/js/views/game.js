@@ -1,9 +1,10 @@
 define(function(require) {
   var Backbone = require('backbone');
+  var template = require('templates/game');
 
   var GameView = Backbone.View.extend({
     initialize: function() {
-      this.template = require('templates/game');
+      this.template = template;
       this.render();
     },
 
@@ -15,5 +16,5 @@ define(function(require) {
     }
   });
 
-  return new GameView();
+  return GameView;
 });

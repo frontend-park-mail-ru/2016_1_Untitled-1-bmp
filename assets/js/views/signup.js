@@ -10,9 +10,16 @@ define(function(require) {
     initialize: function() {
       this.template = require('templates/signup');
       this.render();
-      this.$name = this.$el.find('.signup-form__name');
-      this.$login = this.$el.find('.signup-form__login');
-      this.$email = this.$el.find('.signup-form__email');
+      this.fields = {
+        'name': this.$el.find('.signup-form__name'),
+        'login': this.$el.find('.signup-form__login'),
+        'email': this.$el.find('.signup-form__email')
+      };
+      this.errorFields = {
+        'name': this.$el.find('.signup-form__name-error'),
+        'login': this.$el.find('.signup-form__login-error'),
+        'email': this.$el.find('.signup-form__email-error')
+      };
     },
 
     render: function() {
@@ -24,23 +31,24 @@ define(function(require) {
       e.preventDefault();
 
       var uData = {
-        name: this.$name.val(),
-        login: this.$login.val(),
-        email: this.$email.val()
+        name: this.fields.name.val(),
+        login: this.fields.login.val(),
+        email: this.fields.email.val()
       };
 
       var u = new User();
       var errors = u.validate(uData);
 
-      $([this.$name, this.$login, this.$email]).parent().removeClass('has-error');
-      _.each(['name', 'login', 'email'], function(field) {
-        $('.signup-form__' + field + '-error').text('');
+      _.each(this.errorFields, function(item) {
+        item.text('');
       });
 
       if(errors != undefined && errors.length > 0) {
+        var errorFields = this.errorFields;
         _.each(errors, function(error) {
-          $('.signup-form__' + error.field).parent().addClass('has-error');
-          $('.signup-form__' + error.field + '-error').text(error.error);
+          if(errorFields[error.field] !== undefined) {
+            errorFields[error.field].text(error.error);
+          }
         });
       }
       else

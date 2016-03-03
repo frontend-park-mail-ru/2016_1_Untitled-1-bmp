@@ -1,10 +1,11 @@
 define(function(require) {
   var Backbone = require('backbone');
   var ScoreBoardCollection = require('collections/scoreboard');
+  var template = require('templates/scoreboard');
 
   var ScoreboardView = Backbone.View.extend({
     initialize: function() {
-      this.template = require('templates/scoreboard');
+      this.template = template;
       this.collection = new ScoreBoardCollection(
         [
           { 'name': 'Владимир Кличко',      'score' : 100 },
@@ -32,5 +33,5 @@ define(function(require) {
     }
   });
 
-  return new ScoreboardView();
+  return ScoreboardView;
 });
