@@ -1,0 +1,55 @@
+@cell-border-color: @brand-primary;
+@cell-background-color: #fff;
+@cell-background-color-hover: lighten(@cell-border-color, 60%);
+@cell-border-width: 1px;
+@cell-size: 35px;
+@cell-header-size: 35px;
+@cell-header-color: @brand-primary;
+
+.game-field {
+  &__cell {
+    width: @cell-size;
+    height: @cell-size;
+    border: @cell-border-color solid @cell-border-width;
+    cursor: pointer;
+    background-color: @cell-background-color;
+
+    &:hover {
+      background-color: @cell-background-color-hover;
+    }
+
+    &_header {
+      &_top {
+        border-width: 0 0 @cell-border-width 0;
+      }
+      &_none {
+        border-width: 0;
+      }
+      &_left {
+        border-width: 0 @cell-border-width 0 0;
+      }
+
+      &_top,
+      &_none,
+      &_left {
+        color: @cell-header-color;
+        cursor: default;
+      }
+
+      &_top:hover,
+      &_none:hover,
+      &_left:hover {
+        background-color: @cell-background-color;
+      }
+    }
+  }
+
+  &-container {
+    &_left {
+      float: left;
+    }
+    &_right {
+      float: right;
+    }
+  }
+}

@@ -8,7 +8,9 @@ define(function(require) {
     },
 
     render: function() {
-      var html = this.template();
+      var html = this.template({
+        size: 10
+      });
       this.$el.html(html);
     }
   });
