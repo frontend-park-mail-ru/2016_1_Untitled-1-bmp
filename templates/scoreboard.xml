@@ -1,6 +1,7 @@
 <fest:template xmlns:fest="http://fest.mail.ru" context_name="data">
     <div class="wrapper wrapper_narrow wrapper_center">
         <h1>Рекорды</h1>
+        <h4><a href="#">Главное меню →</a></h4>
         <fest:each iterate="data.scores" index="i" value="v">
             <h3>
                 <b><fest:value>v.name</fest:value></b>
@@ -8,6 +9,5 @@
                 <span><fest:value>v.score</fest:value></span>
             </h3>
         </fest:each>
-        <h2><a href="#">Главное меню →</a></h2>
     </div>
 </fest:template>

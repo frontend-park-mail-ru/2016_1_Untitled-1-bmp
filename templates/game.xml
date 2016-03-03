@@ -1,7 +1,7 @@
 <fest:template xmlns:fest="http://fest.mail.ru" context_name="data">
     <div class="wrapper wrapper_center">
         <h1>Игра</h1>
-        <h2><a href="#">Главное меню →</a></h2>
+        <h4><a href="#">Главное меню →</a></h4>
 
         <fest:script>data.letters = ['А', 'Б', 'В', 'Г', 'Д', 'Е', 'Ж', 'З', 'И', 'К', 'Л', 'М', 'Н', 'О'];</fest:script>
         <fest:script>data.fields = ['left', 'right'];</fest:script>
