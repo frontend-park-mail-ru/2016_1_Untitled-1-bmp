@@ -26,8 +26,8 @@ module.exports = function (grunt) {
       // https://www.npmjs.com/package/grunt-requirejs
       prod: {
         options: {
-          baseUrl: 'assets/js',
-          mainConfigFile: 'assets/js/config.js',
+          baseUrl: 'dist/js',
+          mainConfigFile: 'dist/js/config.js',
           include: ['main'],
           out: 'dist/js/main.min.js',
           preserveLicenseComments: false
