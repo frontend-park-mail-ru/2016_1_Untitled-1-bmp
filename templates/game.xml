@@ -1,3 +1,41 @@
-<fest:template xmlns:fest="http://fest.mail.ru">
-    <div id="game"></div>
+<fest:template xmlns:fest="http://fest.mail.ru" context_name="data">
+    <div class="wrapper wrapper_center">
+        <h1>Игра</h1>
+        <h4><a href="#">Главное меню →</a></h4>
+
+        <fest:script>data.letters = ['А', 'Б', 'В', 'Г', 'Д', 'Е', 'Ж', 'З', 'И', 'К', 'Л', 'М', 'Н', 'О'];</fest:script>
+        <fest:script>data.fields = ['left', 'right'];</fest:script>
+
+        <fest:for iterate="data.fields" index="index" value="cl">
+            <div>
+                <fest:attributes>
+                    <fest:attribute name="class">
+                        game-field-container game-field-container_<fest:value>cl</fest:value>
+                    </fest:attribute>
+                </fest:attributes>
+                <table class="game-field">
+                    <thead>
+                        <tr>
+                            <td class="game-field__cell game-field__cell_header_none"></td>
+                            <fest:for from="1" to="data.size" index="column">
+                                <td class="game-field__cell game-field__cell_header_top">
+                                    <fest:value>data.letters[column - 1]</fest:value>
+                                </td>
+                            </fest:for>
+                        </tr>
+                    </thead>
+                    <fest:for from="1" to="data.size" index="row">
+                        <tr>
+                            <td class="game-field__cell game-field__cell_header_left">
+                                <fest:value>row</fest:value>
+                            </td>
+                            <fest:for from="1" to="data.size" index="column">
+                                <td class="game-field__cell"> </td>
+                            </fest:for>
+                        </tr>
+                    </fest:for>
+                </table>
+            </div>
+        </fest:for>
+    </div>
 </fest:template>

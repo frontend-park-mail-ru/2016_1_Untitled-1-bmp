@@ -1,5 +1,6 @@
 node_modules
 .idea
+dist
 
 # Node.JS
 npm-debug.log*

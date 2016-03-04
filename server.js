@@ -1,20 +1,20 @@
 var express = require('express'),
     errorHandler = require('errorhandler'),
+    dateFormat = require('dateformat'),
     app = express();
 
 var HOSTNAME = 'localhost',
     PORT = 8080,
-    PUBLIC_DIR = __dirname + '/public_html';
+    PUBLIC_DIR = __dirname + '/dist';
 
 var reqCounter = 0;
 
 app.use(function (req, res, done) {
-	// Здесь нужно написать журналирование в формате
-	// (журналирование - вывод в консоль)
-	// [время] [номер запроса по счету]
-	console.log('[%s] #%s',
-              (new Date()).toLocaleString(),
-              ++reqCounter
+	console.log('[%s] #%s [%s] %s',
+              dateFormat(new Date, 'yyyy-mm-dd HH:mm:ss'),
+              ++reqCounter,
+              req.method,
+              req.url
 	);
 	done();
 });

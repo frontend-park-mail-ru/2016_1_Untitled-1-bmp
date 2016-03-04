@@ -1,19 +1,25 @@
 {
-  "name": "epicgame",
+  "name": "untitled-sea-battle",
   "version": "0.1.0",
-  "description": "SSPA - Simple Single Page Application",
-  "main": "index.js",
-  "author": "a.mezin@corp.mail.ru",
+  "description": "Cool sea battle",
   "license": "MIT",
   "devDependencies": {
-    "body-parser": "^1.14.2",
+    "dateformat": "^1.0.12",
     "errorhandler": "^1.4.3",
     "express": "^4.13.4",
     "grunt": "^0.4.5",
     "grunt-concurrent": "^2.1.0",
+    "grunt-contrib-copy": "^0.8.2",
+    "grunt-contrib-less": "^1.2.0",
     "grunt-contrib-watch": "^0.6.1",
     "grunt-fest": "^0.1.6",
+    "grunt-jade": "^0.5.1",
+    "grunt-requirejs": "^0.4.2",
     "grunt-shell": "^1.1.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ValerGit/2016_1_Untitled-1-bmp"
   },
   "scripts": {
     "start": "node server"

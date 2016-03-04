@@ -1,0 +1,24 @@
+<fest:template xmlns:fest="http://fest.mail.ru">
+    <div class="wrapper wrapper_narrow wrapper_center">
+        <h1>Регистрация</h1>
+        <h4><a href="#">Главное меню →</a></h4>
+        <form class="signup-form">
+          <div class="form-group">
+            <label for="signup-form__login">Логин</label>
+            <input type="text" class="form-control signup-form__login" id="signup-form__login" placeholder="Логин" />
+            <span class="signup-form__login-error"></span>
+          </div>
+          <div class="form-group">
+            <label for="signup-form__name">Имя</label>
+            <input type="text" class="form-control signup-form__name" id="signup-form__name" placeholder="Имя" />
+            <span class="signup-form__name-error"></span>
+          </div>
+          <div class="form-group">
+            <label for="signup-form__email">Email</label>
+            <input type="email" class="form-control signup-form__email" id="signup-form__email" placeholder="Email" />
+            <span class="signup-form__email-error"></span>
+          </div>
+          <button type="submit" class="btn btn_primary btn_block signup-form__button">Готово</button>
+        </form>
+    </div>
+</fest:template>
