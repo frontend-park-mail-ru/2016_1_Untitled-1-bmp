@@ -56,6 +56,14 @@ define(function(require) {
       {
         alert('submit!');
       }
+    },
+
+    show: function(parent) {
+      this.trigger('show')
+      parent.html(this.el);
+    },
+
+    hide: function() {
     }
   });
 

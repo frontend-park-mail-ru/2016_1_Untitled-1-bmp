@@ -1,10 +1,27 @@
 define(function (require) {
   var Backbone = require('backbone');
+  var _ = require('underscore');
   var MainView = require('views/main'),
       ScoreboardView = require('views/scoreboard'),
       GameView = require('views/game'),
       LoginView = require('views/login'),
       SignupView = require('views/signup');
+
+  var viewManager = require('views/manager');
+
+  var mainView = new MainView();
+  var scoreboardView = new ScoreboardView();
+  var gameView = new GameView();
+  var loginView = new LoginView();
+  var signupView = new SignupView();
+
+  _.each([mainView,
+         scoreboardView,
+         gameView,
+         loginView,
+         signupView], function(view) {
+           viewManager.addView(view);
+  });
 
   var Router = Backbone.Router.extend({
     routes: {
@@ -18,28 +35,23 @@ define(function (require) {
     $page: $('#page'),
 
     defaultAction: function () {
-      var mainView = new MainView();
-      this.$page.html(mainView.el);
+      mainView.show(this.$page);
     },
 
     scoreboardAction: function () {
-      var scoreboardView = new ScoreboardView();
-      this.$page.html(scoreboardView.el);
+      scoreboardView.show(this.$page);
     },
 
     gameAction: function () {
-      var gameView = new GameView();
-      this.$page.html(gameView.el);
+      gameView.show(this.$page);
     },
 
     loginAction: function () {
-      var loginView = new LoginView();
-      this.$page.html(loginView.el);
+      loginView.show(this.$page);
     },
 
     signupAction: function () {
-      var signupView = new SignupView();
-      this.$page.html(signupView.el);
+      signupView.show(this.$page);
     }
   });
 
