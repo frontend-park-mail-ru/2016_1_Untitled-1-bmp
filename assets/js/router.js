@@ -1,6 +1,6 @@
 define(function (require) {
   var Backbone = require('backbone');
-  var mainView = require('views/main'), // TODO: rewrite to MainView, waves!
+  var MainView = require('views/main'),
       ScoreboardView = require('views/scoreboard'),
       GameView = require('views/game'),
       LoginView = require('views/login'),
@@ -18,6 +18,7 @@ define(function (require) {
     $page: $('#page'),
 
     defaultAction: function () {
+      var mainView = new MainView();
       this.$page.html(mainView.el);
     },
 

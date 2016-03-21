@@ -4,8 +4,7 @@ require.config({
   paths: {
     jquery: "vendor/jquery",
     underscore: "vendor/underscore",
-    backbone: "vendor/backbone",
-    waves: "vendor/waves"
+    backbone: "vendor/backbone"
   },
   shim: {
     'backbone': {
