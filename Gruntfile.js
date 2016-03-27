@@ -22,6 +22,18 @@ module.exports = function (grunt) {
       }
     },
 
+    postcss: {
+      options: {
+        map: true,
+        processors: [
+          require('autoprefixer')({ browsers: ['last 2 versions'] })
+        ]
+      },
+      dev: {
+        src: 'dist/css/main.css'
+      }
+    },
+
     requirejs: {
       // https://www.npmjs.com/package/grunt-requirejs
       prod: {
@@ -144,7 +156,7 @@ module.exports = function (grunt) {
       },
       less: {
         files: ['assets/less/**/*'],
-        tasks: ['less:dev'],
+        tasks: ['less:dev', 'postcss'],
         options: {
           interrupt: true,
           atBegin: true
@@ -176,7 +188,7 @@ module.exports = function (grunt) {
       },
       copy_css: {
         files: ['assets/css/**/*'],
-        tasks: ['copy:css'],
+        tasks: ['copy:css', 'postcss'],
         options: {
           interrupt: true,
           atBegin: true
@@ -201,6 +213,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-fest');
   grunt.loadNpmTasks('grunt-jade');
+  grunt.loadNpmTasks('grunt-postcss');
   grunt.loadNpmTasks('grunt-requirejs');
   grunt.loadNpmTasks('grunt-shell');
 

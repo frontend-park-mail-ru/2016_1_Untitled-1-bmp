@@ -4,6 +4,7 @@
   "description": "Cool sea battle",
   "license": "MIT",
   "devDependencies": {
+    "autoprefixer": "^6.3.5",
     "dateformat": "^1.0.12",
     "errorhandler": "^1.4.3",
     "express": "^4.13.4",
@@ -14,6 +15,7 @@
     "grunt-contrib-watch": "^0.6.1",
     "grunt-fest": "^0.1.6",
     "grunt-jade": "^0.5.1",
+    "grunt-postcss": "^0.8.0",
     "grunt-requirejs": "^0.4.2",
     "grunt-shell": "^1.1.2"
   },

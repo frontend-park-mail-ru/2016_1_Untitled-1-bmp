@@ -1,17 +1,39 @@
 <fest:template xmlns:fest="http://fest.mail.ru">
-    <div class="wrapper wrapper_narrow wrapper_center">
-        <h1>Эй, морячки!</h1>
+    <div class="wrapper wrapper_wide">
+        <div class="scene-ship">
+            <div class="scene-ship__wrapper"></div>
+            <div class="scene-ship__ocean"></div>
+            <div class="scene-ship__ocean-overlay"></div>
 
-        <div class="mainmenu">
-            <div class="mainmenu__logo">
-                <img src="/img/logo/logo-grey-256.png" />
+            <div class="scene-ship__ship-container">
+                <div class="scene-ship__ship">
+                    <div class="scene-ship__ship-bottom-1">
+                        <div class="scene-ship__ship-bottom-1-top"></div>
+                        <div class="scene-ship__ship-bottom-1-top-left"></div>
+                        <div class="scene-ship__ship-bottom-1-top-right">
+                            <div class="scene-ship__ship-bottom-1-top-right-window"></div>
+                        </div>
+                    </div>
+                    <div class="scene-ship__ship-body">
+                        <div class="scene-ship__ship-body-middle-window"></div>
+                        <div class="scene-ship__ship-body-blue-strip-top"></div>
+                        <div class="scene-ship__ship-body-blue-strip-bottom"></div>
+                        <div class="scene-ship__ship-body-top-back">
+                            <div class="scene-ship__ship-body-blue-strip-top-half"></div>
+                        </div>
+                        <div class="scene-ship__ship-body-chimney-base">
+                            <div class="scene-ship__ship-body-chimney"></div>
+                            <div class="scene-ship__ship-body-chimney"></div>
+                        </div>
+                    </div>
+                    <div class="scene-ship__ship-body-top-front">
+                        <div class="scene-ship__ship-body-top-antenna"></div>
+                        <div class="scene-ship__ship-body-circular-base"></div>
+                        <div class="scene-ship__ship-body-circular-base-1"></div>
+                    </div>
+                    <div class="scene-ship__ship-body-top-front-mirror"></div>
+                </div>
             </div>
-
-            <a class="mainmenu__button" href="#game">Новая игра</a>
-            <a class="mainmenu__button" href="#login">Войти</a>
-            <a class="mainmenu__button" href="#signup">Регистрация</a>
-            <a class="mainmenu__button" href="#scoreboard">Рекорды</a>
         </div>
     </div>
-    <div class="wave"></div>
 </fest:template>
