@@ -40,5 +40,13 @@
                 </div>
             </div>
         </div>
+        <div class="mainmenu">
+            <div class="mainmenu__container">
+                <div class="mainmenu__logo">
+                    <img src="/img/logo/logo-grey-128.png" />
+                </div>
+                <h2 class="mainmenu__title">Морской бой</h2>
+            </div>
+        </div>
     </div>
 </fest:template>
