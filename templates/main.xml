@@ -1,6 +1,11 @@
 <fest:template xmlns:fest="http://fest.mail.ru">
     <div class="wrapper wrapper_wide">
         <div class="scene-ship">
+            <div class="scene-ship__cloud"></div>
+            <div class="scene-ship__cloud"></div>
+            <div class="scene-ship__cloud"></div>
+            <div class="scene-ship__cloud"></div>
+            <div class="scene-ship__cloud"></div>
             <div class="scene-ship__wrapper"></div>
             <div class="scene-ship__ocean"></div>
             <div class="scene-ship__ocean-overlay"></div>

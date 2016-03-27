@@ -10,6 +10,7 @@ body {
 
 .scene-ship {
   &__wrapper {
+    z-index: -1;
     position: absolute;
 
     width: 100%;
@@ -26,6 +27,7 @@ body {
     margin-left: 5%;
 
     animation: 5s ease-in-out 0s normal none infinite floating;
+    z-index: 5;
 
     &-container {
       position: absolute;
@@ -625,6 +627,7 @@ body {
     height: 100px;
 
     background-color: @scene-ship-ocean-color;
+    z-index: 4;
   }
   &__ocean-overlay {
     z-index: 10;
@@ -645,41 +648,41 @@ body {
     border-radius: 25px;
     background: #fefaff;
 
-    &:nth-child(11) {
+    &:nth-child(1) {
       right: 10%;
-      bottom: 10%;
+      top: 10%;
 
       animation-duration: 60s;
       animation-delay: 0s;
     }
 
-    &:nth-child(12) {
+    &:nth-child(2) {
       right: 30%;
-      bottom: 2%;
+      top: 2%;
 
       animation-duration: 74s;
       animation-delay: -70s;
     }
 
-    &:nth-child(13) {
+    &:nth-child(3) {
       right: 50%;
-      bottom: 34%;
+      top: 34%;
 
       animation-duration: 88s;
       animation-delay: -140s;
     }
 
-    &:nth-child(14) {
+    &:nth-child(4) {
       right: 10%;
-      bottom: 85%;
+      top: 45%;
 
       animation-duration: 60s;
       animation-delay: -210s;
     }
 
-    &:nth-child(15) {
+    &:nth-child(5) {
       right: 30%;
-      bottom: -3%;
+      top: -3%;
 
       animation-duration: 74s;
       animation-delay: 0s;
