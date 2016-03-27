@@ -1,15 +1,16 @@
 .mainmenu {
   position: relative;
-  z-index: 16;
+  z-index: 11;
   max-width: 30em;
   margin: 0 auto;
   padding: 1em;
 
   &__container {
     margin-top: 1em;
-    padding: .5em;
+    padding: .8em .8em 2em .8em;
     background-color: rgba(255, 255, 255, .9);
-    border-radius: 40px;
+    border-radius: 5px;
+    box-shadow: 4px 4px 3px darken(#0079a1, 10%);
   }
 
   &__title {
@@ -29,7 +30,7 @@
 
   &__button {
     &:extend(.btn all);
-    &:extend(.btn_primary all);
+    &:extend(.btn_success all);
     &:extend(.btn_block all);
   }
 }

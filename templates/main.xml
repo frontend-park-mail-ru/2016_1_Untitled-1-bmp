@@ -46,6 +46,11 @@
                     <img src="/img/logo/logo-grey-128.png" />
                 </div>
                 <h2 class="mainmenu__title">Морской бой</h2>
+
+                <a href="#game" class="mainmenu__button">Новая игра</a>
+                <a href="#login" class="mainmenu__button">Войти</a>
+                <a href="#signup" class="mainmenu__button">Регистрация</a>
+                <a href="#scoreboard" class="mainmenu__button">Рекорды</a>
             </div>
         </div>
     </div>
