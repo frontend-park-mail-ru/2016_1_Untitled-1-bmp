@@ -5,6 +5,9 @@
   margin: 0 auto;
   padding: 1em;
 
+  max-height: 100%;
+  overflow-y: scroll;
+
   &__container {
     margin-top: 1em;
     padding: .8em .8em 2em .8em;
@@ -29,9 +32,12 @@
   }
 
   &__button {
-    &:extend(.btn all);
-    &:extend(.btn_success all);
-    &:extend(.btn_block all);
+    &:extend(.button all);
+    &:extend(.button_success all);
+    &:extend(.button_block all);
+    max-width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
   }
 }
 
