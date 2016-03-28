@@ -4,20 +4,19 @@ define(function(require) {
   QUnit.module('models/user');
 
   QUnit.test('Создание объекта User', function() {
-    var u = new User({ login: 'le-me', name: 'Mr.White', email: 'ya@ya.ru' });
+    var u = new User({ login: 'le-me', email: 'ya@ya.ru' });
 
     QUnit.ok(u instanceof Backbone.Model, 'User со всеми заполненными полями');
   });
 
   QUnit.test('Валидация User', function() {
     var toTest = [
-      [{}, 'Все поля пустые', ['login', 'name', 'email']],
+      [{}, 'Все поля пустые', ['login', 'email']],
       [{ login: '' }, 'Пустой login', ['login']],
       [{ login: '      ' }, 'login из пробелов', ['login']],
-      [{ name: '' }, 'Пустой name', ['name']],
       [{ email: '' }, 'Пустой email', ['email']],
       [{ email: 'le-meyandex.ru' }, 'Email без собачки', ['email']],
-      [{ login: 'my-login', name: 'My name', email: 'le-me@yandex.ru' }, 'Валидный кейс', []]
+      [{ login: 'my-login', email: 'le-me@yandex.ru' }, 'Валидный кейс', []]
     ];
 
     _.each(toTest, function(item) {
