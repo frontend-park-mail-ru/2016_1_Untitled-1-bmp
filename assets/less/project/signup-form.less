@@ -1,0 +1,43 @@
+.signup-form {
+  width: 100%;
+  max-width: 25em;
+  margin: 0 auto;
+
+  &__field {
+    &:extend(.form-group all);
+    text-align: left;
+    position: relative;
+  }
+
+  &__input {
+    &:extend(.form-control all);
+  }
+
+  &__label {
+    float: left;
+  }
+
+  &__error-text {
+    float: right;
+  }
+
+  &__icon {
+    position: absolute;
+    top: 28px;
+    right: 0;
+    z-index: 2;
+    display: block;
+    width: 34px;
+    height: 34px;
+    line-height: 34px;
+    text-align: center;
+    pointer-events: none;
+    color: @gray-light;
+  }
+
+  &__button {
+    &:extend(.button all);
+    &:extend(.button_success all);
+    &:extend(.button_block all);
+  }
+}

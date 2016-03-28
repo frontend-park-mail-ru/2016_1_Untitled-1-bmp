@@ -4,7 +4,7 @@
 @import '_/mixins';
 @import '_/normalize';
 
-// @import "_/glyphicons"; // uncomment if you need some glyphicon
+@import "_/glyphicons";
 @import '_/scaffolding';
 @import '_/type';
 @import (reference) '_/utilities';
@@ -18,10 +18,12 @@
 
 @import 'project/mixins';
 @import 'project/wrapper';
-@import 'project/buttons';
+@import (reference) 'project/buttons';
 @import 'project/forms'; // TODO: rewrite from bootstrap
 
 @import 'project/mainmenu';
 @import 'project/game-field';
+
+@import 'project/signup-form';
 
 @import 'project/scene-ship';
