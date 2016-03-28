@@ -5,20 +5,20 @@
         <form class="signup-form">
           <div class="signup-form__field">
             <label class="signup-form__label" for="js-signup-form__login">Логин</label>
-            <div class="signup-form__error-text"></div>
+            <div class="signup-form__error-text js-signup-form__login-error"></div>
             <input type="text" class="signup-form__input" id="js-signup-form__login" placeholder="Логин" />
             <span class="signup-form__icon glyphicon glyphicon_user"></span>
           </div>
           <div class="signup-form__field">
             <label class="signup-form__label" for="js-signup-form__email">Email</label>
-            <div class="signup-form__error-text"></div>
+            <div class="signup-form__error-text js-signup-form__email-error"></div>
             <input type="email" class="signup-form__input" id="js-signup-form__email" placeholder="E-mail" />
             <span class="signup-form__icon glyphicon glyphicon_envelope"></span>
           </div>
           <div class="signup-form__field">
             <label class="signup-form__label" for="js-signup-form__password">Пароль</label>
-            <div class="signup-form__error-text"></div>
-            <input type="email" class="signup-form__input" id="js-signup-form__password" placeholder="Пароль" />
+            <div class="signup-form__error-text js-signup-form__password-error"></div>
+            <input type="password" class="signup-form__input" id="js-signup-form__password" placeholder="Пароль" />
             <span class="signup-form__icon glyphicon glyphicon_asterisk"></span>
           </div>
           <button type="submit" class="signup-form__button">Готово</button>

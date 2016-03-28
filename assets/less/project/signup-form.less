@@ -7,6 +7,14 @@
     &:extend(.form-group all);
     text-align: left;
     position: relative;
+
+    &_error {
+      color: @state-danger-text;
+
+      .signup-form__icon {
+        color: @state-danger-text;
+      }
+    }
   }
 
   &__input {
@@ -19,6 +27,7 @@
 
   &__error-text {
     float: right;
+    color: @state-danger-text;
   }
 
   &__icon {

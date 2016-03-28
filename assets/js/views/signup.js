@@ -11,15 +11,15 @@ define(function(require) {
     initialize: function() {
       this.template = template;
       this.render();
-      this.fields = {
-        'name': this.$el.find('.signup-form__name'),
-        'login': this.$el.find('.signup-form__login'),
-        'email': this.$el.find('.signup-form__email')
+      this.inputs = {
+        'password': this.$el.find('#js-signup-form__password'),
+        'login': this.$el.find('#js-signup-form__login'),
+        'email': this.$el.find('#js-signup-form__email')
       };
       this.errorFields = {
-        'name': this.$el.find('.signup-form__name-error'),
-        'login': this.$el.find('.signup-form__login-error'),
-        'email': this.$el.find('.signup-form__email-error')
+        'password': this.$el.find('.js-signup-form__password-error'),
+        'login': this.$el.find('.js-signup-form__login-error'),
+        'email': this.$el.find('.js-signup-form__email-error')
       };
     },
 
@@ -32,9 +32,8 @@ define(function(require) {
       e.preventDefault();
 
       var uData = {
-        name: this.fields.name.val(),
-        login: this.fields.login.val(),
-        email: this.fields.email.val()
+        login: this.inputs.login.val(),
+        email: this.inputs.email.val()
       };
 
       var u = new User();
@@ -44,11 +43,28 @@ define(function(require) {
         item.text('');
       });
 
+      _.each(this.inputs, function(item) {
+        item.parent().removeClass('signup-form__field_error');
+      });
+
+      var pass = $.trim(this.inputs.password.val());
+      if(pass.length < 6) {
+        if(errors == undefined) {
+          errors = [];
+        }
+        errors.push({
+          field: 'password',
+          error: 'Пароль слишком короткий'
+        });
+      }
+
       if(errors != undefined && errors.length) {
         var errorFields = this.errorFields;
+        var inputs = this.inputs;
         _.each(errors, function(error) {
           if(errorFields[error.field] !== undefined) {
             errorFields[error.field].text(error.error);
+            inputs[error.field].parent().addClass('signup-form__field_error');
           }
         });
       }
@@ -56,6 +72,7 @@ define(function(require) {
       {
         alert('submit!');
       }
+      return false;
     },
 
     show: function(parent) {
