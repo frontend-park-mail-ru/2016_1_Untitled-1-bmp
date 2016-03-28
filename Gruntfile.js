@@ -218,6 +218,6 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-shell');
 
   grunt.registerTask('dev', ['concurrent:dev']);
-  grunt.registerTask('prod', ['fest', 'copy:css', 'less:prod', 'copy:fonts', 'copy:img', 'jade:prod', 'requirejs:prod']);
+  grunt.registerTask('prod', ['fest', 'copy:css', 'less:prod', 'copy:fonts', 'copy:img', 'jade:prod', 'requirejs:prod', 'postcss:dev']);
   grunt.registerTask('default', ['dev']);
 };
