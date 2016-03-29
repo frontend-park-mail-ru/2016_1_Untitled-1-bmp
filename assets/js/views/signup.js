@@ -2,6 +2,7 @@ define(function(require) {
   var Backbone = require('backbone');
   var User = require('models/user');
   var template = require('templates/signup');
+  var app = require('app');
 
   var SignupView = Backbone.View.extend({
     events: {
@@ -21,6 +22,7 @@ define(function(require) {
         'login': this.$el.find('.js-signup-form__login-error'),
         'email': this.$el.find('.js-signup-form__email-error')
       };
+      this.button = this.$el.find('.js-signup-form__button');
     },
 
     render: function() {
@@ -60,7 +62,11 @@ define(function(require) {
       }
       else
       {
-        alert('submit!');
+        this.button.prop('disabled', true);
+        var user = app.getUser();
+        user.register(uData, (function() {
+          this.button.prop('disabled', false);
+        }).bind(this));
       }
       return false;
     },

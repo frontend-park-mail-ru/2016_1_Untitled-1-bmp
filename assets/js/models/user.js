@@ -61,13 +61,17 @@ define(function(require) {
       }
     },
 
-    register: function(attrs) {
+    register: function(attrs, cb) {
       this.save(attrs, {
         success: function() {
-          console.log('success');
+          if(typeof cb == 'function') {
+            cb(true);
+          }
         },
         error: function() {
-          console.log('error');
+          if(typeof cb == 'function') {
+            cb(false);
+          }
         }
       });
     }
