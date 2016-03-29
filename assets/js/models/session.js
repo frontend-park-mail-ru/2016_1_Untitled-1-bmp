@@ -7,12 +7,17 @@ define(function(require) {
       auth: false
     },
 
-    urlRoot: '/api/session',
+    url: '/api/session',
 
     initialize: function() {
+    },
+
+    check: function() {
+      this.set('id', null);
       this.fetch({
         success: (function(udata) {
           this.set('auth', true);
+          this.trigger('auth_true');
         }).bind(this),
         error: (function(udata) {
           this.set('auth', false);
@@ -25,18 +30,30 @@ define(function(require) {
     },
 
     tryLogin: function(login, password) {
-      $.post(
-        this.urlRoot,
-        JSON.stringify({
-          'login': login,
-          'password': password
-        })).done(
-        function(data) {
-          console.log(data);
-        })
-        .fail(function(data) {
-          console.log(data)
+      if(this.isNew()) {
+        this.save({
+          login: login,
+          password: password
+        }, {
+          success: (function(data) {
+            this.set('auth', true);
+            this.trigger('auth_true');
+          }).bind(this),
+          error: (function(data) {
+            this.set('auth', false);
+            this.trigger('auth_fail');
+          }).bind(this)
         });
+      }
+    },
+
+    logout: function() {
+      this.destroy({
+        success: (function(data) {
+          this.set('auth', false);
+          this.trigger('auth_logout');
+        }).bind(this)
+      });
     }
   });
 

@@ -3,9 +3,16 @@ define(function(require) {
   var Backbone = require('backbone');
 
   var User = Backbone.Model.extend({
-    // login, email
+    defaults: {
+      login: 'guest',
+      email: ''
+    },
+
+    urlRoot: '/api/user',
+
     initialize: function() {
     },
+
     validate: function(attrs, options) {
       var errors = [];
 
@@ -42,6 +49,17 @@ define(function(require) {
       if(errors.length) {
         return errors;
       }
+    },
+
+    register: function(attrs) {
+      this.save(attrs, {
+        success: function() {
+          console.log('success');
+        },
+        error: function() {
+          console.log('error');
+        }
+      });
     }
   });
 
