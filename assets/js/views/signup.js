@@ -33,7 +33,8 @@ define(function(require) {
 
       var uData = {
         login: this.inputs.login.val(),
-        email: this.inputs.email.val()
+        email: this.inputs.email.val(),
+        password: this.inputs.password.val()
       };
 
       var u = new User();
@@ -46,17 +47,6 @@ define(function(require) {
       _.each(this.inputs, function(item) {
         item.parent().removeClass('signup-form__field_error');
       });
-
-      var pass = $.trim(this.inputs.password.val());
-      if(pass.length < 6) {
-        if(errors == undefined) {
-          errors = [];
-        }
-        errors.push({
-          field: 'password',
-          error: 'Пароль слишком короткий'
-        });
-      }
 
       if(errors != undefined && errors.length) {
         var errorFields = this.errorFields;

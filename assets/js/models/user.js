@@ -46,6 +46,16 @@ define(function(require) {
         });
       }
 
+      // password is optional
+      if(attrs.password != undefined) {
+        if(attrs.password.length < 6) {
+          errors.push({
+            field: 'password',
+            error: 'Пароль слишком короткий'
+          });
+        }
+      }
+
       if(errors.length) {
         return errors;
       }
