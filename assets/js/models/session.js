@@ -12,6 +12,35 @@ define(function(require) {
     initialize: function() {
     },
 
+    validate: function(attrs, options) {
+      var errors = [];
+
+      _.each(['login', 'password'], function(v) {
+        if(attrs[v] === undefined) {
+          attrs[v] =  '';
+        }
+        attrs[v] = $.trim(attrs[v]);
+      });
+
+      if(attrs.login === '') {
+        errors.push({
+          field: 'login',
+          error: 'Логин не указан'
+        });
+      }
+
+      if(attrs.password.length == 0) {
+        errors.push({
+          field: 'password',
+          error: 'Пароль не указан'
+        });
+      }
+
+      if(errors.length) {
+        return errors;
+      }
+    },
+
     check: function() {
       this.set('id', null);
       this.fetch({
