@@ -67,6 +67,7 @@ define(function(require) {
 
     show: function(parent) {
       this.trigger('show')
+      this.delegateEvents();
       parent.html(this.el);
     },
 
