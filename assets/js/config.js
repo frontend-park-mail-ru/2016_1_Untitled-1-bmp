@@ -4,7 +4,8 @@ require.config({
   paths: {
     jquery: "vendor/jquery",
     underscore: "vendor/underscore",
-    backbone: "vendor/backbone"
+    backbone: "vendor/backbone",
+    alertify: "vendor/alertify.min"
   },
   shim: {
     'backbone': {
@@ -13,6 +14,9 @@ require.config({
     },
     'underscore': {
       exports: '_'
+    },
+    'alertify': {
+      exports: 'alertify'
     }
   }
 });
