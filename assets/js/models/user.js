@@ -71,12 +71,12 @@ define(function(require) {
               cb(true);
             }
           }).bind(this),
-          error: function(obj, result) {
+          error: (function(obj, result) {
             this.trigger('register_fail', result);
             if(typeof cb == 'function') {
               cb(false);
             }
-          }
+          }).bind(this)
         });
       }
     }

@@ -64,10 +64,21 @@ define(function(require) {
       {
         this.button.prop('disabled', true);
         var user = app.getUser();
-        var session = app.getSession();
-        session.once('auth_success', (function(data) {
+
+        var success = function(data) {
           Backbone.history.navigate("", { trigger: true });
-        }).bind(this));
+          user.off('register_success', success);
+          user.off('register_fail', error);
+        };
+        var error = function(error) {
+          console.log(error);
+          user.off('register_success', success);
+          user.off('register_fail', error);
+        };
+
+        user.once('register_success', success);
+        user.once('register_fail', error);
+
         user.register(uData, (function() {
           this.button.prop('disabled', false);
         }).bind(this));
