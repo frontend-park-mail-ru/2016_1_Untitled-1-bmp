@@ -60,8 +60,8 @@ define(function(require) {
       {
         this.button.prop('disabled', true);
 
-        session.on('auth_success', (function(data) {
-          console.log(data);
+        session.once('auth_success', (function(data) {
+          Backbone.history.navigate("", { trigger: true });
         }).bind(this));
 
         session.tryLogin(uData.login, uData.password);

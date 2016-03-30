@@ -1,6 +1,7 @@
 define(function(require) {
   var Backbone = require('backbone');
   var template = require('templates/main');
+  var app = require('app');
 
   var MainView = Backbone.View.extend({
     initialize: function() {
@@ -9,7 +10,10 @@ define(function(require) {
     },
 
     render: function() {
-      var html = this.template();
+      var html = this.template({
+        isAuth: app.getSession().isAuthorized(),
+        user: app.getUser()
+      });
       this.$el.html(html);
     },
 
