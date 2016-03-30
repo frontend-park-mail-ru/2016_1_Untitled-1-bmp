@@ -62,18 +62,23 @@ define(function(require) {
     },
 
     register: function(attrs, cb) {
-      this.save(attrs, {
-        success: function() {
-          if(typeof cb == 'function') {
-            cb(true);
+      if(this.isNew()) {
+        this.save(attrs, {
+          success: (function(obj, result) {
+            this.trigger('register_success', result);
+            this.fetch();
+            if(typeof cb == 'function') {
+              cb(true);
+            }
+          }).bind(this),
+          error: function(obj, result) {
+            this.trigger('register_fail', result);
+            if(typeof cb == 'function') {
+              cb(false);
+            }
           }
-        },
-        error: function() {
-          if(typeof cb == 'function') {
-            cb(false);
-          }
-        }
-      });
+        });
+      }
     }
   });
 

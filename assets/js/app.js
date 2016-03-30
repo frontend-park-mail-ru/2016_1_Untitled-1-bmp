@@ -9,14 +9,18 @@ define(function(require) {
     user: new User(),
 
     initialize: function() {
-      this.user.listenTo(this.session, 'auth_true', (function() {
-        this.user.set('id', this.session.get('id'));
-        this.user.fetch();
-      }).bind(this));
+      this.user.listenTo(this.session, 'auth_success', (function(udata) {
+        this.set('id', udata.id);
+        this.fetch();
+      }).bind(this.user));
       this.user.listenTo(this.session, 'auth_logout', (function() {
         this.user.clear();
       }).bind(this));
       this.session.check();
+
+      this.session.listenTo(this.user, 'register_success', (function(udata) {
+        this.check();
+      }).bind(this.session));
     },
 
     getSession: function() {

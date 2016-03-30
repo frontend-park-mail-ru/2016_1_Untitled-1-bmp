@@ -60,13 +60,17 @@ define(function(require) {
       {
         this.button.prop('disabled', true);
 
+        session.on('auth_success', (function(data) {
+          console.log(data);
+        }).bind(this));
+
         session.tryLogin(uData.login, uData.password);
       }
       return false;
     },
 
     show: function(parent) {
-      this.trigger('show')
+      this.trigger('show');
       parent.html(this.el);
     },
 

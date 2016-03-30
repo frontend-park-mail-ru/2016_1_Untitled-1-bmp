@@ -44,11 +44,11 @@ define(function(require) {
     check: function() {
       this.set('id', null);
       this.fetch({
-        success: (function(udata) {
+        success: (function(obj, result) {
           this.set('auth', true);
-          this.trigger('auth_true');
+          this.trigger('auth_success', result);
         }).bind(this),
-        error: (function(udata) {
+        error: (function(obj, result) {
           this.set('auth', false);
         }).bind(this)
       });
@@ -64,13 +64,13 @@ define(function(require) {
           login: login,
           password: password
         }, {
-          success: (function(data) {
+          success: (function(obj, result) {
             this.set('auth', true);
-            this.trigger('auth_true');
+            this.trigger('auth_success', result);
           }).bind(this),
-          error: (function(data) {
+          error: (function(obj, result) {
             this.set('auth', false);
-            this.trigger('auth_fail');
+            this.trigger('auth_fail', result);
           }).bind(this)
         });
       }
