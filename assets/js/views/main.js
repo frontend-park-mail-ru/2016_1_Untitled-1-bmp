@@ -10,19 +10,25 @@ define(function(require) {
     },
 
     render: function() {
+      var authData = app.getAuthData();
       var html = this.template({
-        isAuth: app.getSession().isAuthorized(),
-        user: app.getUser()
+        isAuth: authData.isAuth,
+        userLogin: authData.user.get('login')
       });
       this.$el.html(html);
     },
 
     show: function(parent) {
       this.trigger('show')
-      parent.html(this.el);
+      parent.empty();
+      parent.append(this.el);
     },
 
     hide: function() {
+    },
+
+    onAuth: function() {
+      this.render();
     }
   });
 

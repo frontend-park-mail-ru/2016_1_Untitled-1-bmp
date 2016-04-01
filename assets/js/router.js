@@ -1,6 +1,7 @@
 define(function (require) {
   var Backbone = require('backbone');
   var _ = require('underscore');
+  var app = require('app');
   var MainView = require('views/main'),
       ScoreboardView = require('views/scoreboard'),
       GameView = require('views/game'),
@@ -28,8 +29,13 @@ define(function (require) {
       'scoreboard': 'scoreboardAction',
       'game':       'gameAction',
       'login':      'loginAction',
+      'logout':     'logoutAction',
       'signup':     'signupAction',
       '*default':   'defaultAction',
+    },
+
+    go: function(where) {
+      return this.navigate(where, { trigger: true });
     },
 
     $page: $('#page'),
@@ -48,6 +54,11 @@ define(function (require) {
 
     loginAction: function () {
       loginView.show(this.$page);
+    },
+
+    logoutAction: function () {
+      app.getSession().logout();
+      this.go('');
     },
 
     signupAction: function () {

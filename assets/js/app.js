@@ -14,11 +14,7 @@ define(function(require) {
           this.user.set('id', result.id);
           this.user.fetch({
             success: (function() {
-              var authData = {
-                'isAuth': true,
-                'user': this.user
-              };
-              this.trigger('auth', authData);
+              this.trigger('auth', this.getAuthData());
             }).bind(this)
           });
         }
@@ -26,11 +22,8 @@ define(function(require) {
 
       this.listenTo(this.session, 'logout', (function() {
         this.user.clear();
-        var authData = {
-          'isAuth': false,
-          'user': this.user
-        };
-        this.trigger('auth', authData);
+        this.session.clear();
+        this.trigger('auth', this.getAuthData());
       }).bind(this));
 
       this.session.listenTo(this.user, 'register', (function() {
@@ -46,6 +39,13 @@ define(function(require) {
 
     getUser: function() {
       return this.user;
+    },
+
+    getAuthData: function() {
+      return {
+        isAuth: this.session.isAuthorized(),
+        user: this.user
+      };
     }
   });
 

@@ -7,7 +7,6 @@ define(function(require) {
 
     initialize: function() {
       this.listenTo(app, 'auth', this.onAuth.bind(this));
-      this.listenTo(app, 'logout', this.onLogout.bind(this));
     },
 
     addView: function(view) {
@@ -35,12 +34,7 @@ define(function(require) {
 
     onAuth: function(result) {
       return this.handleViewsEvent('onAuth', arguments);
-    },
-
-    onLogout: function(result) {
-      return this.handleViewsEvent('onLogout', arguments);
     }
-
   });
 
   return new ViewManager();

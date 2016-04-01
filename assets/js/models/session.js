@@ -58,7 +58,7 @@ define(function(require) {
     },
 
     isAuthorized: function() {
-      return this.auth;
+      return !!this.get('auth');
     },
 
     tryLogin: function(login, password) {

@@ -9,6 +9,8 @@ define(function(require) {
       'submit .signup-form': 'submit'
     },
 
+    expectAuth: false,
+
     initialize: function() {
       this.template = template;
       this.render();
@@ -28,6 +30,12 @@ define(function(require) {
     render: function() {
       var html = this.template();
       this.$el.html(html);
+    },
+
+    clear: function() {
+      _.each(this.inputs, function(item) {
+        item.val('');
+      });
     },
 
     clearErrors: function() {
@@ -76,6 +84,9 @@ define(function(require) {
           if(!result.result) {
             this.handleError(result.error);
           }
+          else {
+            this.expectAuth = true;
+          }
         }).bind(this));
 
         user.register(uData);
@@ -90,6 +101,15 @@ define(function(require) {
     },
 
     hide: function() {
+    },
+
+    onAuth: function(result) {
+      var router = require('router');
+      if(result.isAuth && this.expectAuth) {
+        this.expectAuth = false;
+        this.clear();
+        router.go('');
+      }
     }
   });
 
