@@ -25,6 +25,7 @@
     "url": "https://github.com/ValerGit/2016_1_Untitled-1-bmp"
   },
   "scripts": {
-    "start": "node server"
+    "start": "node server",
+    "test": "grunt test"
   }
 }
