@@ -1,23 +1,44 @@
 define(function(require) {
   var Backbone = require('backbone');
-  var template = require('templates/main');
+  var app = require('app');
 
   var ViewManager = Backbone.View.extend({
     views: [],
+
+    initialize: function() {
+      this.listenTo(app, 'auth', this.onAuth.bind(this));
+      this.listenTo(app, 'logout', this.onLogout.bind(this));
+    },
 
     addView: function(view) {
       this.views.push(view);
       this.listenTo(view, 'show', this.onChangeView.bind(this, view));
     },
 
-    onChangeView: function(newView) {
-      _.each(this.views, function(view) {
-        if(view == newView) return;
+    handleViewsEvent: function(method, args, views) {
+      views = views || this.views;
 
-        if(typeof view.hide === 'function') {
-          view.hide();
+      _.each(views, function(view) {
+        if(typeof view[method] === 'function') {
+          view[method].apply(view, args);
         }
       });
+    },
+
+    onChangeView: function(newView) {
+      var views = _.filter(this.views, function(view) {
+        return view != newView;
+      });
+
+      return this.handleViewsEvent('hide', [], views);
+    },
+
+    onAuth: function(result) {
+      return this.handleViewsEvent('onAuth', arguments);
+    },
+
+    onLogout: function(result) {
+      return this.handleViewsEvent('onLogout', arguments);
     }
 
   });

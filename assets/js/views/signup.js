@@ -30,6 +30,23 @@ define(function(require) {
       this.$el.html(html);
     },
 
+    clearErrors: function() {
+      _.each(this.errorFields, function(item) {
+        item.text('');
+      });
+
+      _.each(this.inputs, function(item) {
+        item.parent().removeClass('signup-form__field_error');
+      });
+    },
+
+    handleError: function(error) {
+      if(this.errorFields[error.field] !== undefined) {
+        this.errorFields[error.field].text(error.error);
+        this.inputs[error.field].parent().addClass('signup-form__field_error');
+      }
+    },
+
     submit: function(e) {
       e.preventDefault();
 
@@ -39,49 +56,29 @@ define(function(require) {
         password: this.inputs.password.val()
       };
 
+      this.clearErrors();
+
       var u = new User();
       var errors = u.validate(uData);
 
-      _.each(this.errorFields, function(item) {
-        item.text('');
-      });
-
-      _.each(this.inputs, function(item) {
-        item.parent().removeClass('signup-form__field_error');
-      });
-
       if(errors != undefined && errors.length) {
-        var errorFields = this.errorFields;
-        var inputs = this.inputs;
-        _.each(errors, function(error) {
-          if(errorFields[error.field] !== undefined) {
-            errorFields[error.field].text(error.error);
-            inputs[error.field].parent().addClass('signup-form__field_error');
-          }
-        });
+        _.each(errors, (function(error) {
+          this.handleError(error);
+        }).bind(this));
       }
       else
       {
         this.button.prop('disabled', true);
         var user = app.getUser();
 
-        var success = function(data) {
-          Backbone.history.navigate("", { trigger: true });
-          user.off('register_success', success);
-          user.off('register_fail', error);
-        };
-        var error = function(error) {
-          console.log(error);
-          user.off('register_success', success);
-          user.off('register_fail', error);
-        };
-
-        user.once('register_success', success);
-        user.once('register_fail', error);
-
-        user.register(uData, (function() {
+        user.once('register', (function(result) {
           this.button.prop('disabled', false);
+          if(!result.result) {
+            this.handleError(result.error);
+          }
         }).bind(this));
+
+        user.register(uData);
       }
       return false;
     },

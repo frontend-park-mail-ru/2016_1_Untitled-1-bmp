@@ -9,18 +9,35 @@ define(function(require) {
     user: new User(),
 
     initialize: function() {
-      this.user.listenTo(this.session, 'auth_success', (function(udata) {
-        this.set('id', udata.id);
-        this.fetch();
-      }).bind(this.user));
-      this.user.listenTo(this.session, 'auth_logout', (function() {
-        this.user.clear();
+      this.listenTo(this.session, 'auth', (function(result) {
+        if(result.result) {
+          this.user.set('id', result.id);
+          this.user.fetch({
+            success: (function() {
+              var authData = {
+                'isAuth': true,
+                'user': this.user
+              };
+              this.trigger('auth', authData);
+            }).bind(this)
+          });
+        }
       }).bind(this));
-      this.session.check();
 
-      this.session.listenTo(this.user, 'register_success', (function(udata) {
-        this.check();
-      }).bind(this.session));
+      this.listenTo(this.session, 'logout', (function() {
+        this.user.clear();
+        var authData = {
+          'isAuth': false,
+          'user': this.user
+        };
+        this.trigger('auth', authData);
+      }).bind(this));
+
+      this.session.listenTo(this.user, 'register', (function() {
+        this.session.check();
+      }).bind(this));
+
+      this.session.check();
     },
 
     getSession: function() {

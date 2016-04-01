@@ -46,7 +46,10 @@ define(function(require) {
       this.fetch({
         success: (function(obj, result) {
           this.set('auth', true);
-          this.trigger('auth_success', result);
+          this.trigger('auth', {
+            result: true,
+            id: result.id
+          });
         }).bind(this),
         error: (function(obj, result) {
           this.set('auth', false);
@@ -66,11 +69,17 @@ define(function(require) {
         }, {
           success: (function(obj, result) {
             this.set('auth', true);
-            this.trigger('auth_success', result);
+            this.trigger('auth', {
+              result: true,
+              id: result.id
+            });
           }).bind(this),
           error: (function(obj, result) {
             this.set('auth', false);
-            this.trigger('auth_fail', result);
+            this.trigger('auth', {
+              result: false,
+              error: result.responseJSON
+            });
           }).bind(this)
         });
       }
@@ -80,7 +89,7 @@ define(function(require) {
       this.destroy({
         success: (function(data) {
           this.set('auth', false);
-          this.trigger('auth_logout');
+          this.trigger('logout');
         }).bind(this)
       });
     }

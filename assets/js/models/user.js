@@ -61,21 +61,20 @@ define(function(require) {
       }
     },
 
-    register: function(attrs, cb) {
+    register: function(attrs) {
       if(this.isNew()) {
         this.save(attrs, {
           success: (function(obj, result) {
-            this.trigger('register_success', result);
-            this.fetch();
-            if(typeof cb == 'function') {
-              cb(true);
-            }
+            this.trigger('register', {
+              result: true,
+              id: result.id
+            });
           }).bind(this),
           error: (function(obj, result) {
-            this.trigger('register_fail', result);
-            if(typeof cb == 'function') {
-              cb(false);
-            }
+            this.trigger('register', {
+              result: false,
+              error: result.responseJSON
+            });
           }).bind(this)
         });
       }
