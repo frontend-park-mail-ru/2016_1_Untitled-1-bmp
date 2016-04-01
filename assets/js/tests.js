@@ -4,6 +4,7 @@ define(function(require) {
     'sinon',
     'models/score.test',
     'models/user.test',
+    'models/session.test',
     'collections/scoreboard.test',
     'views/manager.test'
   ];
