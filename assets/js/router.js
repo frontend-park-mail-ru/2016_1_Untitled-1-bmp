@@ -38,22 +38,20 @@ define(function (require) {
       return this.navigate(where, { trigger: true });
     },
 
-    $page: $('#page'),
-
     defaultAction: function () {
-      mainView.show(this.$page);
+      mainView.show();
     },
 
     scoreboardAction: function () {
-      scoreboardView.show(this.$page);
+      scoreboardView.show();
     },
 
     gameAction: function () {
-      gameView.show(this.$page);
+      gameView.show();
     },
 
     loginAction: function () {
-      loginView.show(this.$page);
+      loginView.show();
     },
 
     logoutAction: function () {
@@ -62,7 +60,7 @@ define(function (require) {
     },
 
     signupAction: function () {
-      signupView.show(this.$page);
+      signupView.show();
     }
   });
 

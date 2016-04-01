@@ -18,13 +18,13 @@ define(function(require) {
       this.$el.html(html);
     },
 
-    show: function(parent) {
-      this.trigger('show')
-      parent.empty();
-      parent.append(this.el);
+    show: function() {
+      this.trigger('show');
+      this.$el.show();
     },
 
     hide: function() {
+      this.$el.hide();
     },
 
     onAuth: function() {

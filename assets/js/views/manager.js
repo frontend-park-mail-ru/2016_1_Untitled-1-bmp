@@ -3,6 +3,8 @@ define(function(require) {
   var app = require('app');
 
   var ViewManager = Backbone.View.extend({
+    el: $('#page'),
+
     views: [],
 
     initialize: function() {
@@ -11,6 +13,7 @@ define(function(require) {
 
     addView: function(view) {
       this.views.push(view);
+      this.$el.append(view.el);
       this.listenTo(view, 'show', this.onChangeView.bind(this, view));
     },
 

@@ -94,13 +94,14 @@ define(function(require) {
       return false;
     },
 
-    show: function(parent) {
+    show: function() {
       this.trigger('show')
       this.delegateEvents();
-      parent.html(this.el);
+      this.$el.show();
     },
 
     hide: function() {
+      this.$el.hide();
     },
 
     onAuth: function(result) {
