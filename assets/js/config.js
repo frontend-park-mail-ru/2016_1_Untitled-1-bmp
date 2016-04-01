@@ -5,7 +5,8 @@ require.config({
     jquery: "vendor/jquery",
     underscore: "vendor/underscore",
     backbone: "vendor/backbone",
-    alertify: "vendor/alertify.min"
+    alertify: "vendor/alertify.min",
+    qunit: "vendor/qunit-1.21.0"
   },
   shim: {
     'backbone': {

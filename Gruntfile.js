@@ -205,11 +205,20 @@ module.exports = function (grunt) {
         logConcurrentOutput: true
       }
     },
+
+    qunit: {
+      // https://www.npmjs.com/package/grunt-contrib-qunit
+      options: {
+        summaryOnly: true
+      },
+      all: ['dist/test.html']
+    }
   });
 
   grunt.loadNpmTasks('grunt-concurrent');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-less');
+  grunt.loadNpmTasks('grunt-contrib-qunit');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-fest');
   grunt.loadNpmTasks('grunt-jade');
@@ -217,7 +226,15 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-requirejs');
   grunt.loadNpmTasks('grunt-shell');
 
+  grunt.event.on('qunit.moduleStart', function(name) {
+    grunt.log.subhead(name);
+  });
+  grunt.event.on('qunit.testDone', function(name, failed, passed, total) {
+    grunt.log.ok(name, '[', passed,  '/', total, ']');
+  });
+
   grunt.registerTask('dev', ['concurrent:dev']);
   grunt.registerTask('prod', ['fest', 'copy:css', 'less:prod', 'copy:fonts', 'copy:img', 'jade:prod', 'requirejs:prod', 'postcss:dev']);
   grunt.registerTask('default', ['dev']);
+  grunt.registerTask('test', ['fest', 'jade:dev', 'copy:js_dev', 'copy:css', 'qunit:all']);
 };
