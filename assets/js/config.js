@@ -6,7 +6,8 @@ require.config({
     underscore: "vendor/underscore",
     backbone: "vendor/backbone",
     alertify: "vendor/alertify.min",
-    qunit: "vendor/qunit-1.21.0"
+    qunit: "vendor/qunit-1.21.0",
+    sinon: "vendor/sinon-1.17.3"
   },
   shim: {
     'backbone': {
