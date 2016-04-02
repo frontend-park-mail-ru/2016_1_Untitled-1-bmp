@@ -1,29 +1,61 @@
 define(function(require) {
   var $ = require('jquery');
 
-  var Color = function(r, g, b, a) {
+  var Color = function(r, g, b, alpha) {
     this.r = r;
     this.g = g;
     this.b = b;
-    this.a = a;
-  };
-  Color.prototype.get = function() {
-    return 'rgba(' + [this.r, this.g, this.b, this.a].join(',') + ')';
+    this.alpha = alpha;
   };
 
-  // var c = new Color(255, 255, 255, 0.43);
-  // console.log(c);
-  // console.log(c.get());
+  Color.prototype.getRGBa = function() {
+    return 'rgba(' + [this.r, this.g, this.b, this.alpha].join(',') + ')';
+  };
 
-  var Point = function(x, y, z) {
+  var Point = function(x, y) {
     this.x = x;
     this.y = y;
-    this.z = z;
   };
 
-  var Dot = function(x, y) {
-    this.point = new Point(x, y, 5);
+  var Dot = function(x, y, drawer) {
+    this.point = new Point(x, y);
+    this.radius = 5;
+
+    this.drawer = drawer;
+
+    var alpha = 1;
+    this.color = new Color(255, 255, 255, alpha);
+
+    this.pointTo = this.point;
+    this.pointsTo = [];
   }
+
+  Dot.prototype.__draw = function() {
+    this.drawer.drawCircle(this.point, this.radius, this.color);
+  };
+
+  Dot.prototype.__recount = function() {
+  };
+
+  Dot.prototype.moveTo = function(newPoint) {
+  };
+
+  Dot.prototype.distance = function(newPoint, info) {
+    return Dot.distance(this, newPoint, info);
+  };
+
+  Dot.distance = function(dot1, dot2, info) {
+    var data = {
+      dx: dot1.x - dot2.x,
+      dy: dot1.y - dot2.y,
+      d: Math.sqrt(dx * dx + dy * dy)
+    };
+
+    return info ? data : data.d;
+  };
+
+  var Shape = function() {
+  };
 
   var Drawer = function(elem) {
     if($(elem).length == 0) {
@@ -58,13 +90,19 @@ define(function(require) {
 
   Drawer.prototype.loop = function() {
     this.clear();
-    // this.context.fillStyle = 'rgba(0,0,0,1)';
-    // this.context.beginPath();
-    // this.context.arc(100, 100, 100, 0, 2 * Math.PI, true);
-    // this.context.closePath();
-    // this.context.fill();
+
+    var dot = new Dot(100, 100, this);
+    dot.__draw();
 
     this.requestFrame.call(window, this.loop.bind(this));
+  };
+
+  Drawer.prototype.drawCircle = function(point, radius, color) {
+    this.context.fillStyle = color.getRGBa();
+    this.context.beginPath();
+    this.context.arc(point.x, point.y, radius, 0, 2 * Math.PI, true);
+    this.context.closePath();
+    this.context.fill();
   };
 
   return Drawer;
