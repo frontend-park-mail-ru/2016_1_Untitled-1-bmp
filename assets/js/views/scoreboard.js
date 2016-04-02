@@ -2,6 +2,7 @@ define(function(require) {
   var Backbone = require('backbone');
   var ScoreBoardCollection = require('collections/scoreboard');
   var template = require('templates/scoreboard');
+  var Scene = require('features/scene-dots');
 
   var ScoreboardView = Backbone.View.extend({
     initialize: function() {
@@ -22,6 +23,8 @@ define(function(require) {
       );
 
       this.render();
+      var scene = new Scene(this.$el.find('.scene-dots__canvas'));
+      scene.loop();
     },
 
     render: function() {

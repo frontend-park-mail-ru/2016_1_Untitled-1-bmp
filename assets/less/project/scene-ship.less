@@ -1,4 +1,7 @@
 @scene-ship-bg-color: @scene-sky-color;
+@scene-ship-bg: @scene-bg;
+@scene-ship-ocean-bg: @scene-ocean-bg;
+@scene-ship-ocean-overlay-bg: @scene-ocean-overlay-bg;
 @scene-ship-ocean-color: @scene-ocean-color;
 @scene-ship-ocean-overlay-color: @scene-ocean-overlay-color;
 @scene-ship-ship-duration: 60s;
@@ -16,7 +19,7 @@ body {
     width: 100%;
     height: 100%;
 
-    background-color: @scene-ship-bg-color;
+    background: @scene-ship-bg;
   }
 
   &__ship {
@@ -31,7 +34,7 @@ body {
 
     &-container {
       position: fixed;
-      bottom: 30px; // TODO:
+      bottom: 30px;
 
       width: 200px;
 
@@ -626,13 +629,13 @@ body {
     width: 100%;
     height: 100px;
 
-    background-color: @scene-ship-ocean-color;
+    background: @scene-ship-ocean-bg;
     z-index: 4;
   }
   &__ocean-overlay {
     z-index: 10;
 
-    background-color: @scene-ship-ocean-overlay-color;
+    background: @scene-ship-ocean-overlay-bg;
   }
 
   &__cloud {
