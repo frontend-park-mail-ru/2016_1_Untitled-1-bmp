@@ -2,7 +2,7 @@
     <div class="wrapper wrapper_wide wrapper_center">
         <div class="scene-dots">
             <div class="scene-dots__wrapper"></div>
-            <canvas class="scene-dots__canvas"></canvas>
+            <canvas class="canvas"></canvas>
         </div>
     </div>
 </fest:template>

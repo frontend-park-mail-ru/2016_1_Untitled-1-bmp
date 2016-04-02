@@ -23,8 +23,12 @@ define(function(require) {
       );
 
       this.render();
-      var scene = new Scene(this.$el.find('.scene-dots__canvas'));
-      scene.loop();
+      /*var scene = new Scene(this.$el.find('.scene-dots__canvas'));
+      var dot = new Scene.Dot(scene, {x:100, y: 100});
+      dot.moveTo({x: 300, y: 300});
+      scene.loop(function() {
+        dot.redraw();
+      });*/
     },
 
     render: function() {
@@ -38,6 +42,7 @@ define(function(require) {
     show: function() {
       this.trigger('show');
       this.$el.show();
+      Scene();
     },
 
     hide: function() {
