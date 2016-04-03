@@ -2,9 +2,14 @@ define(function(require) {
   var Backbone = require('backbone');
   var ScoreBoardCollection = require('collections/scoreboard');
   var template = require('templates/scoreboard');
-  var Scene = require('features/scene-dots');
+  var scene = require('features/scene-dots');
 
   var ScoreboardView = Backbone.View.extend({
+    events: {
+      'click .scene-dots__button-previous': 'showPrevious',
+      'click .scene-dots__button-next': 'showNext'
+    },
+
     initialize: function() {
       this.template = template;
       this.collection = new ScoreBoardCollection(
@@ -23,18 +28,47 @@ define(function(require) {
       );
 
       this.render();
-      /*var scene = new Scene(this.$el.find('.scene-dots__canvas'));
-      var dot = new Scene.Dot(scene, {x:100, y: 100});
-      dot.moveTo({x: 300, y: 300});
-      scene.loop(function() {
-        dot.redraw();
-      });*/
+
+      this.index = 0;
+      this.scene = scene(this.$el.find('.scene-dots__canvas'));
+      this.$name = this.$el.find('.scene-dots__name');
+
+      this.showRecord();
+    },
+
+    showRecord: function() {
+      if(this.index > this.collection.length) {
+        this.index = this.index % this.collection.length;
+      }
+
+      var row = this.collection.at(this.index);
+      this.$name.text('#' + (this.index + 1).toString() + ' ' + row.get('name'));
+      this.scene.word(row.get('score'));
+    },
+
+    showPrevious: function() {
+      this.index--;
+      if(this.index < 0) {
+        this.index = this.collection.length - 1;
+      }
+
+      this.showRecord();
+      return false;
+    },
+
+    showNext: function() {
+      this.index++;
+
+      if(this.index >= this.collection.length) {
+        this.index = 0;
+      }
+
+      this.showRecord();
+      return false;
     },
 
     render: function() {
-      var html = this.template({
-        'scores': this.collection.toJSON()
-      });
+      var html = this.template();
 
       this.$el.html(html);
     },
@@ -42,7 +76,6 @@ define(function(require) {
     show: function() {
       this.trigger('show');
       this.$el.show();
-      Scene();
     },
 
     hide: function() {

@@ -44,7 +44,7 @@ define(function (require) {
       this.state.alpha = Math.max(0.1, this.state.alpha - (diff.alpha * DotConst.SPEED_DEFAULT_ALPHA));
       this.state.radius = Math.max(0.1, this.state.radius - (diff.radius * DotConst.SPEED_DEFAULT_RADIUS));
 
-      return !(diff.distance > 1); // returns if we should go to next state
+      return !(diff.distance > 1 || Math.abs(diff.alpha) > 0.5 || Math.abs(diff.radius) > 1); // returns if we should go to next state
     },
 
     // move near dot static position
@@ -81,7 +81,7 @@ define(function (require) {
     queueState: function(nextState) {
       nextState.defaults(this.state);
       var diff = this.state.diff(nextState);
-      if(diff.distance > 1 || diff.alpha > 0.01 || diff.radius > 0.01) {
+      if(diff.distance > 1 || Math.abs(diff.alpha) > 0.5 || Math.abs(diff.radius) > 1) {
         this.nextStates.push(nextState);
       }
     },

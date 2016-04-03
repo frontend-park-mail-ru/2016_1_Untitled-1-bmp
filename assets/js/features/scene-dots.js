@@ -6,19 +6,21 @@ define(function(require) {
   var Shape = require('./scene-dots/shape');
   var ShapeBuilder = require('./scene-dots/shapebuilder');
 
-  return (function() {
-    var drawer = new Drawer('.canvas');
-
+  return (function(elem) {
+    var drawer = new Drawer(elem);
     var shape = new Shape(drawer);
     var shapeBuilder = new ShapeBuilder();
-
-    shape.change(shapeBuilder.word('456'));
 
     drawer.setLoopFunction(function() {
       shape.render();
     });
 
     drawer.loop();
-  });
 
+    return {
+      word: function(what) {
+        shape.change(shapeBuilder.word(what));
+      }
+    };
+  });
 });

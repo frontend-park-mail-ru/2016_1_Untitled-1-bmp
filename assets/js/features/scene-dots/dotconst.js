@@ -6,7 +6,7 @@ define(function (require) {
   DotConst.SPEED_NORMAL = 0.14;
   DotConst.SPEED_FAST = 0.25;
   DotConst.SPEED_DEFAULT_ALPHA = 0.05;
-  DotConst.SPEED_DEFAULT_RADIUS = 0.05;
+  DotConst.SPEED_DEFAULT_RADIUS = 0.15;
 
   return DotConst;
 });
