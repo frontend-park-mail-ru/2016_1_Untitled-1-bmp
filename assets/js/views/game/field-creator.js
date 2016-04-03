@@ -74,7 +74,7 @@ define(function(require) {
     var checks = getCells(x, y, length, vertical);
     _.each(checks, function(cellc) {
       var $cell = $('.game-field__cell[data-x=' + cellc[0] + '][data-y=' + cellc[1] + ']');
-      $cell.data('busy', true);
+      $cell.data('busy', true).attr('data-busy', true);
     });
   };
 

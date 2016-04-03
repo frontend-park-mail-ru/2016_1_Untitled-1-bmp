@@ -46,23 +46,17 @@
       }
     }
 
-    // &_busy {
-    //
-    // }
-    //
-    // &_miss {
-    //   &:before {
-    //     position: absolute;
-    //     top: 50%;
-    //     left: 50%;
-    //     background: @gray;
-    //     margin-top: -2px;
-    //     margin-left: -2px;
-    //     border-radius: 50%;
-    //     width: 4px;
-    //     height: 4px;
-    //   }
-    // }
+    &_busy {
+      &, &:hover {
+        background-color: @brand-success;
+      }
+    }
+
+    &_miss {
+      &, &:hover {
+        background-color: @brand-danger;
+      }
+    }
   }
 
   &-creator {
