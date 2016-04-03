@@ -93,7 +93,7 @@ define(function(require) {
 
     app.trigger('auth');
 
-    QUnit.ok(spy4.called, 'Для вьюхи #4 было прокинуто событие auth');
+    QUnit.ok(spy4.calledOnce, 'Для вьюхи #4 было прокинуто событие auth');
     QUnit.ok(spy5.calledOnce, 'Для вьюхи #5 было прокинуто событие auth');
     QUnit.ok(spy6.calledOnce, 'Для вьюхи #6 было прокинуто событие auth');
   });
