@@ -20,6 +20,7 @@
                 </fest:for>
             </div>
             <div class="game-field-creator__field">
+                <fest:value output="text">data.field</fest:value>
             </div>
         </div>
     </div>
