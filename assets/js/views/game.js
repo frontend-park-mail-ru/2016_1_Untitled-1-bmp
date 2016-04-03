@@ -114,7 +114,7 @@ define(function(require) {
         }).bind(this);
 
         var that = this;
-        $('#field2 .game-field__cell').on('click', function() {
+        $('#field2 .game-field__cell[data-x][data-y]').on('click', function() {
           if( that.turn != 1 ||
              $(this).hasClass('game-field__cell_busy') || $(this).hasClass('game-field__cell_miss')) {
             return;
