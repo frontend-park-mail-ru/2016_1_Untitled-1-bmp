@@ -19,7 +19,12 @@
                         <fest:value>row</fest:value>
                     </td>
                     <fest:for from="1" to="data.size" index="column">
-                        <td class="game-field__cell"> </td>
+                        <td class="game-field__cell">
+                            <fest:attributes>
+                                <fest:attribute name="data-x"><fest:value>column</fest:value></fest:attribute>
+                                <fest:attribute name="data-y"><fest:value>row</fest:value></fest:attribute>
+                            </fest:attributes>
+                        </td>
                     </fest:for>
                 </tr>
             </fest:for>

@@ -13,11 +13,16 @@
                                     <fest:attribute name="class">
                                         game-field-creator__ship game-field-creator__ship_<fest:value>ship.cells</fest:value>
                                     </fest:attribute>
+                                    <fest:attribute name="data-cells">
+                                        <fest:value>ship.cells</fest:value>
+                                    </fest:attribute>
                                 </fest:attributes>
                             </div>
                         </fest:for>
                     </div>
                 </fest:for>
+
+                <button class="game-field-creator__button">Готово</button>
             </div>
             <div class="game-field-creator__field">
                 <fest:value output="text">data.field</fest:value>
