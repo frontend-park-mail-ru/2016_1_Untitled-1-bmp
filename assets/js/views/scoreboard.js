@@ -37,10 +37,6 @@ define(function(require) {
     },
 
     showRecord: function() {
-      if(this.index > this.collection.length) {
-        this.index = this.index % this.collection.length;
-      }
-
       var row = this.collection.at(this.index);
       this.$name.text('#' + (this.index + 1).toString() + ' ' + row.get('name'));
       this.scene.word(row.get('score'));

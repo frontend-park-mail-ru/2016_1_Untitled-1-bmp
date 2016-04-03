@@ -24,16 +24,18 @@ define(function(require) {
     shuffle: function() {
       var area = this.drawer.getArea();
 
-      _.filter(this.dots, function(dot) {
-        return !dot.static;
-      }).each(function(dot) {
-        dot.queueState(
-          new DotState({
-            x: Math.random() * area.width,
-            y: Math.random() * area.height
-          })
-        );
-      });
+      _.each(
+        _.filter(this.dots, function(dot) {
+          return !dot.static;
+        }),
+        function(dot) {
+          dot.queueState(
+            new DotState({
+              x: Math.random() * area.width,
+              y: Math.random() * area.height
+            })
+          );
+        });
     },
 
     change: function(shape, fast) {
@@ -56,6 +58,8 @@ define(function(require) {
           );
         }
       }
+
+      var staticDots = shape.dots.length;
 
       _.find(this.dots, (function(dot) {
         var newDot = shape.dots[Math.floor(Math.random() * shape.dots.length)];
@@ -91,6 +95,29 @@ define(function(require) {
 
         return shape.dots.length == 0;
       }).bind(this));
+
+      _.each(_.rest(this.dots, staticDots), function(dot) {
+        if(dot.static) {
+          dot.queueState(
+            new DotState({
+              radius: Math.random() * 20 + 20,
+              alpha: Math.random()
+            })
+          );
+
+          dot.static = false;
+          dot.speed = DotConst.SPEED_SLOW;
+
+          dot.queueState(
+            new DotState({
+              x: Math.random() * area.width,
+              y: Math.random() * area.height,
+              radius: Math.random() * DotConst.RADIUS_NON_STATIC,
+              alpha: DotConst.ALPHA_NOT_STATIC
+            })
+          );
+        }
+      });
     },
 
     render: function() {
