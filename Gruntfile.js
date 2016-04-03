@@ -123,7 +123,7 @@ module.exports = function (grunt) {
         files: [{
           expand: true,
           cwd: 'templates',
-          src: '*.xml',
+          src: '**/*.xml',
           dest: 'dist/js/templates'
         }],
         options: {

@@ -1,17 +1,32 @@
 define(function(require) {
   var Backbone = require('backbone');
   var template = require('templates/game');
+  var fieldCreatorTemplate = require('templates/game/field-creator');
 
   var GameView = Backbone.View.extend({
     initialize: function() {
       this.template = template;
+      this.fieldCreatorTemplate = fieldCreatorTemplate;
+
+      this.step = 1;
+
       this.render();
     },
 
     render: function() {
-      var html = this.template({
-        size: 10
-      });
+      if(this.step == 1) {
+        var html = this.fieldCreatorTemplate(
+          {
+            'ships': [
+              { cells: 4, count: 1 },
+              { cells: 3, count: 2 },
+              { cells: 2, count: 3 },
+              { cells: 1, count: 4 }
+            ]
+          }
+        );
+      }
+
       this.$el.html(html);
     },
 

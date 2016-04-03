@@ -5,6 +5,8 @@
 @cell-size: 35px;
 @cell-header-size: 35px;
 @cell-header-color: @brand-primary;
+@ship-border-color: #00f;
+@ship-bg-color: rgba(0, 0, 255, .03);
 
 .game-field {
   &__cell {
@@ -50,6 +52,80 @@
     }
     &_right {
       float: right;
+    }
+  }
+
+  &-creator {
+    width: 100%;
+    max-width: 90%;
+
+    &__ship {
+      display: inline-block;
+      height: @cell-size;
+      margin-right: @cell-size;
+      background-color: @ship-bg-color;
+      border: 2px solid @ship-border-color;
+      cursor: pointer;
+      transition: .5s;
+
+      &:hover {
+        transition: .5s;
+        background-color: #fff;
+      }
+
+      &_selected {
+        border-color: @brand-warning;
+        cursor: inherit;
+        &, &:hover {
+          background-color: lighten(@brand-warning, 45%);
+        }
+      }
+
+      &_left {
+        border: 2px dashed @gray;
+        cursor: inherit;
+        &, &:hover {
+          background-color: #fff;
+        }
+      }
+
+      &_1 {
+        width: @cell-size;
+      }
+
+      &_2 {
+        width: @cell-size * 2;
+      }
+
+      &_3 {
+        width: @cell-size * 3;
+      }
+
+      &_4 {
+        width: @cell-size * 4;
+      }
+
+
+      &-line {
+        position: relative;
+        margin: 0;
+        margin-top: 1.5em;
+      }
+    }
+
+    &__ships {
+      float: left;
+      text-align: left;
+      width: 350px;
+
+      &-help {
+        &:extend(h5);
+        margin-bottom: 1.5em;
+      }
+    }
+
+    &__field {
+      float: left;
     }
   }
 }
