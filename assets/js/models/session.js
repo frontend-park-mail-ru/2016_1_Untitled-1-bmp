@@ -62,27 +62,29 @@ define(function(require) {
     },
 
     tryLogin: function(login, password) {
-      if(this.isNew()) {
-        this.save({
-          login: login,
-          password: password
-        }, {
-          success: (function(obj, result) {
-            this.set('auth', true);
-            this.trigger('auth', {
-              result: true,
-              id: result.id
-            });
-          }).bind(this),
-          error: (function(obj, result) {
-            this.set('auth', false);
-            this.trigger('auth', {
-              result: false,
-              error: result.responseJSON
-            });
-          }).bind(this)
-        });
+      if(!this.isNew()) {
+        return;
       }
+
+      this.save({
+        login: login,
+        password: password
+      }, {
+        success: (function(obj, result) {
+          this.set('auth', true);
+          this.trigger('auth', {
+            result: true,
+            id: result.id
+          });
+        }).bind(this),
+        error: (function(obj, result) {
+          this.set('auth', false);
+          this.trigger('auth', {
+            result: false,
+            error: result.responseJSON
+          });
+        }).bind(this)
+      });
     },
 
     logout: function() {

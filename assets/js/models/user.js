@@ -62,22 +62,24 @@ define(function(require) {
     },
 
     register: function(attrs) {
-      if(this.isNew()) {
-        this.save(attrs, {
-          success: (function(obj, result) {
-            this.trigger('register', {
-              result: true,
-              id: result.id
-            });
-          }).bind(this),
-          error: (function(obj, result) {
-            this.trigger('register', {
-              result: false,
-              error: result.responseJSON
-            });
-          }).bind(this)
-        });
+      if(!this.isNew()) {
+        return;
       }
+
+      this.save(attrs, {
+        success: (function(obj, result) {
+          this.trigger('register', {
+            result: true,
+            id: result.id
+          });
+        }).bind(this),
+        error: (function(obj, result) {
+          this.trigger('register', {
+            result: false,
+            error: result.responseJSON
+          });
+        }).bind(this)
+      });
     }
   });
 
