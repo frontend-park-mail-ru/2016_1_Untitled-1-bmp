@@ -9,22 +9,8 @@ define(function(require) {
     user: new User(),
 
     initialize: function() {
-      this.listenTo(this.session, 'auth', (function(result) {
-        if(result.result) {
-          this.user.set('id', result.id);
-          this.user.fetch({
-            success: (function() {
-              this.trigger('auth', this.getAuthData());
-            }).bind(this)
-          });
-        }
-      }).bind(this));
-
-      this.listenTo(this.session, 'logout', (function() {
-        this.user.clear();
-        this.session.clear();
-        this.trigger('auth', this.getAuthData());
-      }).bind(this));
+      this.listenTo(this.session, 'auth', this._onAuth.bind(this));
+      this.listenTo(this.session, 'logout', this._onLogout.bind(this));
 
       this.session.listenTo(this.user, 'register', (function() {
         this.session.check();
@@ -46,6 +32,23 @@ define(function(require) {
         isAuth: this.session.isAuthorized(),
         user: this.user
       };
+    },
+
+    _onAuth: function(result) {
+      if(result.result) {
+        this.user.set('id', result.id);
+        this.user.fetch({
+          success: (function() {
+            this.trigger('auth', this.getAuthData());
+          }).bind(this)
+        });
+      }
+    },
+
+    _onLogout: function() {
+      this.user.clear();
+      this.session.clear();
+      this.trigger('auth', this.getAuthData());
     }
   });
 
