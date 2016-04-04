@@ -1,17 +1,65 @@
-<fest:template xmlns:fest="http://fest.mail.ru">
-    <div class="wrapper wrapper_narrow wrapper_center">
-        <h1>Эй, морячки!</h1>
+<fest:template xmlns:fest="http://fest.mail.ru" context_name="data">
+    <div class="wrapper wrapper_wide">
+        <div class="scene-ship">
+            <div class="scene-ship__cloud"></div>
+            <div class="scene-ship__cloud"></div>
+            <div class="scene-ship__cloud"></div>
+            <div class="scene-ship__cloud"></div>
+            <div class="scene-ship__cloud"></div>
+            <div class="scene-ship__wrapper"></div>
+            <div class="scene-ship__ocean"></div>
+            <div class="scene-ship__ocean-overlay"></div>
 
-        <div class="mainmenu">
-            <div class="mainmenu__logo">
-                <img src="/img/logo/logo-grey-256.png" />
+            <div class="scene-ship__ship-container">
+                <div class="scene-ship__ship">
+                    <div class="scene-ship__ship-bottom-1">
+                        <div class="scene-ship__ship-bottom-1-top"></div>
+                        <div class="scene-ship__ship-bottom-1-top-left"></div>
+                        <div class="scene-ship__ship-bottom-1-top-right">
+                            <div class="scene-ship__ship-bottom-1-top-right-window"></div>
+                        </div>
+                    </div>
+                    <div class="scene-ship__ship-body">
+                        <div class="scene-ship__ship-body-middle-window"></div>
+                        <div class="scene-ship__ship-body-blue-strip-top"></div>
+                        <div class="scene-ship__ship-body-blue-strip-bottom"></div>
+                        <div class="scene-ship__ship-body-top-back">
+                            <div class="scene-ship__ship-body-blue-strip-top-half"></div>
+                        </div>
+                        <div class="scene-ship__ship-body-chimney-base">
+                            <div class="scene-ship__ship-body-chimney"></div>
+                            <div class="scene-ship__ship-body-chimney"></div>
+                        </div>
+                    </div>
+                    <div class="scene-ship__ship-body-top-front">
+                        <div class="scene-ship__ship-body-top-antenna"></div>
+                        <div class="scene-ship__ship-body-circular-base"></div>
+                        <div class="scene-ship__ship-body-circular-base-1"></div>
+                    </div>
+                    <div class="scene-ship__ship-body-top-front-mirror"></div>
+                </div>
             </div>
+        </div>
+        <div class="mainmenu">
+            <div class="mainmenu__container">
+                <div class="mainmenu__logo">
+                    <img src="/img/logo/logo-grey-128.png" />
+                </div>
+                <h2 class="mainmenu__title">Морской бой</h2>
 
-            <a class="mainmenu__button" href="#game">Новая игра</a>
-            <a class="mainmenu__button" href="#login">Войти</a>
-            <a class="mainmenu__button" href="#signup">Регистрация</a>
-            <a class="mainmenu__button" href="#scoreboard">Рекорды</a>
+                <fest:if test="data.isAuth">
+                    <h3 class="mainmenu__hello">Привет, <fest:space /><b><fest:value>data.userLogin</fest:value></b>!</h3>
+                    <a href="#game" class="mainmenu__button">Новая игра</a>
+                    <a href="#scoreboard" class="mainmenu__button">Рекорды</a>
+                    <a href="#logout" class="mainmenu__button">Выйти</a>
+                </fest:if>
+                <fest:if test="!data.isAuth">
+                    <a href="#game" class="mainmenu__button">Новая игра</a>
+                    <a href="#login" class="mainmenu__button">Войти</a>
+                    <a href="#signup" class="mainmenu__button">Регистрация</a>
+                    <a href="#scoreboard" class="mainmenu__button">Рекорды</a>
+                </fest:if>
+            </div>
         </div>
     </div>
-    <div class="wave"></div>
 </fest:template>

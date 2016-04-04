@@ -1,13 +1,24 @@
 <fest:template xmlns:fest="http://fest.mail.ru" context_name="data">
-    <div class="wrapper wrapper_narrow wrapper_center">
-        <h1>Рекорды</h1>
-        <h4><a href="#">Главное меню →</a></h4>
-        <fest:each iterate="data.scores" index="i" value="v">
-            <h3>
-                <b><fest:value>v.name</fest:value></b>
-                <fest:space/>
-                <span><fest:value>v.score</fest:value></span>
-            </h3>
-        </fest:each>
+    <div class="wrapper wrapper_wide wrapper_center">
+        <div class="scene-dots">
+            <div class="scene-dots__wrapper"></div>
+            <canvas class="scene-dots__canvas"></canvas>
+            <div class="scene-dots__overlay">
+                <a href="#" class="scene-dots__button-back">←</a>
+                <h3 class="scene-dots__title">Рекорды</h3>
+                <a href="#" class="scene-dots__button-previous">
+                    <span class="scene-dots__button-previous-text">
+                        <i class="glyphicon glyphicon_chevron-left"></i>
+                    </span>
+                </a>
+                <h2 class="scene-dots__name">
+                </h2>
+                <a href="#" class="scene-dots__button-next">
+                    <span class="scene-dots__button-next-text">
+                        <i class="glyphicon glyphicon_chevron-right"></i>
+                    </span>
+                </a>
+            </div>
+        </div>
     </div>
 </fest:template>

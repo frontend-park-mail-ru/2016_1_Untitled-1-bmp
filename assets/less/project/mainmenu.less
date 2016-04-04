@@ -1,6 +1,25 @@
 .mainmenu {
-  width: 50%;
+  position: relative;
+  z-index: 11;
+  max-width: 30em;
   margin: 0 auto;
+  padding: 1em;
+
+  max-height: 100%;
+  overflow-y: scroll;
+
+  &__container {
+    margin-top: 1em;
+    padding: .8em .8em 2em .8em;
+    background-color: rgba(255, 255, 255, .9);
+    border-radius: 5px;
+    box-shadow: 4px 4px 3px darken(#0079a1, 10%);
+  }
+
+  &__title,
+  &__hello {
+    text-align: center;
+  }
 
   &__logo {
     text-align: center;
@@ -9,14 +28,43 @@
     transition: 2s;
 
     &:hover {
-      opacity: 0.6;
-      transition: 2s;
+      animation: wobble-horizontal 1s ease-in-out 0s infinite;
     }
   }
 
   &__button {
-    &:extend(.btn all);
-    &:extend(.btn_primary all);
-    &:extend(.btn_block all);
+    &:extend(.button all);
+    &:extend(.button_success all);
+    &:extend(.button_block all);
+    max-width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
+  }
+}
+
+@keyframes wobble-horizontal {
+  16.65% {
+    transform: translateX(12px);
+    opacity: 0.95;
+  }
+  33.3% {
+    transform: translateX(-8px);
+    opacity: 0.85;
+  }
+  49.95% {
+    transform: translateX(6px);
+    opacity: 0.75;
+  }
+  66.6% {
+    transform: translateX(-4px);
+    opacity: 0.85;
+  }
+  83.25% {
+    transform: translateX(2px);
+    opacity: 0.9;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 0.95;
   }
 }

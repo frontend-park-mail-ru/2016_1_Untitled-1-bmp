@@ -5,7 +5,9 @@ require.config({
     jquery: "vendor/jquery",
     underscore: "vendor/underscore",
     backbone: "vendor/backbone",
-    waves: "vendor/waves"
+    alertify: "vendor/alertify.min",
+    qunit: "vendor/qunit-1.21.0",
+    sinon: "vendor/sinon-1.17.3"
   },
   shim: {
     'backbone': {
@@ -14,6 +16,9 @@ require.config({
     },
     'underscore': {
       exports: '_'
+    },
+    'alertify': {
+      exports: 'alertify'
     }
   }
 });

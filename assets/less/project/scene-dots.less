@@ -1,0 +1,94 @@
+@scene-dots-bg: @scene-bg;
+
+.scene-dots {
+  &__wrapper {
+    z-index: -1;
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background: @scene-dots-bg;
+  }
+
+  &__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  &__title, &__name {
+    text-align: center;
+    color: #fff;
+  }
+
+  &__button {
+    &-back {
+      position: absolute;
+      top: 1.2em;
+      left: 4.5em;
+      width: 2em;
+      height: 2em;
+      text-align: center;
+      font-size: 1.2em;
+      line-height: 1.8em;
+      font-weight: bold;
+      background: #fff;
+      color: #79a8ae;
+      opacity: .8;
+
+      &:hover {
+        opacity: 1;
+        text-decoration: none;
+      }
+    }
+
+    &-previous,
+    &-next {
+      display: block;
+      position: absolute;
+      font-size: 1.2em;
+      width: 4em;
+      height: 100%;
+      line-height: 1.4em;
+      background: #fff;
+      color: #79a8ae;
+      opacity: .2;
+      transition: 1s;
+      text-align: center;
+
+      &:hover {
+        transition: 1s;
+        opacity: .7;
+        text-decoration: none;
+      }
+
+      &-text {
+        position: absolute;
+        top: 50%;
+      }
+    }
+
+    &-previous {
+      top: 0;
+      left: 0;
+
+      &-text {
+        left: 40%;
+      }
+    }
+
+    &-next {
+      top: 0;
+      right: 0;
+
+      &-text {
+        right: 40%;
+      }
+    }
+  }
+}

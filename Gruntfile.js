@@ -22,6 +22,19 @@ module.exports = function (grunt) {
       }
     },
 
+    postcss: {
+      // https://www.npmjs.com/package/grunt-postcss
+      options: {
+        map: true,
+        processors: [
+          require('autoprefixer')({ browsers: ['last 2 versions'] })
+        ]
+      },
+      dev: {
+        src: 'dist/css/main.css'
+      }
+    },
+
     requirejs: {
       // https://www.npmjs.com/package/grunt-requirejs
       prod: {
@@ -110,7 +123,7 @@ module.exports = function (grunt) {
         files: [{
           expand: true,
           cwd: 'templates',
-          src: '*.xml',
+          src: '**/*.xml',
           dest: 'dist/js/templates'
         }],
         options: {
@@ -144,7 +157,7 @@ module.exports = function (grunt) {
       },
       less: {
         files: ['assets/less/**/*'],
-        tasks: ['less:dev'],
+        tasks: ['less:dev', 'postcss'],
         options: {
           interrupt: true,
           atBegin: true
@@ -176,7 +189,7 @@ module.exports = function (grunt) {
       },
       copy_css: {
         files: ['assets/css/**/*'],
-        tasks: ['copy:css'],
+        tasks: ['copy:css', 'postcss'],
         options: {
           interrupt: true,
           atBegin: true
@@ -193,18 +206,36 @@ module.exports = function (grunt) {
         logConcurrentOutput: true
       }
     },
+
+    qunit: {
+      // https://www.npmjs.com/package/grunt-contrib-qunit
+      options: {
+        summaryOnly: true
+      },
+      all: ['dist/test.html']
+    }
   });
 
   grunt.loadNpmTasks('grunt-concurrent');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-less');
+  grunt.loadNpmTasks('grunt-contrib-qunit');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-fest');
   grunt.loadNpmTasks('grunt-jade');
+  grunt.loadNpmTasks('grunt-postcss');
   grunt.loadNpmTasks('grunt-requirejs');
   grunt.loadNpmTasks('grunt-shell');
 
+  grunt.event.on('qunit.moduleStart', function(name) {
+    grunt.log.subhead(name);
+  });
+  grunt.event.on('qunit.testDone', function(name, failed, passed, total) {
+    grunt.log.ok(name, '[', passed,  '/', total, ']');
+  });
+
   grunt.registerTask('dev', ['concurrent:dev']);
-  grunt.registerTask('prod', ['fest', 'copy:css', 'less:prod', 'copy:fonts', 'copy:img', 'jade:prod', 'requirejs:prod']);
+  grunt.registerTask('prod', ['fest', 'copy:css', 'less:prod', 'copy:fonts', 'copy:img', 'jade:prod', 'requirejs:prod', 'postcss:dev']);
   grunt.registerTask('default', ['dev']);
+  grunt.registerTask('test', ['fest', 'jade:dev', 'copy:js_dev', 'copy:css', 'qunit:all']);
 };

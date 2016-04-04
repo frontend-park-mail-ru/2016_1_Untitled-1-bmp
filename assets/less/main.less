@@ -1,14 +1,14 @@
 // base of Bootstrap
-@import "vars";
+@import 'vars';
 
-@import "_/mixins";
-@import "_/normalize";
+@import '_/mixins';
+@import '_/normalize';
 
-// @import "_/glyphicons"; // uncomment if you need some glyphicon
-@import "_/scaffolding";
-@import "_/type";
-@import (reference) "_/utilities";
-@import (reference) "_/responsive-utilities";
+@import "_/glyphicons";
+@import '_/scaffolding';
+@import '_/type';
+@import (reference) '_/utilities';
+@import (reference) '_/responsive-utilities';
 
 
 // project
@@ -16,11 +16,30 @@
 @wrapper-width-narrow: 45em;
 @img-path: '../img/';
 
-@import "project/mixins";
-@import "project/body";
-@import "project/wrapper";
-@import "project/buttons"; // TODO: rewrite from bootstrap
-@import "project/forms"; // TODO: rewrite from bootstrap
-@import "project/mainmenu";
-@import "project/waves";
-@import "project/game-field";
+@scene-sky-color: #4297cd;
+@scene-sky-color2: #cbebdb;
+@scene-ocean-color: rgba(25, 93, 164, .8);
+@scene-ocean-overlay-color: rgba(25, 93, 164, .35);
+@scene-bg: linear-gradient(to top, @scene-sky-color2 0%, @scene-sky-color 120%);
+@scene-ocean-bg: linear-gradient(to bottom, lighten(@scene-ocean-color, 20%) 0%, @scene-ocean-color 100%);
+@scene-ocean-overlay-bg: linear-gradient(to bottom, lighten(@scene-ocean-overlay-color, 10%) 0%, @scene-ocean-overlay-color 100%);
+
+@import 'project/mixins';
+@import 'project/wrapper';
+@import (reference) 'project/buttons';
+@import (reference) 'project/forms';
+
+@import 'project/mainmenu';
+@import 'project/game';
+@import 'project/game-field';
+
+@import 'project/signup-form';
+@import 'project/login-form';
+
+@import 'project/scene-ship';
+@import 'project/scene-dots';
+
+
+// plugin
+@import (inline) '../css/alertify.min.css';
+@import (inline) '../css/alertify/bootstrap.min.css';

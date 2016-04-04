@@ -1,44 +1,66 @@
 define(function (require) {
   var Backbone = require('backbone');
-  var mainView = require('views/main'), // TODO: rewrite to MainView, waves!
+  var _ = require('underscore');
+  var app = require('app');
+  var MainView = require('views/main'),
       ScoreboardView = require('views/scoreboard'),
       GameView = require('views/game'),
       LoginView = require('views/login'),
       SignupView = require('views/signup');
+
+  var viewManager = require('views/manager');
+
+  var mainView = new MainView();
+  var scoreboardView = new ScoreboardView();
+  var gameView = new GameView();
+  var loginView = new LoginView();
+  var signupView = new SignupView();
+
+  _.each([mainView,
+         scoreboardView,
+         gameView,
+         loginView,
+         signupView], function(view) {
+           viewManager.addView(view);
+  });
 
   var Router = Backbone.Router.extend({
     routes: {
       'scoreboard': 'scoreboardAction',
       'game':       'gameAction',
       'login':      'loginAction',
+      'logout':     'logoutAction',
       'signup':     'signupAction',
       '*default':   'defaultAction',
     },
 
-    $page: $('#page'),
+    go: function(where) {
+      return this.navigate(where, { trigger: true });
+    },
 
     defaultAction: function () {
-      this.$page.html(mainView.el);
+      mainView.show();
     },
 
     scoreboardAction: function () {
-      var scoreboardView = new ScoreboardView();
-      this.$page.html(scoreboardView.el);
+      scoreboardView.show();
     },
 
     gameAction: function () {
-      var gameView = new GameView();
-      this.$page.html(gameView.el);
+      gameView.show();
     },
 
     loginAction: function () {
-      var loginView = new LoginView();
-      this.$page.html(loginView.el);
+      loginView.show();
+    },
+
+    logoutAction: function () {
+      app.getSession().logout();
+      this.go('');
     },
 
     signupAction: function () {
-      var signupView = new SignupView();
-      this.$page.html(signupView.el);
+      signupView.show();
     }
   });
 

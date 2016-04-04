@@ -21,7 +21,7 @@ define(function(require) {
 
     var last = rangeMax + 1;
     _.each(collection.toJSON(), function(item) {
-      QUnit.ok(item.score < last, item.score.toString() + ' < ' + last);
+      QUnit.ok(item.score <= last, item.score.toString() + ' <= ' + last);
       last = item.score;
     });
   });

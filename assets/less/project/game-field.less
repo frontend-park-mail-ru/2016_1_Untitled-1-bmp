@@ -5,6 +5,8 @@
 @cell-size: 35px;
 @cell-header-size: 35px;
 @cell-header-color: @brand-primary;
+@ship-border-color: #00f;
+@ship-bg-color: rgba(0, 0, 255, .03);
 
 .game-field {
   &__cell {
@@ -13,6 +15,7 @@
     border: @cell-border-color solid @cell-border-width;
     cursor: pointer;
     background-color: @cell-background-color;
+    position: relative;
 
     &:hover {
       background-color: @cell-background-color-hover;
@@ -42,14 +45,114 @@
         background-color: @cell-background-color;
       }
     }
+
+    &_busy {
+      &, &:hover {
+        background-color: @brand-success;
+      }
+    }
+
+    &_miss {
+      &, &:hover {
+        background-color: @brand-danger;
+      }
+    }
   }
 
-  &-container {
-    &_left {
-      float: left;
+  &-creator {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    .clearfix();
+
+    &__button {
+      margin-top: 2em;
+      &:extend(.button all);
+      &:extend(.button_success all);
+      &:extend(.button_block all);
     }
-    &_right {
-      float: right;
+
+    &__ship {
+      z-index: 2;
+      top: 0px;
+      left: 0px;
+      display: inline-block;
+      height: @cell-size - 1;
+      margin-right: @cell-size;
+      background-color: @ship-bg-color;
+      border: 2px solid @ship-border-color;
+      cursor: pointer;
+      transition: .5s;
+      box-sizing: border-box;
+
+      &:hover {
+        transition: .5s;
+        background-color: #fff;
+      }
+
+      &_field {
+        display: block;
+        position: absolute;
+        border-width: 1px;
+        &, &:hover {
+          background-color: @ship-bg-color;
+        }
+      }
+
+      &_selected {
+        border-color: @brand-warning;
+        cursor: inherit;
+        &, &:hover {
+          background-color: lighten(@brand-warning, 45%);
+        }
+      }
+
+      &_left {
+        border: 2px dashed @gray;
+        cursor: inherit;
+        &, &:hover {
+          background-color: #fff;
+        }
+      }
+
+      &_1 {
+        width: @cell-size - 1;
+      }
+
+      &_2 {
+        width: (@cell-size - 1) * 2 + 1;
+      }
+
+      &_3 {
+        width: (@cell-size - 1) * 3 + 2;
+      }
+
+      &_4 {
+        width: (@cell-size - 1) * 4 + 3;
+      }
+
+
+      &-line {
+        position: relative;
+        margin: 0;
+        margin-top: 1.5em;
+      }
+    }
+
+    &__ships {
+      float: left;
+      text-align: left;
+      width: 350px;
+
+      &-help {
+        &:extend(h5);
+        margin-bottom: 1.5em;
+      }
+    }
+
+    &__field {
+      margin-left: 3em;
+      float: left;
     }
   }
 }

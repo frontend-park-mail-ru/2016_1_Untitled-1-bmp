@@ -1,7 +1,7 @@
 define(function(require) {
   var Backbone = require('backbone');
   var template = require('templates/main');
-  var waves = require('waves');
+  var app = require('app');
 
   var MainView = Backbone.View.extend({
     initialize: function() {
@@ -10,13 +10,27 @@ define(function(require) {
     },
 
     render: function() {
-      var html = this.template();
+      var authData = app.getAuthData();
+      var html = this.template({
+        isAuth: authData.isAuth,
+        userLogin: authData.user.get('login')
+      });
       this.$el.html(html);
+    },
 
-      var wave = this.$el.find('.wave');
-      waves(wave);
+    show: function() {
+      this.trigger('show');
+      this.$el.show();
+    },
+
+    hide: function() {
+      this.$el.hide();
+    },
+
+    onAuth: function() {
+      this.render();
     }
   });
 
-  return new MainView();
+  return MainView;
 });

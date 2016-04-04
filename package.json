@@ -4,6 +4,7 @@
   "description": "Cool sea battle",
   "license": "MIT",
   "devDependencies": {
+    "autoprefixer": "^6.3.5",
     "dateformat": "^1.0.12",
     "errorhandler": "^1.4.3",
     "express": "^4.13.4",
@@ -11,9 +12,11 @@
     "grunt-concurrent": "^2.1.0",
     "grunt-contrib-copy": "^0.8.2",
     "grunt-contrib-less": "^1.2.0",
+    "grunt-contrib-qunit": "^1.1.0",
     "grunt-contrib-watch": "^0.6.1",
     "grunt-fest": "^0.1.6",
     "grunt-jade": "^0.5.1",
+    "grunt-postcss": "^0.8.0",
     "grunt-requirejs": "^0.4.2",
     "grunt-shell": "^1.1.2"
   },
@@ -22,6 +25,7 @@
     "url": "https://github.com/ValerGit/2016_1_Untitled-1-bmp"
   },
   "scripts": {
-    "start": "node server"
+    "start": "node server",
+    "test": "grunt test"
   }
 }
