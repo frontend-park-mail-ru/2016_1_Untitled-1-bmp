@@ -70,46 +70,51 @@ define(function(require) {
         }).bind(this));
 
         var turn2 = (function() {
-          setTurn(2);
-
-          var check = true;
-          var cell, cell1, cell2;
-          var i = 0;
-          do {
-            cell1 = Math.floor(Math.random() * size) + 1;
-            cell2 = Math.floor(Math.random() * size) + 1;
-            cell = this.$el.find('#field1 .game-field__cell[data-x='+cell1+'][data-y='+cell2+']');
-            check = cell.hasClass('game-field__cell_busy') || cell.hasClass('game-field__cell_miss');
-            i++;
-          }
-          while(check || i < size * size);
-
-          if(cell.data('busy')) {
-            cell.addClass('game-field__cell_busy');
-            var isWin = true;
-            $('#field1 .game-field__cell').each(function() {
-              if($(this).data('busy') && !$(this).hasClass('game-field__cell_busy')) {
-                isWin = false;
-                return false;
-              }
-            });
-
-            if(isWin) {
-              alertify.alert('Game over', 'Вы проиграли! :(');
+          setTurn(2, 1500, (function() {
+            var check = true;
+            var cell, cell1, cell2;
+            var i = 0;
+            do {
+              cell1 = Math.floor(Math.random() * size) + 1;
+              cell2 = Math.floor(Math.random() * size) + 1;
+              cell = this.$el.find('#field1 .game-field__cell[data-x='+cell1+'][data-y='+cell2+']');
+              check = cell.hasClass('game-field__cell_busy') || cell.hasClass('game-field__cell_miss');
+              i++;
             }
-            turn2();
-          }
-          else
-          {
-            cell.addClass('game-field__cell_miss');
-            setTurn(1);
-          }
+            while(check || i < size * size);
+
+            if(cell.data('busy')) {
+              cell.addClass('game-field__cell_busy');
+              var isWin = true;
+              $('#field1 .game-field__cell').each(function() {
+                if($(this).data('busy') && !$(this).hasClass('game-field__cell_busy')) {
+                  isWin = false;
+                  return false;
+                }
+              });
+
+              if(isWin) {
+                alertify.alert('Game over', 'Вы проиграли! :(');
+              }
+              turn2();
+            }
+            else
+            {
+              cell.addClass('game-field__cell_miss');
+              setTurn(1, 3000);
+            }
+          }).bind(this));
+
         }).bind(this);
 
-        var setTurn = (function(n) {
+        var setTurn = (function(n, wait, cb) {
           var other = n % 2 + 1;
-          this.$el.find('#field' + n).css('opacity', '0.7');
-          this.$el.find('#field' + other).css('opacity', '1');
+
+          wait = wait || 1500;
+          cb = cb || function() {};
+
+          this.$el.find('#field' + other).animate({opacity: '1'}, wait, cb);
+          this.$el.find('#field' + n).animate({opacity: '0.3'}, wait);
           this.turn = n;
         }).bind(this);
 
