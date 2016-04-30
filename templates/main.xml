@@ -1,45 +1,6 @@
 <fest:template xmlns:fest="http://fest.mail.ru" context_name="data">
+    <fest:include src="scene-ship.xml" />
     <div class="wrapper wrapper_wide">
-        <div class="scene-ship">
-            <div class="scene-ship__cloud"></div>
-            <div class="scene-ship__cloud"></div>
-            <div class="scene-ship__cloud"></div>
-            <div class="scene-ship__cloud"></div>
-            <div class="scene-ship__cloud"></div>
-            <div class="scene-ship__wrapper"></div>
-            <div class="scene-ship__ocean"></div>
-            <div class="scene-ship__ocean-overlay"></div>
-
-            <div class="scene-ship__ship-container">
-                <div class="scene-ship__ship">
-                    <div class="scene-ship__ship-bottom-1">
-                        <div class="scene-ship__ship-bottom-1-top"></div>
-                        <div class="scene-ship__ship-bottom-1-top-left"></div>
-                        <div class="scene-ship__ship-bottom-1-top-right">
-                            <div class="scene-ship__ship-bottom-1-top-right-window"></div>
-                        </div>
-                    </div>
-                    <div class="scene-ship__ship-body">
-                        <div class="scene-ship__ship-body-middle-window"></div>
-                        <div class="scene-ship__ship-body-blue-strip-top"></div>
-                        <div class="scene-ship__ship-body-blue-strip-bottom"></div>
-                        <div class="scene-ship__ship-body-top-back">
-                            <div class="scene-ship__ship-body-blue-strip-top-half"></div>
-                        </div>
-                        <div class="scene-ship__ship-body-chimney-base">
-                            <div class="scene-ship__ship-body-chimney"></div>
-                            <div class="scene-ship__ship-body-chimney"></div>
-                        </div>
-                    </div>
-                    <div class="scene-ship__ship-body-top-front">
-                        <div class="scene-ship__ship-body-top-antenna"></div>
-                        <div class="scene-ship__ship-body-circular-base"></div>
-                        <div class="scene-ship__ship-body-circular-base-1"></div>
-                    </div>
-                    <div class="scene-ship__ship-body-top-front-mirror"></div>
-                </div>
-            </div>
-        </div>
         <div class="mainmenu">
             <div class="mainmenu__container">
                 <div class="mainmenu__logo">
