@@ -46,19 +46,6 @@
                     <img src="/img/logo/logo-grey-128.png" />
                 </div>
                 <h2 class="mainmenu__title">Морской бой</h2>
-
-                <fest:if test="data.isAuth">
-                    <h3 class="mainmenu__hello">Привет, <fest:space /><b><fest:value>data.userLogin</fest:value></b>!</h3>
-                    <a href="#game" class="mainmenu__button">Новая игра</a>
-                    <a href="#scoreboard" class="mainmenu__button">Рекорды</a>
-                    <a href="#logout" class="mainmenu__button">Выйти</a>
-                </fest:if>
-                <fest:if test="!data.isAuth">
-                    <a href="#game" class="mainmenu__button">Новая игра</a>
-                    <a href="#login" class="mainmenu__button">Войти</a>
-                    <a href="#signup" class="mainmenu__button">Регистрация</a>
-                    <a href="#scoreboard" class="mainmenu__button">Рекорды</a>
-                </fest:if>
             </div>
         </div>
     </div>
