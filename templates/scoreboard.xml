@@ -8,14 +8,14 @@
                 <h3 class="scene-dots__title">Рекорды</h3>
                 <a href="#" class="scene-dots__button-previous">
                     <span class="scene-dots__button-previous-text">
-                        <i class="glyphicon glyphicon_chevron-left"></i>
+                        «
                     </span>
                 </a>
                 <h2 class="scene-dots__name">
                 </h2>
                 <a href="#" class="scene-dots__button-next">
                     <span class="scene-dots__button-next-text">
-                        <i class="glyphicon glyphicon_chevron-right"></i>
+                        »
                     </span>
                 </a>
             </div>
