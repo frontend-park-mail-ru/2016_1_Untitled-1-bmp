@@ -9,6 +9,25 @@
         <div class="scene-ship__ocean"></div>
         <div class="scene-ship__ocean-overlay"></div>
 
+
+        <div class="scene-ship__ballon-container">
+            <div class="scene-ship__ballon">
+                <div class="scene-ship__ballon-inner">
+                    <div class="scene-ship__ballon-ball">
+                        <div class="scene-ship__ballon-ball-inner">
+                            <div class="scene-ship__ballon-ball-inner--0"></div>
+                            <div class="scene-ship__ballon-ball-inner--1"></div>
+                            <div class="scene-ship__ballon-ball-inner--2"></div>
+                            <div class="scene-ship__ballon-ball-inner--3"></div>
+                            <div class="scene-ship__ballon-ball-inner--4"></div>
+                        </div>
+                    </div>
+                    <div class="scene-ship__ballon-rope"></div>
+                    <div class="scene-ship__ballon-seat"></div>
+                </div>
+            </div>
+        </div>
+
         <div class="scene-ship__ship-container">
             <div class="scene-ship__ship">
                 <div class="scene-ship__ship-bottom-1">
