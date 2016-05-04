@@ -13,6 +13,7 @@ body {
 a {
   color: @link-color;
   text-decoration: none;
+  transition: 1s;
 
   &:hover,
   &:focus {
@@ -38,7 +39,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1, h2, h3 {
-  margin-top: @line-height;
+  margin-top: @line-height/ 3;
   margin-bottom: (@line-height / 2);
 
   small {
@@ -46,7 +47,7 @@ h1, h2, h3 {
   }
 }
 h4, h5, h6 {
-  margin-top: (@line-height / 2);
+  margin-top: (@line-height / 5);
   margin-bottom: (@line-height / 2);
 
   small {

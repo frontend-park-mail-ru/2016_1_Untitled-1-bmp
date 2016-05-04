@@ -1,6 +1,6 @@
 .page-main {
   width: 100%;
-  height: 300px;
+  height: 23em;
   max-width: 30em;
   margin: 0 auto;
   padding: 1em;
@@ -16,13 +16,17 @@
 
   &__logo {
     text-align: center;
+    margin-bottom: @line-height;
+
+    &-text {
+      &:extend(h2);
+    }
 
     &-img {
       width: 128px;
       height: 128px;
       opacity: .7;
       transition: 2s;
-      margin-bottom: @line-height;
       &:hover {
         opacity: .5;
       }
@@ -30,6 +34,8 @@
   }
 
   &__menu {
+    .clearfix();
+
     &-el {
       float: left;
       text-align: center;
@@ -37,20 +43,37 @@
       &--3 {
         width: 33%;
       }
-      &--4 {
-        width: 24%;
-      }
 
       &-link {
+        font-size: 1.1em;
+
         &:hover {
           border: none;
+        }
+
+        &_play {
+          color: @color-orange;
+          &:hover {
+            color: darken(@color-orange, 15%);
+          }
+        }
+
+        &_records {
+          color: @color-green;
+          &:hover {
+            color: darken(@color-green, 15%);
+          }
+        }
+
+        &_rules {
         }
       }
 
       &-img {
         display: block;
-        font-size: 3.4em;
-        margin-bottom: @line-height / 2.6;
+        font-size: 4em;
+        margin-bottom: @line-height / 2.3;
+
         &_play {
           &:extend(.glyphicon all);
           &:extend(.glyphicon_play all);
