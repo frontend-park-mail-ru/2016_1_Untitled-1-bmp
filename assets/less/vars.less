@@ -30,3 +30,41 @@
 @icon-font-svg-id: 'glyphicons_halflingsregular';
 
 // = project =
+@wrapper-width: 60em;
+@img-path: '../img/';
+
+// = scenes =
+@scene-sky-color: #4297cd;
+@scene-sky-color2: #cbebdb;
+@scene-ocean-color: rgba(25, 93, 164, .8);
+@scene-ocean-overlay-color: rgba(25, 93, 164, .35);
+@scene-bg: linear-gradient(to top, @scene-sky-color2 0%, @scene-sky-color 120%);
+@scene-ocean-bg: linear-gradient(to bottom, lighten(@scene-ocean-color, 20%) 0%, @scene-ocean-color 100%);
+@scene-ocean-overlay-bg: linear-gradient(to bottom, lighten(@scene-ocean-overlay-color, 10%) 0%, @scene-ocean-overlay-color 100%);
+
+// = scene-ship =
+@scene-ship-bg-color: @scene-sky-color;
+@scene-ship-bg: @scene-bg;
+@scene-ship-ocean-bg: @scene-ocean-bg;
+@scene-ship-ocean-overlay-bg: @scene-ocean-overlay-bg;
+@scene-ship-ocean-color: @scene-ocean-color;
+@scene-ship-ocean-overlay-color: @scene-ocean-overlay-color;
+@scene-ship-ship-duration: 60s;
+@scene-ship-cloud-duration: 60s;
+
+// ballon
+@scene-ship-ballon-seat-light: #f0dca2;
+@scene-ship-ballon-seat-medium: #e0b58c;
+@scene-ship-ballon-seat-dark: #cd7856;
+@scene-ship-ballon-dark: #bf5caa;
+@scene-ship-ballon-light: #eadada;
+@scene-ship-ballon-medium: #d59dc5;
+
+@scene-ship-ballon-width: 100px;
+@scene-ship-ballon-height: 100px;
+@scene-ship-ballon-border: 3px;
+
+@scene-ship-ballon-seat-size: @scene-ship-ballon-width / 3.5;
+
+// = scene-dots =
+@scene-dots-bg: @scene-bg;

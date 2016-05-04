@@ -1,12 +1,29 @@
 <fest:template xmlns:fest="http://fest.mail.ru" context_name="data">
     <fest:include src="scene-ship.xml" />
     <div class="wrapper wrapper_wide">
-        <div class="mainmenu">
-            <div class="mainmenu__container">
-                <div class="mainmenu__logo">
-                    <img src="/img/logo/logo-grey-128.png" />
+        <div class="page-main">
+            <div class="page-main__logo">
+                <img class="page-main__logo-img" src="/img/logo/logo.svg" />
+            </div>
+            <div class="page-main__menu">
+                <div class="page-main__menu-el page-main__menu-el--3">
+                    <a href="#" class="page-main__menu-el-link">
+                        <i class="page-main__menu-el-img page-main__menu-el-img_play"></i>
+                        <span class="page-main__menu-el-text">Играть</span>
+                    </a>
                 </div>
-                <h2 class="mainmenu__title">Морской бой</h2>
+                <div class="page-main__menu-el page-main__menu-el--3">
+                    <a href="#" class="page-main__menu-el-link">
+                        <i class="page-main__menu-el-img page-main__menu-el-img_records"></i>
+                        <span class="page-main__menu-el-text">Рекорды</span>
+                    </a>
+                </div>
+                <div class="page-main__menu-el page-main__menu-el--3">
+                    <a href="#" class="page-main__menu-el-link">
+                        <i class="page-main__menu-el-img page-main__menu-el-img_rules"></i>
+                        <span class="page-main__menu-el-text">Правила</span>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
