@@ -18,9 +18,12 @@ define(function(require) {
       this.$el.html(html);
     },
 
-    show: function() {
-      this.trigger('show');
-      this.$el.show();
+    show: function(loader) {
+      loader(function(cb) {
+        this.trigger('show');
+        this.$el.show();
+        cb();
+      }.bind(this));
     },
 
     hide: function() {

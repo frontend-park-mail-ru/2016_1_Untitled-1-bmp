@@ -4,8 +4,6 @@ define(function(require) {
   var template = require('templates/scoreboard');
   var scene = require('features/scene-dots');
 
-  var loader = require('views/page-loader');
-
   var ScoreboardView = Backbone.View.extend({
     events: {
       'click .scene-dots__button-previous': 'showPrevious',
@@ -59,8 +57,8 @@ define(function(require) {
       this.showRecord();
     },
 
-    show: function() {
-      loader.show(function() {
+    show: function(loader) {
+      loader(function(cb) {
         this.collection = new ScoreBoardCollection(
           [
             { 'name': 'Владимир Кличко',      'score' : 100 },
@@ -80,7 +78,7 @@ define(function(require) {
         this.render();
         this.$el.show();
 
-        loader.hide();
+        cb();
       }.bind(this));
     },
 

@@ -15,6 +15,8 @@ define(function (require) {
            viewManager.addView(view);
   });
 
+  var loader = require('loader');
+
   var Router = Backbone.Router.extend({
     routes: {
       'scoreboard': 'scoreboardAction',
@@ -26,11 +28,11 @@ define(function (require) {
     },
 
     defaultAction: function () {
-      mainView.show();
+      mainView.show(loader);
     },
 
     scoreboardAction: function () {
-      scoreboardView.show();
+      scoreboardView.show(loader);
     }
   });
 
