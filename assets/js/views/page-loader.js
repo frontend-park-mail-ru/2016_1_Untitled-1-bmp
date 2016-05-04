@@ -13,8 +13,11 @@ define(function(require) {
       });
     },
 
-    hide: function(cb) {
-      this.$el.fadeOut();
+    hide: function(cb, duration) {
+      this.$el.fadeOut({
+        duration: duration || 500,
+        complete: cb || function() {}
+      });
     }
   });
 

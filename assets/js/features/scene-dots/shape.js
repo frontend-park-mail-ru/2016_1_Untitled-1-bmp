@@ -12,6 +12,9 @@ define(function(require) {
     this.y = 0;
     this.width = 0;
     this.height = 0;
+
+    this.lastShapeBuilder = null;
+    this.resizeTimeout = null;
   };
 
   Shape.prototype = {
@@ -38,7 +41,24 @@ define(function(require) {
         });
     },
 
-    change: function(shape, fast) {
+    resize: function() {
+      if(this.resizeTimeout != null) {
+        clearTimeout(this.resizeTimeout);
+      }
+
+      this.resizeTimeout = setTimeout((function() {
+        this.change(this.lastShapeBuilder, true);
+      }).bind(this), 300);
+    },
+
+    change: function(shapeBuilder, fast) {
+      if(typeof shapeBuilder != 'function') {
+        return;
+      }
+
+      var shape = shapeBuilder();
+      this.lastShapeBuilder = shapeBuilder;
+
       var area = this.drawer.getArea();
 
       this.width = shape.width;

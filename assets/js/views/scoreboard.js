@@ -4,6 +4,8 @@ define(function(require) {
   var template = require('templates/scoreboard');
   var scene = require('features/scene-dots');
 
+  var loader = require('views/page-loader');
+
   var ScoreboardView = Backbone.View.extend({
     events: {
       'click .scene-dots__button-previous': 'showPrevious',
@@ -12,28 +14,8 @@ define(function(require) {
 
     initialize: function() {
       this.template = template;
-      this.collection = new ScoreBoardCollection(
-        [
-          { 'name': 'Владимир Кличко',      'score' : 100 },
-          { 'name': 'Халк',                 'score' : 509 },
-          { 'name': 'Виктор Пелевин',       'score' : 104 },
-          { 'name': 'Полковник',            'score' : 888 },
-          { 'name': 'Джон Леннон',          'score' : 930 },
-          { 'name': 'Михаил Ходорковский',  'score' : 391 },
-          { 'name': 'Дядя Вова',            'score' : 175 },
-          { 'name': 'Диего Дзодана',        'score' : 45 },
-          { 'name': 'Рома Широков',         'score' : 9 },
-          { 'name': 'Валерий Самерман',     'score' : 956 }
-        ]
-      );
 
-      this.render();
-
-      this.index = 0;
-      this.scene = scene(this.$el.find('.scene-dots__canvas'));
-      this.$name = this.$el.find('.scene-dots__name');
-
-      this.showRecord();
+      this.isRendered = false;
     },
 
     showRecord: function() {
@@ -64,14 +46,42 @@ define(function(require) {
     },
 
     render: function() {
-      var html = this.template();
+      if(!this.isRendered) {
+        var html = this.template();
+        this.$el.html(html);
+        this.scene = scene(this.$el.find('.scene-dots__canvas'));
+        this.$name = this.$el.find('.scene-dots__name');
 
-      this.$el.html(html);
+        this.isRendered = true;
+      }
+
+      this.index = 0;
+      this.showRecord();
     },
 
     show: function() {
-      this.trigger('show');
-      this.$el.show();
+      loader.show(function() {
+        this.collection = new ScoreBoardCollection(
+          [
+            { 'name': 'Владимир Кличко',      'score' : 100 },
+            { 'name': 'Халк',                 'score' : 509 },
+            { 'name': 'Виктор Пелевин',       'score' : 104 },
+            { 'name': 'Полковник',            'score' : 888 },
+            { 'name': 'Джон Леннон',          'score' : 930 },
+            { 'name': 'Михаил Ходорковский',  'score' : 391 },
+            { 'name': 'Дядя Вова',            'score' : 175 },
+            { 'name': 'Диего Дзодана',        'score' : 45 },
+            { 'name': 'Рома Широков',         'score' : 9 },
+            { 'name': 'Валерий Самерман',     'score' : 956 }
+          ]
+        );
+
+        this.trigger('show');
+        this.render();
+        this.$el.show();
+
+        loader.hide();
+      }.bind(this));
     },
 
     hide: function() {
