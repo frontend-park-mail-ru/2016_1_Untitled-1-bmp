@@ -1,10 +1,11 @@
 define(function(require) {
   var Backbone = require('backbone');
-  var template = require('templates/main');
+  var template = require('templates/login');
 
-  var MainView = Backbone.View.extend({
+  var LoginView = Backbone.View.extend({
     initialize: function() {
       this.template = template;
+      this.render();
     },
 
     render: function() {
@@ -15,7 +16,6 @@ define(function(require) {
     show: function(loader) {
       loader(function(cb) {
         this.trigger('show');
-        this.render();
         this.$el.show();
         cb();
       }.bind(this));
@@ -23,8 +23,12 @@ define(function(require) {
 
     hide: function() {
       this.$el.hide();
+    },
+
+    showUserPanel: function() {
+      return false;
     }
   });
 
-  return MainView;
+  return LoginView;
 });

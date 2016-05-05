@@ -1,0 +1,8 @@
+<fest:template xmlns:fest="http://fest.mail.ru" context_name="data">
+    <fest:include src="scene-ship.xml" />
+    <div class="wrapper wrapper_wide">
+        <div class="page-login">
+        </div>
+    </div>
+</fest:template>
+

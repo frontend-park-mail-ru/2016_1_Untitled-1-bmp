@@ -4,8 +4,9 @@ define(function(require) {
 
   var User = Backbone.Model.extend({
     defaults: {
-      login: 'guest',
-      email: ''
+      login: '',
+      email: '',
+      isAnonymous: false
     },
 
     urlRoot: '/api/user',

@@ -8,6 +8,7 @@ define(function(require) {
     initialize: function() {
       this.template = template;
       this.$el = $('.user-panel');
+      this.toShow = false;
     },
 
     render: function() {
@@ -21,17 +22,19 @@ define(function(require) {
     },
 
     show: function() {
+      this.toShow = true;
       this.render();
-      this.$el.fadeIn();
+      this.$el.fadeIn(400);
     },
 
     hide: function() {
-      this.$el.fadeOut();
+      this.toShow = false;
+      this.$el.fadeOut(400);
     },
 
     onChange: function() {
-      if(this.$el.is(':visible')) {
-        this.$el.fadeOut(function() {
+      if(this.toShow) {
+        this.$el.fadeOut(100, function() {
           this.render();
           this.show();
         }.bind(this));
