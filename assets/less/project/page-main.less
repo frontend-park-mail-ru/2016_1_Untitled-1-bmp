@@ -41,26 +41,29 @@
       text-align: center;
 
       &--3 {
-        width: 33%;
+        width: (100% / 3);
       }
 
       &-link {
         font-size: 1.1em;
 
-        &:hover {
+        &:hover,
+        &:focus {
           border: none;
         }
 
         &_play {
           color: @color-orange;
-          &:hover {
+          &:hover,
+          &:focus {
             color: darken(@color-orange, 15%);
           }
         }
 
         &_records {
           color: @color-green;
-          &:hover {
+          &:hover,
+          &:focus {
             color: darken(@color-green, 15%);
           }
         }
