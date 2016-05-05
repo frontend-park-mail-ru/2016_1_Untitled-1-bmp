@@ -10,11 +10,7 @@ define(function(require) {
     },
 
     render: function() {
-      var authData = app.getAuthData();
-      var html = this.template({
-        isAuth: authData.isAuth,
-        userLogin: authData.user.get('login')
-      });
+      var html = this.template();
       this.$el.html(html);
     },
 
@@ -29,10 +25,6 @@ define(function(require) {
     hide: function() {
       this.$el.hide();
     },
-
-    onAuth: function() {
-      this.render();
-    }
   });
 
   return MainView;
