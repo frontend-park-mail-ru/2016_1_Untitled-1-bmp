@@ -16,35 +16,35 @@
   height: @loader-width;
   border-radius: 100%;
   box-shadow: @loader-width @loader-width @loader-color1,
-              -@loader-width @loader-width @loader-color2,
-              -@loader-width -@loader-width @loader-color2,
-              @loader-width -@loader-width @loader-color3;
+  -@loader-width @loader-width @loader-color2,
+  -@loader-width -@loader-width @loader-color2,
+  @loader-width -@loader-width @loader-color3;
   animation: loader-animation ease infinite 4.6s;
 }
 
 @keyframes loader-animation {
   0%, 100% {
     box-shadow: @loader-width @loader-width @loader-color3,
-                -@loader-width @loader-width @loader-color4,
-                -@loader-width -@loader-width @loader-color4,
-                @loader-width -@loader-width @loader-color5;
+    -@loader-width @loader-width @loader-color4,
+    -@loader-width -@loader-width @loader-color4,
+    @loader-width -@loader-width @loader-color5;
   }
   25% {
     box-shadow: -@loader-width @loader-width @loader-color5,
-                -@loader-width -@loader-width @loader-color1,
-                @loader-width -@loader-width @loader-color1,
-                @loader-width @loader-width @loader-color2;
+    -@loader-width -@loader-width @loader-color1,
+    @loader-width -@loader-width @loader-color1,
+    @loader-width @loader-width @loader-color2;
   }
   50% {
     box-shadow: -@loader-width -@loader-width @loader-color2,
-                @loader-width -@loader-width @loader-color3,
-                @loader-width @loader-width @loader-color3,
-                -@loader-width @loader-width @loader-color4;
+    @loader-width -@loader-width @loader-color3,
+    @loader-width @loader-width @loader-color3,
+    -@loader-width @loader-width @loader-color4;
   }
   75% {
     box-shadow: @loader-width -@loader-width @loader-color4,
-                @loader-width @loader-width @loader-color5,
-                -@loader-width @loader-width @loader-color5,
-                -@loader-width -@loader-width @loader-color1;
+    @loader-width @loader-width @loader-color5,
+    -@loader-width @loader-width @loader-color5,
+    -@loader-width -@loader-width @loader-color1;
   }
 }

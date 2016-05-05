@@ -1,0 +1,8 @@
+<fest:template xmlns:fest="http://fest.mail.ru" context_name="data">
+    <div class="user-signup">
+        <input class="user-signup__field js-signup-login" type="text" placeholder="Логин" />
+        <input class="user-signup__field js-signup-password" type="password" placeholder="Пароль" />
+        <input class="user-signup__field js-signup-email" type="email" placeholder="E-mail" />
+        <input class="user-signup__button user-signup__button_green js-signup-submit" type="button" value="Готово" />
+    </div>
+</fest:template>

@@ -4,17 +4,17 @@ define(function (require) {
   var app = require('app');
   var MainView = require('views/main'),
       ScoreboardView = require('views/scoreboard'),
-      LoginView = require('views/login');
+      UserView = require('views/user');
 
   var viewManager = require('views/manager');
 
   var mainView = new MainView();
   var scoreboardView = new ScoreboardView();
-  var loginView = new LoginView();
+  var userView = new UserView();
 
   _.each([mainView,
          scoreboardView,
-         loginView], function(view) {
+         userView], function(view) {
            viewManager.addView(view);
   });
 
@@ -23,13 +23,16 @@ define(function (require) {
   var Router = Backbone.Router.extend({
     routes: {
       'scoreboard': 'scoreboardAction',
-      'login': 'loginAction',
-      'signup': 'signupAction',
+      'user(/:tab)': 'userAction',
       '*default':   'defaultAction',
     },
 
     go: function(where) {
       return this.navigate(where, { trigger: true });
+    },
+
+    goSilent: function(where) {
+      return this.navigate(where, { trigger: false });
     },
 
     defaultAction: function() {
@@ -40,12 +43,9 @@ define(function (require) {
       scoreboardView.show(loader);
     },
 
-    loginAction: function() {
-      loginView.show(loader, 'login');
-    },
-
-    signupAction: function() {
-      loginView.show(loader, 'signup');
+    userAction: function(tab) {
+      userView.show(loader);
+      userView.tab(tab);
     }
   });
 

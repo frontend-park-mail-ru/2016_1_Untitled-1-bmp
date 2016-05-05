@@ -1,8 +1,10 @@
 define(function(require) {
   var Backbone = require('backbone');
-  var template = require('templates/login');
+  var _ = require('underscore');
 
-  var LoginView = Backbone.View.extend({
+  var template = require('templates/user-login');
+
+  var UserLogin = Backbone.View.extend({
     initialize: function() {
       this.template = template;
       this.render();
@@ -13,22 +15,14 @@ define(function(require) {
       this.$el.html(html);
     },
 
-    show: function(loader) {
-      loader(function(cb) {
-        this.trigger('show');
-        this.$el.show();
-        cb();
-      }.bind(this));
+    show: function() {
+      this.$el.show();
     },
 
     hide: function() {
       this.$el.hide();
-    },
-
-    showUserPanel: function() {
-      return false;
     }
   });
 
-  return LoginView;
+  return UserLogin;
 });
