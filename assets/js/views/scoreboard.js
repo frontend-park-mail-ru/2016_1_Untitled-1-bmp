@@ -59,26 +59,23 @@ define(function(require) {
 
     show: function(loader) {
       loader(function(cb) {
-        this.collection = new ScoreBoardCollection(
-          [
-            { 'name': 'Владимир Кличко',      'score' : 100 },
-            { 'name': 'Халк',                 'score' : 509 },
-            { 'name': 'Виктор Пелевин',       'score' : 104 },
-            { 'name': 'Полковник',            'score' : 888 },
-            { 'name': 'Джон Леннон',          'score' : 930 },
-            { 'name': 'Михаил Ходорковский',  'score' : 391 },
-            { 'name': 'Дядя Вова',            'score' : 175 },
-            { 'name': 'Диего Дзодана',        'score' : 45 },
-            { 'name': 'Рома Широков',         'score' : 9 },
-            { 'name': 'Валерий Самерман',     'score' : 956 }
-          ]
-        );
+        var toShow = function() {
+          if(this.collection.length == 0) {
+            this.collection = new ScoreBoardCollection([{ name: 'nobody', score: 0}]);
+          }
+          this.trigger('show');
+          this.render();
+          this.$el.show();
 
-        this.trigger('show');
-        this.render();
-        this.$el.show();
+          cb();
+        }.bind(this);
 
-        cb();
+        this.collection = new ScoreBoardCollection();
+        this.collection.fetch({
+          success: toShow,
+          error: toShow
+        });
+
       }.bind(this));
     },
 
