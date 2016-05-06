@@ -91,6 +91,14 @@ define(function(require) {
 
     showUserPanel: function() {
       return false;
+    },
+
+    onAuth: function(result) {
+      _.each(this.tabs, function(tab) {
+        if(tab.view !== undefined && typeof tab.view.onAuth === 'function') {
+          tab.view.onAuth(result);
+        }
+      });
     }
   });
 

@@ -10,7 +10,7 @@
             </div>
             <div class="page-main__menu">
                 <div class="page-main__menu-el page-main__menu-el--3">
-                    <a href="#" class="page-main__menu-el-link page-main__menu-el-link_play">
+                    <a href="#game" class="page-main__menu-el-link page-main__menu-el-link_play">
                         <i class="page-main__menu-el-img page-main__menu-el-img_play"></i>
                         <span class="page-main__menu-el-text">Играть</span>
                     </a>

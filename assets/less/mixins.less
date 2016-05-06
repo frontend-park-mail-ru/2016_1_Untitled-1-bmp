@@ -19,7 +19,7 @@
   cursor: pointer;
   padding: 7px 20px;
   -webkit-appearance: none;
-  float:right;
+  float: right;
 
   transition: 0.5s;
 
@@ -49,6 +49,16 @@
   &_left {
     float: left;
   }
+
+  &[disabled] {
+    &,
+    &:hover {
+      background: @color-gray;
+      border-color: @color-gray;
+      color: #fff;
+      cursor: not-allowed;
+    }
+  }
 }
 
 .field() {
@@ -72,5 +82,9 @@
   &:focus {
     border-bottom-style: solid;
     border-bottom-color: @color-gray;
+  }
+
+  &_error {
+    border-bottom-color: @color-red;
   }
 }

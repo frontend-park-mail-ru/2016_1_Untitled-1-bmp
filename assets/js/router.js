@@ -23,7 +23,8 @@ define(function (require) {
   var Router = Backbone.Router.extend({
     routes: {
       'scoreboard': 'scoreboardAction',
-      'user(/:tab)': 'userAction',
+      'user/:tab': 'userAction',
+      'game': 'gameAction',
       '*default':   'defaultAction',
     },
 
@@ -46,6 +47,14 @@ define(function (require) {
     userAction: function(tab) {
       userView.show(loader);
       userView.tab(tab);
+    },
+
+    gameAction: function() {
+      if(!app.getAuthData().isAuth) {
+        this.go('user/login');
+        return;
+      }
+      console.log('here we start a game');
     }
   });
 
