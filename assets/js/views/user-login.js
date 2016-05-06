@@ -99,7 +99,28 @@ define(function(require) {
       }
     },
 
-    onSubmitGuest: function() {
+    onSubmitGuest: function(e) {
+      e.preventDefault();
+
+      var uData = {
+        isAnonymous: true,
+        login: this.inputs['guest-login'].val()
+      };
+
+      var user = app.getUser();
+
+      this.blockButtons(true);
+      user.once('register', function(result) {
+        this.blockButtons(false);
+        if(result.result) {
+          this.expectAuth = true;
+        }
+        else {
+          alertify.error('Не удалось войти как гость');
+        }
+      }.bind(this));
+
+      user.register(uData);
     },
 
     onAuth: function(result) {
