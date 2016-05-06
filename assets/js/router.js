@@ -45,6 +45,10 @@ define(function (require) {
     },
 
     userAction: function(tab) {
+      if(app.getAuthData().isAuth) {
+        this.go('');
+        return;
+      }
       userView.show(loader);
       userView.tab(tab);
     },
