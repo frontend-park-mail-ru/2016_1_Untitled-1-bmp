@@ -26,6 +26,7 @@ define(function(require) {
       };
 
       this.isRendered = false;
+      this.isShown = false;
     },
 
     onTabLinkClick: function(e) {
@@ -76,17 +77,22 @@ define(function(require) {
       if(!this.isRendered) {
         this.render();
         this.tab(_.keys(this.tabs).shift());
+        this.isRendered = true;
       }
 
-      loader(function(cb) {
-        this.trigger('show');
-        this.$el.show();
-        cb();
-      }.bind(this));
+      if(!this.isShown) {
+        loader(function(cb) {
+          this.trigger('show');
+          this.$el.show();
+          cb();
+        }.bind(this));
+        this.isShown = true;
+      }
     },
 
     hide: function() {
       this.$el.hide();
+      this.isShown = false;
     },
 
     showUserPanel: function() {
