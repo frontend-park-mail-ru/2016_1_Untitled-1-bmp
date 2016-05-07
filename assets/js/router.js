@@ -4,16 +4,19 @@ define(function (require) {
   var app = require('app');
   var MainView = require('views/main'),
       ScoreboardView = require('views/scoreboard'),
+      GameView = require('views/game'),
       UserView = require('views/user');
 
   var viewManager = require('views/manager');
 
   var mainView = new MainView();
   var scoreboardView = new ScoreboardView();
+  var gameView = new GameView();
   var userView = new UserView();
 
   _.each([mainView,
          scoreboardView,
+         gameView,
          userView], function(view) {
            viewManager.addView(view);
   });
@@ -58,7 +61,7 @@ define(function (require) {
         this.go('user/login');
         return;
       }
-      console.log('here we start a game');
+      gameView.show(loader);
     }
   });
 
