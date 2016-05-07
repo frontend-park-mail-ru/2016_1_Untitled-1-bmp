@@ -9,24 +9,27 @@
                 </div>
             </div>
             <div class="page-main__menu">
-                <div class="page-main__menu-el page-main__menu-el--3">
-                    <a href="#game" class="page-main__menu-el-link page-main__menu-el-link_play">
-                        <i class="page-main__menu-el-img page-main__menu-el-img_play"></i>
-                        <span class="page-main__menu-el-text">Играть</span>
-                    </a>
-                </div>
-                <div class="page-main__menu-el page-main__menu-el--3">
-                    <a href="#scoreboard" class="page-main__menu-el-link page-main__menu-el-link_records">
-                        <i class="page-main__menu-el-img page-main__menu-el-img_records"></i>
-                        <span class="page-main__menu-el-text">Рекорды</span>
-                    </a>
-                </div>
-                <div class="page-main__menu-el page-main__menu-el--3">
-                    <a href="#" class="page-main__menu-el-link page-main__menu-el-link_rules">
-                        <i class="page-main__menu-el-img page-main__menu-el-img_rules"></i>
-                        <span class="page-main__menu-el-text">Правила</span>
-                    </a>
-                </div>
+                <fest:script>var count = data.links.length</fest:script>
+                <fest:for iterate="data.links" index="i" value="link">
+                    <div class="page-main__menu-el page-main__menu-el--3">
+                        <fest:attributes>
+                            <fest:attribute name="class">page-main__menu-el page-main__menu-el--<fest:value>count</fest:value></fest:attribute>
+                        </fest:attributes>
+
+                        <a>
+                            <fest:attributes>
+                                <fest:attribute name="href"><fest:value>link.url</fest:value></fest:attribute>
+                                <fest:attribute name="class">page-main__menu-el-link page-main__menu-el-link_<fest:value>link.modifier</fest:value></fest:attribute>
+                            </fest:attributes>
+                            <i>
+                                <fest:attributes>
+                                    <fest:attribute name="class">page-main__menu-el-img page-main__menu-el-img_<fest:value>link.modifier</fest:value></fest:attribute>
+                                </fest:attributes>
+                            </i>
+                            <span class="page-main__menu-el-text"><fest:value>link.text</fest:value></span>
+                        </a>
+                    </div>
+                </fest:for>
             </div>
         </div>
     </div>

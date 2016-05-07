@@ -5,10 +5,32 @@ define(function(require) {
   var MainView = Backbone.View.extend({
     initialize: function() {
       this.template = template;
+
+      this.links = {
+        game: {
+          url: '#game',
+          modifier: 'play',
+          text: 'Играть'
+        },
+        scoreboard: {
+          url: '#scoreboard',
+          modifier: 'records',
+          text: 'Рекорды'
+        },
+        rules: {
+          url: '#rules',
+          modifier: 'rules',
+          text: 'Правила'
+        }
+      };
     },
 
     render: function() {
-      var html = this.template();
+      var html = this.template({
+        links: _.map(this.links, function(link, key) {
+          return _.extend(link, { key: key });
+        })
+      });
       this.$el.html(html);
     },
 
