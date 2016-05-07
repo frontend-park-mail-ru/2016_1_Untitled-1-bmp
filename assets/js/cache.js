@@ -1,7 +1,7 @@
 define(function(require) {
   var _ = require('underscore');
 
-  var isSupported = function() {
+  var isSupported = function(storageName) {
     try {
       return (storageName in window && window[storageName]);
     }

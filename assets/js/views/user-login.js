@@ -3,6 +3,7 @@ define(function(require) {
   var _ = require('underscore');
   var app = require('app');
   var alertify = require('alertify');
+  var cache = require('cache');
 
   var template = require('templates/user-login');
 
@@ -30,7 +31,9 @@ define(function(require) {
     },
 
     render: function() {
-      var html = this.template();
+      var html = this.template({
+        guestLogin: cache.get('user-login-guest-login', '')
+      });
       this.$el.html(html);
     },
 
@@ -106,6 +109,7 @@ define(function(require) {
         isAnonymous: true,
         login: this.inputs['guest-login'].val()
       };
+      cache.set('user-login-guest-login', uData.login);
 
       var user = app.getUser();
 

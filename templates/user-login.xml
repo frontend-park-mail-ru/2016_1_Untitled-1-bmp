@@ -1,7 +1,11 @@
 <fest:template xmlns:fest="http://fest.mail.ru" context_name="data">
     <div class="user-login">
         <div class="user-login__section">
-            <input class="user-login__field js-login-guest-login" type="text" placeholder="Имя гостя" />
+            <input class="user-login__field js-login-guest-login" type="text" placeholder="Имя гостя">
+                <fest:attributes>
+                    <fest:attribute name="value"><fest:value>data.guestLogin</fest:value></fest:attribute>
+                </fest:attributes>
+            </input>
             <input class="user-login__button user-login__button_orange js-login-guest-submit" type="button" value="Играть как гость" />
         </div>
         <div class="user-login__section">
