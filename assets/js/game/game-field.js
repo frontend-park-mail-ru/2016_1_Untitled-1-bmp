@@ -27,6 +27,40 @@ define(function(require) {
       return false;
     },
 
+    removeShip: function(x, y) {
+      for(var i = 0; i < this.ships.length; i++) {
+        if(this.ships[i].getX() == x && this.ships[i].getY() == y) {
+          this.ships.splice(i, 1);
+          return true;
+        }
+      }
+      return false;
+    },
+
+    rotateShip: function(x, y) {
+      var key = -1;
+      for(var i = 0; i < this.ships.length; i++) {
+        if(this.ships[i].getX() == x && this.ships[i].getY() == y) {
+          key = i;
+          break;
+        }
+      }
+
+      if(key > -1) {
+        var ship = this.ships[key];
+
+        this.removeShip(ship.getX(), ship.getY());
+        var newShip = new GameFieldShip(ship.getX(), ship.getY(), ship.getLength(), !ship.isVertical());
+
+        if(this.addShip(newShip)) {
+          return true;
+        }
+
+        this.addShip(ship);
+      }
+      return false;
+    },
+
     isValidShip: function(ship) {
       return ship.isValidForGameFieldProperties(this.props)
               && this.countShips(ship.getLength()) < this.props.getShips(ship.getLength())
