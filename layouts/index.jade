@@ -1,7 +1,7 @@
 !!! 5
 html
   head
-    title Азартный морской бой
+    title Морской бой
     link(rel='stylesheet', href='/css/main.css')
     link(rel='shortcut icon', href='/img/favicon/favicon-grey-64.ico')
 
@@ -15,11 +15,13 @@ html
         require(['main']);
     script
       if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/offline.js', { scope: './' }).then(function(reg) {
-          console.log('Registration succeeded. Scope is ' + reg.scope);
-        }).catch(function(error) {
-          console.log('Registration failed with ' + error);
-        });
+        if(!navigator.serviceWorker.controller) {
+          navigator.serviceWorker.register('/offline.js', { scope: './' }).then(function(reg) {
+              console.log('Registration succeeded. Scope is ' + reg.scope);
+          }).catch(function(error) {
+            console.log('Registration failed with ' + error);
+          });
+        }
       }
 
   body

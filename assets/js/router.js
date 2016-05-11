@@ -76,6 +76,7 @@ define(function (require) {
           'У вас есть незаконченная игра. Продолжить ее?',
           function() {
             console.log('continue old game');
+            // TODO:
           });
       }.bind(this);
 
