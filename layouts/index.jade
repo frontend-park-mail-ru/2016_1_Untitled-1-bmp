@@ -13,6 +13,14 @@ html
       script(src='/js/main.min.js')
       script
         require(['main']);
+    script
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/offline.js', { scope: './' }).then(function(reg) {
+          console.log('Registration succeeded. Scope is ' + reg.scope);
+        }).catch(function(error) {
+          console.log('Registration failed with ' + error);
+        });
+      }
 
   body
     #page

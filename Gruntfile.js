@@ -103,6 +103,11 @@ module.exports = function (grunt) {
         src: [ '**' ],
         dest: 'dist/css',
         expand: true
+      },
+      offline: {
+        cwd: 'assets/js',
+        src: ['offline.js'],
+        dest: 'dist'
       }
     },
 
@@ -181,7 +186,7 @@ module.exports = function (grunt) {
       },
       copy_js_dev: {
         files: ['assets/js/**/*'],
-        tasks: ['copy:js_dev'],
+        tasks: ['copy:js_dev', 'copy:offline'],
         options: {
           interrupt: true,
           atBegin: true
@@ -235,7 +240,7 @@ module.exports = function (grunt) {
   });
 
   grunt.registerTask('dev', ['concurrent:dev']);
-  grunt.registerTask('prod', ['fest', 'copy:css', 'less:prod', 'copy:fonts', 'copy:img', 'jade:prod', 'requirejs:prod', 'postcss:dev']);
+  grunt.registerTask('prod', ['fest', 'copy:css', 'less:prod', 'copy:fonts', 'copy:img', 'copy:js_dev', 'copy:offline', 'jade:prod', 'requirejs:prod', 'postcss:dev']);
   grunt.registerTask('default', ['dev']);
   grunt.registerTask('test', ['fest', 'jade:dev', 'copy:js_dev', 'copy:css', 'qunit:all']);
 };
