@@ -27,6 +27,10 @@ define(function(require) {
       return false;
     },
 
+    clearShips: function() {
+      this.ships = [];
+    },
+
     removeShip: function(x, y) {
       for(var i = 0; i < this.ships.length; i++) {
         if(this.ships[i].getX() == x && this.ships[i].getY() == y) {

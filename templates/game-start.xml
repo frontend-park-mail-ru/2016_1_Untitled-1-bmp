@@ -22,7 +22,8 @@
                     </div>
                 </fest:for>
 
-                <button class="game-field-creator__button js-button-ready" disabled="disabled">Готово</button>
+                <button class="game-field-creator__button game-field-creator__button_green js-button-ready" disabled="disabled">Готово</button>
+                <button class="game-field-creator__button game-field-creator__button_orange js-button-clear">Сбросить</button>
             </div>
             <div class="game-field-creator__field">
                 <fest:value output="text">data.field</fest:value>

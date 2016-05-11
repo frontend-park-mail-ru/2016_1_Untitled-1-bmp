@@ -20,6 +20,7 @@ define(function(require) {
       'mouseout .game-field__cell': 'onMouseOutCell',
       'click .game-field__cell': 'onClickCell',
       'click .js-button-ready': 'onClickReady',
+      'click .js-button-clear': 'onClickClear',
       'click .js-ship-rotate': 'onRotateShip'
     },
 
@@ -116,6 +117,12 @@ define(function(require) {
         console.log('start game!!');
         // TODO:
       }
+    },
+
+    onClickClear: function() {
+      this.field.clearShips();
+      this.$el.find('.game-field .game-field__ship').remove();
+      this.$el.find('.game-field-creator__ships .game-field__ship_left').addClass('js-ship').removeClass('game-field__ship_left');
     },
 
     onRotateShip: function(e) {
