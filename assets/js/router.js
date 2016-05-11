@@ -5,7 +5,10 @@ define(function (require) {
   var MainView = require('views/main'),
       ScoreboardView = require('views/scoreboard'),
       GameView = require('views/game'),
-      UserView = require('views/user');
+      UserView = require('views/user'),
+      GameStartView = require('views/game-start');
+
+  var GameFieldProperties = require('game/game-field-props');
 
   var viewManager = require('views/manager');
 
@@ -13,11 +16,14 @@ define(function (require) {
   var scoreboardView = new ScoreboardView();
   var gameView = new GameView();
   var userView = new UserView();
+  var gameStartView = new GameStartView();
 
   _.each([mainView,
          scoreboardView,
          gameView,
-         userView], function(view) {
+         userView,
+         gameStartView
+  ], function(view) {
            viewManager.addView(view);
   });
 
@@ -28,6 +34,7 @@ define(function (require) {
       'scoreboard': 'scoreboardAction',
       'user/:tab': 'userAction',
       'game': 'gameAction',
+      'game/start': 'gameStartAction',
       '*default':   'defaultAction',
     },
 
@@ -62,6 +69,15 @@ define(function (require) {
         return;
       }
       gameView.show(loader);
+    },
+
+    gameStartAction: function() {
+      if(!app.getAuthData().isAuth) {
+        this.go('user/login');
+        return;
+      }
+      gameStartView.setProps(GameFieldProperties.getProperties());
+      gameStartView.show(loader);
     }
   });
 

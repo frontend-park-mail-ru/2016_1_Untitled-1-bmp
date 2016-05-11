@@ -1,0 +1,30 @@
+.game-field-creator {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  .clearfix();
+
+  &__button {
+    margin-top: 2em;
+    &:extend(.button all);
+    &:extend(.button_success all);
+    &:extend(.button_block all);
+  }
+
+
+  &__ships {
+    float: left;
+    text-align: left;
+    width: 350px;
+
+    &-help {
+      &:extend(h5);
+      margin-bottom: 1.5em;
+    }
+  }
+
+  &__field {
+    margin-left: 3em;
+    float: left;
+  }
+}

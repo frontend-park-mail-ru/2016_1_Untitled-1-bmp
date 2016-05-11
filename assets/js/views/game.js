@@ -1,5 +1,6 @@
 define(function(require) {
   var Backbone = require('backbone');
+  var _ = require('underscore');
 
   var GameView = Backbone.View.extend({
     initialize: function() {

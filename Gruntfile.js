@@ -107,7 +107,8 @@ module.exports = function (grunt) {
       offline: {
         cwd: 'assets/js',
         src: ['offline.js'],
-        dest: 'dist'
+        dest: 'dist',
+        expand: true
       }
     },
 
