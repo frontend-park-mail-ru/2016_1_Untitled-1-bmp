@@ -4,7 +4,7 @@
         <h4><a href="#">← главное меню</a></h4>
         <div class="game-field-creator">
             <div class="game-field-creator__ships">
-                <div class="game-field-creator__ships-help">Чтобы поместить корабль на поле, нажмите на корабль, а потом на клетку поля, в которую его нужно поместить.</div>
+                <div class="game-field-creator__ships-help">Чтобы поместить корабль на поле, нажмите на корабль, а потом на клетку поля, в которую его нужно поместить. Чтобы повернуть корабль на поле, нажмите на него.</div>
                 <fest:for iterate="data.ships" index="k" value="ship">
                     <div class="game-field__ship-line">
                         <fest:for from="1" to="ship.count" index="k1">
