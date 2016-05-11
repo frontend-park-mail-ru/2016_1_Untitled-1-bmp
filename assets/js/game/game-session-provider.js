@@ -36,12 +36,16 @@ define(function(require) {
       console.log(res);
     },
 
+    getProps: function() {
+      return this.props;
+    },
+
     checkExisting: function(cb) {
       var checked = [];
       var exists = [];
 
       var checkAll = function() {
-        if(checked.length === this.providers.length) {
+        if(checked.length === _.keys(this.providers).length) {
           this.exists = exists.length > 0;
           this.existingProviders = exists;
 

@@ -2,13 +2,14 @@ define(function (require) {
   var Backbone = require('backbone');
   var _ = require('underscore');
   var app = require('app');
+  var alertify = require('alertify');
   var MainView = require('views/main'),
       ScoreboardView = require('views/scoreboard'),
       GameView = require('views/game'),
       UserView = require('views/user'),
       GameStartView = require('views/game-start');
 
-  var GameFieldProperties = require('game/game-field-props');
+  var GameSessionProvider = require('game/game-session-provider');
 
   var viewManager = require('views/manager');
 
@@ -68,7 +69,26 @@ define(function (require) {
         this.go('user/login');
         return;
       }
-      gameView.show(loader);
+
+      var continueOldGame = function() {
+        alertify.confirm(
+          'Незаконченная игра',
+          'У вас есть незаконченная игра. Продолжить ее?',
+          function() {
+            console.log('continue old game');
+          });
+      }.bind(this);
+
+      loader(function(hider) {
+        GameSessionProvider.checkExisting(function(data) {
+          if(data.exists) {
+            hider(continueOldGame);
+          }
+          else {
+            this.go('game/start');
+          }
+        }.bind(this));
+      }.bind(this));
     },
 
     gameStartAction: function() {
@@ -76,7 +96,7 @@ define(function (require) {
         this.go('user/login');
         return;
       }
-      gameStartView.setProps(GameFieldProperties.getProperties());
+      gameStartView.setProps(GameSessionProvider.getProps());
       gameStartView.show(loader);
     }
   });
