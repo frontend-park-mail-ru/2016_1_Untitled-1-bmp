@@ -2,8 +2,16 @@ define(function(require) {
   var Backbone = require('backbone');
   var _ = require('underscore');
 
+  var app = require('app');
+
   var GameSessionProviderWebSocket = require('game/game-session-provider-websocket');
   var GameSessionProviderBot = require('game/game-session-provider-bot');
+
+  var GameSession = require('game/game-session');
+  var GameUser = require('game/game-user');
+  var GameField = require('game/game-field');
+  var GameFieldShip = require('game/game-field-ship');
+  var GameFieldShipDeck = require('game/game-field-ship-deck');
 
   var GameSessionProperties = require('game/game-field-props');
   var props = GameSessionProperties.getProperties();
@@ -18,6 +26,14 @@ define(function(require) {
 
       this.exists = false;
       this.existingProviders = [];
+    },
+
+    getModes: function() {
+      var res = {};
+      _.each(this.providers, function(provider, key) {
+        res[key] = provider.getModes();
+      });
+      console.log(res);
     },
 
     checkExisting: function(cb) {
@@ -44,7 +60,6 @@ define(function(require) {
         var provider = new providerClass(props);
 
         var onGameStatus = function(data) {
-          console.log(key, 'game_status', data);
           checked.push(key);
           if(data.exists) {
             exists.push(key);
@@ -55,7 +70,6 @@ define(function(require) {
         }.bind(this);
 
         var onConnected = function(data) {
-          console.log(key, 'connected', data);
           if(!data.open) {
             checked.push(key);
             return;
@@ -70,7 +84,34 @@ define(function(require) {
       }.bind(this));
     },
 
-    init: function(provider, mode) {
+    init: function(provider, mode, ships, id) {
+      var session = new GameSession(this.props);
+
+      var currentField = new GameField(this.props);
+      for(var i = 0; i < ships.length; i++) {
+        var ship = new GameFieldShip(ships[i][0], ships[i][1], ships[i][2], ships[i][3]);
+        if(!currentField.addShip(ship)) {
+          return false;
+        }
+      }
+
+      var currentUser = new GameUser('some user', currentField);
+
+      var providerCreator = this.providers[provider];
+      if(!providerCreator) {
+        return false;
+      }
+      var provider = new providerCreator();
+      provider.connect();
+      provider.once('game_init', function(initData) {
+        this.trigger('game_init', {
+          session: session,
+          success: initData.success
+        });
+      }.bind(this));
+      provider.once('connection', function() {
+        provider.requestInit(ships, mode, id);
+      });
     },
 
     getExisting: function(provider) {

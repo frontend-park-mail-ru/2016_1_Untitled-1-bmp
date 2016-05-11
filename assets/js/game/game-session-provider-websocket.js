@@ -140,5 +140,22 @@ define(function(require) {
     }
   });
 
+  GameSessionProviderWebSocket.getModes = function() {
+    return {
+      bot: {
+        text: 'Бот онлайн',
+        desciption: ''
+      },
+      random: {
+        text: 'Случайный',
+        description: ''
+      },
+      friend: {
+        text: 'С другом',
+        description: ''
+      }
+    };
+  };
+
   return GameSessionProviderWebSocket;
 });

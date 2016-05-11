@@ -56,5 +56,14 @@ define(function(require) {
     }
   });
 
+  GameSessionProviderBot.getModes = function() {
+    return {
+      bot: {
+        text: 'Бот офлайн',
+        description: ''
+      }
+    };
+  };
+
   return GameSessionProviderBot;
 });

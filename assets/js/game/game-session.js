@@ -1,5 +1,5 @@
 define(function(require) {
-  var Backbone = require('Backbone');
+  var Backbone = require('backbone');
   var _ = require('underscore');
 
   var app = require('app');
@@ -8,6 +8,9 @@ define(function(require) {
     initialize: function(props) {
       this.set('state', GameSession.STATE_NOT_STARTED);
       this.props = props;
+
+      this.currentShoots = [];
+      this.opponentShoots = [];
     },
 
     getGameFieldProperties: function() {
@@ -34,12 +37,20 @@ define(function(require) {
       return this.currentUser.getField();
     },
 
+    getCurrentShoots: function() {
+      return this.currentShoots;
+    },
+
     getOpponentUser: function() {
       return this.opponentUser;
     },
 
     getOpponentField: function() {
       return this.opponentUser.getField();
+    },
+
+    getOpponentShoots: function() {
+      return this.opponentShoots;
     },
 
     isCurrentTurn: function() {
@@ -49,6 +60,9 @@ define(function(require) {
     },
 
     giveUp: function() {
+    },
+
+    onGameInit: function() {
     },
 
     onGameStart: function() {
