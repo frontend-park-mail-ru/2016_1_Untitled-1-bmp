@@ -19,7 +19,8 @@ define(function(require) {
       'mouseover .game-field__cell': 'onMouseOverCell',
       'mouseout .game-field__cell': 'onMouseOutCell',
       'click .game-field__cell': 'onClickCell',
-      'click .js-button-ready': 'onClickReady'
+      'click .js-button-ready': 'onClickReady',
+      'click .js-ship-rotate': 'onRotateShip'
     },
 
     setProps: function(props) {
@@ -93,7 +94,7 @@ define(function(require) {
       var $cell = $(e.target);
 
       if(this.selectedShip) {
-        var clone = $(this.selectedShip).clone().removeClass('js-ship');
+        var clone = $(this.selectedShip).clone().removeClass('js-ship').addClass('js-ship-rotate');
         clone.removeClass(selectedClass);
 
         if(this.field.addShip(new GameFieldShip(
@@ -113,6 +114,17 @@ define(function(require) {
     onClickReady: function() {
       if(this.field.isValid()) {
         console.log('start game!!');
+        // TODO:
+      }
+    },
+
+    onRotateShip: function(e) {
+      var rotateClass = 'game-field__ship_vertical';
+      var $ship = $(e.target);
+      var $cell = $ship.parent('[data-x]');
+
+      if(this.field.rotateShip($cell.data('x'), $cell.data('y'))) {
+        $ship.toggleClass(rotateClass);
       }
     }
   });
