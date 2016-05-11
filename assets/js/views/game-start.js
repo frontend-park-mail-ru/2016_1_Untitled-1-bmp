@@ -6,6 +6,7 @@ define(function(require) {
 
   var GameField = require('game/game-field');
   var GameFieldShip = require('game/game-field-ship');
+  var GameSessionProvider = require('game/game-session-provider');
 
   var template = require('templates/game-start');
   var fieldTemplate = require('templates/game-field');
@@ -23,7 +24,8 @@ define(function(require) {
       'click .game-field__cell': 'onClickCell',
       'click .js-button-ready': 'onClickReady',
       'click .js-button-clear': 'onClickClear',
-      'click .js-ship-rotate': 'onRotateShip'
+      'click .js-ship-rotate': 'onRotateShip',
+      'click .js-mode': 'onSelectMode'
     },
 
     setProps: function(props) {
@@ -41,9 +43,12 @@ define(function(require) {
         field: this.fieldTemplate({
           size: this.props.getSize()
         }),
-        ships: ships
+        ships: ships,
+        modes: GameSessionProvider.getModes()
       });
       this.$el.html(html);
+
+      this.$el.find('.js-mode').first().click();
 
       this.$buttonReady = this.$el.find('.js-button-ready');
 
@@ -174,6 +179,15 @@ define(function(require) {
         $ship.toggleClass(rotateClass);
         this.saveToCache();
       }
+    },
+
+    onSelectMode: function(e) {
+      e.preventDefault();
+      var $mode = $(e.target);
+      this.$el.find('.game-field-creator__mode_active').removeClass('game-field-creator__mode_active');
+      $mode.addClass('game-field-creator__mode_active');
+      this.activeMode = $mode;
+      return false;
     }
   });
 

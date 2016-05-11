@@ -22,6 +22,21 @@
     }
   }
 
+  &__modes {
+    margin-top: 1em;
+  }
+
+  &__mode {
+    &:extend(h5);
+    color: @color-blue-light;
+    &_active {
+      &, &:hover {
+        color: @color-blue;
+        border-bottom: 1px solid @color-blue;
+      }
+    }
+  }
+
   &__field {
     margin-left: 3em;
     float: left;

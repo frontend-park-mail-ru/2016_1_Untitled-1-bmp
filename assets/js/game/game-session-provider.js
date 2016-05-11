@@ -29,11 +29,13 @@ define(function(require) {
     },
 
     getModes: function() {
-      var res = {};
+      var res = [];
       _.each(this.providers, function(provider, key) {
-        res[key] = provider.getModes();
+        _.each(provider.getModes(), function(mode, modeKey) {
+          res.push(_.extend(mode, {provider: key, mode: modeKey}));
+        });
       });
-      console.log(res);
+      return res;
     },
 
     getProps: function() {

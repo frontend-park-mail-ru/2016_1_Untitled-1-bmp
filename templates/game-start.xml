@@ -22,6 +22,20 @@
                     </div>
                 </fest:for>
 
+                <div class="game-field-creator__modes">
+                    <fest:for iterate="data.modes" index="k" value="mode">
+                        <fest:script> var notIsFirst = k > 0; </fest:script>
+                        <fest:if test="notIsFirst"><fest:space />/<fest:space /></fest:if>
+                        <a href="" class="game-field-creator__mode js-mode">
+                            <fest:attributes>
+                                <fest:attribute name="data-provider"><fest:value>mode.provider</fest:value></fest:attribute>
+                                <fest:attribute name="data-mode"><fest:value>mode.mode</fest:value></fest:attribute>
+                            </fest:attributes>
+                            <fest:value>mode.text</fest:value>
+                        </a>
+                    </fest:for>
+                </div>
+
                 <button class="game-field-creator__button game-field-creator__button_green js-button-ready" disabled="disabled">Готово</button>
                 <button class="game-field-creator__button game-field-creator__button_orange js-button-clear">Сбросить</button>
             </div>
