@@ -77,7 +77,7 @@ define(function (require) {
           function() {
             console.log('continue old game');
             // TODO:
-          });
+          }, function() {});
       }.bind(this);
 
       loader(function(hider) {

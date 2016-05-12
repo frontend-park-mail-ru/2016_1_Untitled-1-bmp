@@ -1,2 +1,18 @@
 <fest:template xmlns:fest="http://fest.mail.ru" context_name="data">
+    <div class="wrapper wrapper_center">
+        <h1>Игра</h1>
+        <h4><a href="#">← главное меню</a></h4>
+
+        <div class="game">
+            <div class="game__state"></div>
+            <div class="game__field-container js-field-1">
+                <h3>Ваше поле</h3>
+                <fest:value output="text">data.field1</fest:value>
+            </div>
+            <div class="game__field-container js-field-2">
+                <h3>Поле соперника</h3>
+                <fest:value output="text">data.field2</fest:value>
+            </div>
+        </div>
+    </div>
 </fest:template>

@@ -121,7 +121,12 @@ define(function(require) {
     requestInit: function(ships, mode, id) {
       var info = {
         mode: mode,
-        ships: ships
+        ships: _.map(ships, function(ship) {
+          if(!_.isArray(ship)) {
+            return [ship.getX(), ship.getY(), ship.getLength(), ship.isVertical()];
+          }
+          return ship;
+        })
       };
       if(id) { info.id = id; }
 

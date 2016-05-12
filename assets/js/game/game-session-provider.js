@@ -95,7 +95,10 @@ define(function(require) {
 
       var currentField = new GameField(this.props);
       for(var i = 0; i < ships.length; i++) {
-        var ship = new GameFieldShip(ships[i][0], ships[i][1], ships[i][2], ships[i][3]);
+        var ship = ships[i];
+        if(_.isArray(ship)) {
+          var ship = new GameFieldShip(ships[i][0], ships[i][1], ships[i][2], ships[i][3]);
+        }
         if(!currentField.addShip(ship)) {
           return false;
         }
@@ -118,6 +121,8 @@ define(function(require) {
       provider.once('connection', function() {
         provider.requestInit(ships, mode, id);
       });
+
+      return true;
     },
 
     getExisting: function(provider) {

@@ -15,13 +15,11 @@ html
         require(['main']);
     script
       if ('serviceWorker' in navigator) {
-        if(!navigator.serviceWorker.controller) {
-          navigator.serviceWorker.register('/offline.js', { scope: './' }).then(function(reg) {
-              console.log('Registration succeeded. Scope is ' + reg.scope);
-          }).catch(function(error) {
-            console.log('Registration failed with ' + error);
-          });
-        }
+        navigator.serviceWorker.register('/offline.js', { scope: './' }).then(function(reg) {
+            console.log('Registration succeeded. Scope is ' + reg.scope);
+        }).catch(function(error) {
+          console.log('Registration failed with ' + error);
+        });
       }
 
   body

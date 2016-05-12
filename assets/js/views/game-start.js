@@ -3,6 +3,11 @@ define(function(require) {
   var _ = require('underscore');
 
   var cache = require('cache');
+  var viewManager = require('views/manager');
+  var GameView = require('views/game');
+  var loader = require('loader');
+
+  var alertify = require('alertify');
 
   var GameField = require('game/game-field');
   var GameFieldShip = require('game/game-field-ship');
@@ -157,8 +162,17 @@ define(function(require) {
     onClickReady: function() {
       if(this.field.isValid()) {
         this.resetCache();
-        console.log('start game!!');
-        // TODO:
+
+        GameSessionProvider.once('game_init', function(data) {
+          if(!data.success) {
+            alertify.alert('Ошибка', 'Не удалось создать игру');
+            return;
+          }
+          var gameView = new GameView(data.session);
+          viewManager.addView(gameView);
+          gameView.show(loader);
+        });
+        GameSessionProvider.init(this.activeMode.data('provider'), this.activeMode.data('mode'), this.field.getShips());
       }
     },
 
