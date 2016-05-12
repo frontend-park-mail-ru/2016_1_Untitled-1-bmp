@@ -70,20 +70,23 @@ define(function (require) {
         return;
       }
 
-      var continueOldGame = function() {
+      var continueOldGame = function(data) {
         alertify.confirm(
           'Незаконченная игра',
           'У вас есть незаконченная игра. Продолжить ее?',
           function() {
-            console.log('continue old game');
-            // TODO:
+            GameSessionProvider.getExisting(data.existingProviders.pop(), function(data) {
+              console.log(data);
+            });
           }, function() {});
       }.bind(this);
 
       loader(function(hider) {
         GameSessionProvider.checkExisting(function(data) {
           if(data.exists) {
-            hider(continueOldGame);
+            hider(function() {
+              continueOldGame(data);
+            });
           }
           else {
             this.go('game/start');

@@ -104,8 +104,6 @@ define(function(require) {
         }
       }
 
-      var currentUser = new GameUser('some user', currentField);
-
       var providerCreator = this.providers[provider];
       if(!providerCreator) {
         return false;
@@ -125,7 +123,29 @@ define(function(require) {
       return true;
     },
 
-    getExisting: function(provider) {
+    getExisting: function(provider, cb) {
+      var providerCreator = this.providers[provider];
+      if(!providerCreator) {
+        return false;
+      }
+      var provider = new providerCreator();
+      provider.connect();
+      provider.once('game_status', function(initData) {
+        var session = new GameSession(this.props);
+        // TODO: info about existing game
+
+        if(typeof cb == 'function') {
+          this.once('game_continue', cb);
+        }
+        this.trigger('game_continue', {
+          session: session
+        });
+      }.bind(this));
+      provider.once('connection', function() {
+        provider.requestStatus();
+      });
+
+      return true;
     }
   });
 
