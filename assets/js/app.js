@@ -1,5 +1,4 @@
 define(function(require) {
-  var $ = require('jquery');
   var Backbone = require('backbone');
   var Session = require('models/session');
   var User = require('models/user');
@@ -12,10 +11,7 @@ define(function(require) {
       this.listenTo(this.session, 'auth', this._onAuth.bind(this));
       this.listenTo(this.session, 'logout', this._onLogout.bind(this));
 
-      this.session.listenTo(this.user, 'register', (function() {
-        this.session.check();
-      }).bind(this));
-
+      this.session.listenTo(this.user, 'register', this.session.check.bind(this.session));
       this.session.check();
     },
 

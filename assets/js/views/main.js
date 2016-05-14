@@ -1,8 +1,8 @@
 define(function(require) {
-  var Backbone = require('backbone');
+  var View = require('views/base');
   var template = require('templates/main');
 
-  var MainView = Backbone.View.extend({
+  var MainView = View.Page.extend({
     initialize: function() {
       this.template = template;
 
@@ -32,19 +32,27 @@ define(function(require) {
         })
       });
       this.$el.html(html);
+
+      this.isRendered = true;
     },
 
     show: function(loader) {
+      if(this.isShown) return;
+
       loader(function(cb) {
         this.trigger('show');
-        this.render();
+
+        if(!this.isRendered) this.render();
+
         this.$el.show();
+        this.isShown = true;
         cb();
       }.bind(this));
     },
 
     hide: function() {
       this.$el.hide();
+      this.isShown = false;
     }
   });
 

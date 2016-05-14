@@ -1,5 +1,5 @@
 define(function(require) {
-  var Backbone = require('backbone');
+  var View = require('views/base');
   var _ = require('underscore');
 
   var template = require('templates/user');
@@ -7,13 +7,14 @@ define(function(require) {
   var UserLoginView = require('views/user-login');
   var UserSignupView = require('views/user-signup');
 
-  var UserView = Backbone.View.extend({
+  var UserView = View.Page.extend({
     events: {
       'click .js-tab-link': 'onTabLinkClick'
     },
 
     initialize: function() {
       this.template = template;
+
       this.tabs = {
         login:  {
           view: new UserLoginView(),
@@ -24,9 +25,6 @@ define(function(require) {
           title: 'Зарегистрироваться'
         }
       };
-
-      this.isRendered = false;
-      this.isShown = false;
     },
 
     onTabLinkClick: function(e) {

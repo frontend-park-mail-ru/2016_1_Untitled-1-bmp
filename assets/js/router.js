@@ -5,25 +5,17 @@ define(function (require) {
   var alertify = require('alertify');
   var MainView = require('views/main'),
       ScoreboardView = require('views/scoreboard'),
-      GameView = require('views/game'),
-      UserView = require('views/user'),
-      GameStartView = require('views/game-start');
-
-  var GameSessionProvider = require('game/game-session-provider');
+      UserView = require('views/user');
 
   var viewManager = require('views/manager');
 
   var mainView = new MainView();
   var scoreboardView = new ScoreboardView();
-  var gameView = new GameView();
   var userView = new UserView();
-  var gameStartView = new GameStartView();
 
   _.each([mainView,
          scoreboardView,
-         gameView,
-         userView,
-         gameStartView
+         userView
   ], function(view) {
            viewManager.addView(view);
   });
@@ -34,8 +26,6 @@ define(function (require) {
     routes: {
       'scoreboard': 'scoreboardAction',
       'user/:tab': 'userAction',
-      'game': 'gameAction',
-      'game/start': 'gameStartAction',
       '*default':   'defaultAction',
     },
 
@@ -62,46 +52,6 @@ define(function (require) {
       }
       userView.show(loader);
       userView.tab(tab);
-    },
-
-    gameAction: function() {
-      if(!app.getAuthData().isAuth) {
-        this.go('user/login');
-        return;
-      }
-
-      var continueOldGame = function(data) {
-        alertify.confirm(
-          'Незаконченная игра',
-          'У вас есть незаконченная игра. Продолжить ее?',
-          function() {
-            GameSessionProvider.getExisting(data.existingProviders.pop(), function(data) {
-              console.log(data);
-            });
-          }, function() {});
-      }.bind(this);
-
-      loader(function(hider) {
-        GameSessionProvider.checkExisting(function(data) {
-          if(data.exists) {
-            hider(function() {
-              continueOldGame(data);
-            });
-          }
-          else {
-            this.go('game/start');
-          }
-        }.bind(this));
-      }.bind(this));
-    },
-
-    gameStartAction: function() {
-      if(!app.getAuthData().isAuth) {
-        this.go('user/login');
-        return;
-      }
-      gameStartView.setProps(GameSessionProvider.getProps());
-      gameStartView.show(loader);
     }
   });
 

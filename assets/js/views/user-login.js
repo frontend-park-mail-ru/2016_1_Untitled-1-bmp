@@ -7,6 +7,8 @@ define(function(require) {
 
   var template = require('templates/user-login');
 
+  var CACHE_LOGIN_KEY = 'user-login-guest-login';
+
   var UserLogin = Backbone.View.extend({
 
     events: {
@@ -32,7 +34,7 @@ define(function(require) {
 
     render: function() {
       var html = this.template({
-        guestLogin: cache.get('user-login-guest-login', '')
+        guestLogin: cache.get(CACHE_LOGIN_KEY, '')
       });
       this.$el.html(html);
     },
@@ -109,7 +111,7 @@ define(function(require) {
         isAnonymous: true,
         login: this.inputs['guest-login'].val()
       };
-      cache.set('user-login-guest-login', uData.login);
+      cache.set(CACHE_LOGIN_KEY, uData.login);
 
       var user = app.getUser();
 

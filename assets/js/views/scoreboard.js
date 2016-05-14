@@ -1,10 +1,10 @@
 define(function(require) {
-  var Backbone = require('backbone');
+  var View = require('views/base');
   var ScoreBoardCollection = require('collections/scoreboard');
   var template = require('templates/scoreboard');
   var scene = require('features/scene-dots');
 
-  var ScoreboardView = Backbone.View.extend({
+  var ScoreboardView = View.Page.extend({
     events: {
       'click .scene-dots__button-previous': 'showPrevious',
       'click .scene-dots__button-next': 'showNext'
@@ -12,6 +12,7 @@ define(function(require) {
 
     initialize: function() {
       this.template = template;
+      this.isShown = false;
 
       this.isRendered = false;
     },
@@ -61,7 +62,7 @@ define(function(require) {
       loader(function(cb) {
         var toShow = function() {
           if(this.collection.length == 0) {
-            this.collection = new ScoreBoardCollection([{ name: 'nobody', score: 0}]);
+            this.collection = new ScoreBoardCollection([{ name: 'Нет данных', score: ':-('}]);
           }
           this.trigger('show');
           this.render();
