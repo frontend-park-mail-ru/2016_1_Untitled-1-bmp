@@ -5,17 +5,20 @@ define(function (require) {
   var alertify = require('alertify');
   var MainView = require('views/main'),
       ScoreboardView = require('views/scoreboard'),
-      UserView = require('views/user');
+      UserView = require('views/user'),
+      RulesView = require('views/rules');
 
   var viewManager = require('views/manager');
 
   var mainView = new MainView();
   var scoreboardView = new ScoreboardView();
   var userView = new UserView();
+  var rulesView = new RulesView();
 
   _.each([mainView,
          scoreboardView,
-         userView
+         userView,
+         rulesView
   ], function(view) {
            viewManager.addView(view);
   });
@@ -25,6 +28,7 @@ define(function (require) {
   var Router = Backbone.Router.extend({
     routes: {
       'scoreboard': 'scoreboardAction',
+      'rules': 'rulesAction',
       'user/:tab': 'userAction',
       '*default':   'defaultAction',
     },
@@ -43,6 +47,10 @@ define(function (require) {
 
     scoreboardAction: function() {
       scoreboardView.show(loader);
+    },
+
+    rulesAction: function() {
+      rulesView.show(loader);
     },
 
     userAction: function(tab) {
