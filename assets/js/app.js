@@ -6,13 +6,18 @@ define(function(require) {
   var App = Backbone.Model.extend({
     session: new Session(),
     user: new User(),
+    offline: false,
 
     initialize: function() {
       this.listenTo(this.session, 'auth', this._onAuth.bind(this));
       this.listenTo(this.session, 'logout', this._onLogout.bind(this));
+      this.listenTo(this.session, 'offline', this._onOffline.bind(this));
 
       this.session.listenTo(this.user, 'register', this.session.check.bind(this.session));
-      this.session.check();
+    },
+
+    start: function(cb) {
+      this.session.check(cb);
     },
 
     getSession: function() {
@@ -21,6 +26,10 @@ define(function(require) {
 
     getUser: function() {
       return this.user;
+    },
+
+    isOffline: function() {
+      return this.offline;
     },
 
     getAuthData: function() {
@@ -45,6 +54,10 @@ define(function(require) {
       this.user.clear();
       this.session.clear();
       this.trigger('auth', this.getAuthData());
+    },
+
+    _onOffline: function() {
+      this.offline = true;
     }
   });
 

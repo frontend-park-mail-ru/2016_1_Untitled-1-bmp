@@ -41,7 +41,9 @@ define(function(require) {
       }
     },
 
-    check: function() {
+    check: function(cb) {
+      cb = cb || function() {};
+
       this.set('id', null);
       this.fetch({
         success: (function(obj, result) {
@@ -50,9 +52,15 @@ define(function(require) {
             result: true,
             id: result.id
           });
+
+          if(result.isOffline) {
+            this.trigger('offline');
+          }
+          cb();
         }).bind(this),
         error: (function(obj, result) {
           this.set('auth', false);
+          cb();
         }).bind(this)
       });
     },

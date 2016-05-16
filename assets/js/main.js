@@ -6,5 +6,7 @@ define(function(require) {
 
   var cache = require('cache');
 
-  Backbone.history.start();
+  app.start(function() {
+    Backbone.history.start();
+  });
 });
