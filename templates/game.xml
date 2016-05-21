@@ -12,6 +12,14 @@
             <div class="page-game__status">
                 Ход соперника
             </div>
+            <div class="page-game__fields">
+                <div class="page-game__field">
+                    <fest:include src="game-field.xml" />
+                </div>
+                <div class="page-game__field">
+                    <fest:include src="game-field.xml" />
+                </div>
+            </div>
         </div>
     </div>
 </fest:template>

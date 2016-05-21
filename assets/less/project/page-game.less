@@ -22,4 +22,21 @@
     border: 1px dashed @color-gray;
     background-color: @color-white;
   }
+
+  &__fields {
+    .clearfix();
+  }
+
+  &__field {
+    width: 47%;
+    margin: .5em 1.5%;
+    float: left;
+    transition: 1s;
+
+    .media-medium({
+      width: 100%;
+      float: none;
+      margin: .5em;
+    });
+  }
 }
