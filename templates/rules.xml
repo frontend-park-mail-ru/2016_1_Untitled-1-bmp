@@ -1,6 +1,7 @@
 <fest:template xmlns:fest="http://fest.mail.ru" context_name="data">
     <fest:include src="scene-ship.xml" />
     <div class="wrapper wrapper_wide">
+        <a href="#" class="page-rules__button-back">←</a>
         <div class="page-rules">
             <h5>#Rules</h5>
         </div>
