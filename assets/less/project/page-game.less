@@ -1,0 +1,25 @@
+.page-game {
+  &__header {
+    &-text {
+      text-align: center;
+    }
+
+    &-giveup {
+      color: @color-orange;
+      &:hover, &:focus {
+        color: lighten(@color-orange, 20%);
+        border-color: @color-orange;
+      }
+    }
+  }
+
+  &__status {
+    width: 100%;
+    max-width: 20em;
+    text-align: center;
+    margin: 1em auto;
+    padding: .5em;
+    border: 1px dashed @color-gray;
+    background-color: @color-white;
+  }
+}

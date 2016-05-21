@@ -6,7 +6,8 @@ define(function (require) {
   var MainView = require('views/main'),
       ScoreboardView = require('views/scoreboard'),
       UserView = require('views/user'),
-      RulesView = require('views/rules');
+      RulesView = require('views/rules'),
+      GameView = require('views/game');
 
   var viewManager = require('views/manager');
 
@@ -15,10 +16,13 @@ define(function (require) {
   var userView = new UserView();
   var rulesView = new RulesView();
 
+  var gameView = new GameView();
+
   _.each([mainView,
          scoreboardView,
          userView,
-         rulesView
+         rulesView,
+         gameView
   ], function(view) {
            viewManager.addView(view);
   });
@@ -30,7 +34,8 @@ define(function (require) {
       'scoreboard': 'scoreboardAction',
       'rules': 'rulesAction',
       'user/:tab': 'userAction',
-      '*default':   'defaultAction',
+      'game': 'gameAction',
+      '*default': 'defaultAction',
     },
 
     go: function(where) {
@@ -56,10 +61,15 @@ define(function (require) {
     userAction: function(tab) {
       if(app.getAuthData().isAuth) {
         this.go('');
+        alertify.error('Вы уже авторизованы, мой дорогой!');
         return;
       }
       userView.show(loader);
       userView.tab(tab);
+    },
+
+    gameAction: function() {
+      gameView.show(loader);
     }
   });
 
