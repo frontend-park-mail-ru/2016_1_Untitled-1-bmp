@@ -2,7 +2,8 @@
 @cell-border-size: 1px;
 @cell-border-color-header: lighten(@cell-border-color, 20%);
 @cell-size: 37px;
-@cell-size-small: 32px;
+@cell-size-medium: 32px;
+@cell-size-small: 29px;
 @cell-bg-color: rgba(255, 255, 255, .8);
 @cell-bg-color-hover: rgba(255, 238, 136, .8);
 @cell-bg-color-wait: rgba(255, 238, 136, .8);
@@ -15,7 +16,7 @@
   background-color: rgba(255, 255, 255, .5);
 
   .media-medium({
-    left: -@cell-size-small / 2;
+    left: -@cell-size-medium / 2;
     position: relative;
   });
 
@@ -28,6 +29,11 @@
     transition: 1s;
 
     .media-bit-large({
+      width: @cell-size-medium;
+      height: @cell-size-medium;
+    });
+
+    .media-small({
       width: @cell-size-small;
       height: @cell-size-small;
     });

@@ -27,7 +27,6 @@
                         </fest:attributes>
                     </td>
                 </fest:for>
-                <td class="game-field__cell game-field__cell_header_none"></td>
             </tr>
         </fest:for>
     </table>
