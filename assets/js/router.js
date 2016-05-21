@@ -7,7 +7,8 @@ define(function (require) {
       ScoreboardView = require('views/scoreboard'),
       UserView = require('views/user'),
       RulesView = require('views/rules'),
-      GameView = require('views/game');
+      GameView = require('views/game'),
+      GameStartView = require('views/game-start');
 
   var viewManager = require('views/manager');
 
@@ -17,12 +18,14 @@ define(function (require) {
   var rulesView = new RulesView();
 
   var gameView = new GameView();
+  var gameStartView = new GameStartView();
 
   _.each([mainView,
          scoreboardView,
          userView,
          rulesView,
-         gameView
+         gameView,
+         gameStartView
   ], function(view) {
            viewManager.addView(view);
   });
@@ -35,6 +38,7 @@ define(function (require) {
       'rules': 'rulesAction',
       'user/:tab': 'userAction',
       'game': 'gameAction',
+      'game/start': 'gameStartAction',
       '*default': 'defaultAction',
     },
 
@@ -70,6 +74,10 @@ define(function (require) {
 
     gameAction: function() {
       gameView.show(loader);
+    },
+
+    gameStartAction: function() {
+      gameStartView.show(loader);
     }
   });
 
