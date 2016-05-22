@@ -1,32 +1,39 @@
 <fest:template xmlns:fest="http://fest.mail.ru" context_name="data">
-    <div class="wrapper wrapper_center">
-        <h1>Новая игра</h1>
-        <h4><a href="#">← главное меню</a></h4>
-        <div class="game-start">
-            <div class="game-start__ships">
-                <div class="game-start__ships-help">Чтобы поместить корабль на поле, нажмите на корабль, а потом на клетку поля, в которую его нужно поместить. Чтобы повернуть корабль на поле, нажмите на него.</div>
-                <fest:for iterate="data.ships" index="k" value="ship">
-                    <div class="game-field__ship-line">
-                        <fest:for from="1" to="ship.count" index="k1">
-                            <div>
-                                <fest:attributes>
-                                    <fest:attribute name="class">
-                                        js-ship game-field__ship game-field__ship_<fest:value>ship.decks</fest:value>
-                                    </fest:attribute>
-                                    <fest:attribute name="data-decks">
-                                        <fest:value>ship.decks</fest:value>
-                                    </fest:attribute>
-                                </fest:attributes>
-                            </div>
-                        </fest:for>
-                    </div>
-                </fest:for>
-
-                <button class="game-start__button game-start__button_green js-button-ready" disabled="disabled">Готово</button>
-                <button class="game-start__button game-start__button_orange js-button-clear">Сбросить</button>
+    <fest:include src="scene-chaos.xml" />
+    <div class="wrapper">
+        <div class="page-game-start">
+            <div class="page-game-start__header">
+                <h2 class="page-game-start__header-text">
+                    Начать игру
+                    <fest:space />/
+                    <fest:space />
+                    <a href="#" class="page-game-start__header-exit">уйти</a>
+                </h2>
             </div>
-            <div class="game-start__field">
-                <fest:include src="game-field.xml" />
+            <div class="page-game-start__help">
+                Перетащите корабли на поле. <br /> Чтобы повернуть корабль на поле, кликните на него.
+            </div>
+            <div class="page-game-start__fields">
+                <div class="page-game-start__ships js-ships">
+                    <fest:for iterate="data.ships" index="k" value="ship">
+                        <div class="page-game-start__ship-line">
+                            <fest:for from="1" to="ship.count" index="k1">
+                                <div>
+                                    <fest:attributes>
+                                        <fest:attribute name="class">
+                                            js-ship page-game-start__ship page-game-start__ship_<fest:value>ship.decks</fest:value>
+                                        </fest:attribute>
+                                        <fest:attribute name="data-decks">
+                                            <fest:value>ship.decks</fest:value>
+                                        </fest:attribute>
+                                    </fest:attributes>
+                                </div>
+                            </fest:for>
+                        </div>
+                    </fest:for>
+                </div>
+                <div class="page-game-start__field js-field">
+                </div>
             </div>
         </div>
     </div>

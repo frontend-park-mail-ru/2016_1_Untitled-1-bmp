@@ -1,23 +1,17 @@
-@cell-border-color: #b4b4ff;
-@cell-border-size: 1px;
-@cell-border-color-header: lighten(@cell-border-color, 20%);
-@cell-size: 37px;
-@cell-size-medium: 32px;
-@cell-size-small: 29px;
-@cell-bg-color: rgba(255, 255, 255, .8);
-@cell-bg-color-hover: rgba(255, 238, 136, .8);
-@cell-bg-color-wait: rgba(255, 238, 136, .8);
-@cell-bg-color-miss: rgba(164, 8, 0, .8);
-@cell-bg-color-wound: rgba(58, 152, 45, .8);
-@cell-bg-color-ship: rgba(0, 102, 187, .8);
-
 .game-field {
   margin: 0 auto;
   background-color: rgba(255, 255, 255, .5);
+  ::selection {
+    background: none;
+  }
 
   .media-medium({
     left: -@cell-size-medium / 2;
     position: relative;
+  });
+
+  .media-small({
+    left: 0;
   });
 
   &__cell {
@@ -89,6 +83,20 @@
 
   &__caption {
     text-align: center;
+    margin-left: @cell-size;
+
+    .media-bit-large({
+      margin-left: @cell-size-medium;
+    });
+
+    .media-medium({
+      margin-left: 0;
+    });
+
+    .media-small({
+      margin-left: @cell-size-small;
+    });
+
     &-field {
       margin-top: .3em;
       margin-bottom: .1em;
@@ -101,13 +109,6 @@
 }
 
 
-
-@cell-background-color-hover: lighten(@cell-border-color, 60%);
-@cell-border-width: 1px;
-@cell-header-size: 35px;
-@cell-header-color: @color-gray;
-@ship-border-color: #00f;
-@ship-bg-color: rgba(0, 0, 255, .03);
 
 // .game-field {
 //   margin: 0 auto;
