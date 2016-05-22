@@ -7,7 +7,8 @@ require.config({
     backbone: "vendor/backbone",
     alertify: "vendor/alertify.min",
     qunit: "vendor/qunit-1.21.0",
-    sinon: "vendor/sinon-1.17.3"
+    sinon: "vendor/sinon-1.17.3",
+    dragula: "vendor/dragula.min"
   },
   shim: {
     'backbone': {
@@ -19,6 +20,9 @@ require.config({
     },
     'alertify': {
       exports: 'alertify'
+    },
+    'dragula': {
+      exports: 'dragula'
     }
   }
 });

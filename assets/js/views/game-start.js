@@ -4,6 +4,8 @@ define(function(require) {
   var GameFieldView = require('views/game-field');
   var template = require('templates/game-start');
 
+  var dragula = require('dragula');
+
   var GameStartView = View.Page.extend({
     initialize: function() {
       this.props = GameProps.get();
