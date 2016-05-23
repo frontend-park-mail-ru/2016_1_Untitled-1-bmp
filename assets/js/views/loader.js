@@ -1,7 +1,7 @@
 define(function(require) {
-  var Backbone = require('backbone');
+  var View = require('views/base');
 
-  var LoaderView = Backbone.View.extend({
+  var LoaderView = View.Page.extend({
     initialize: function() {
       this.$el = $('.page-loader');
     },

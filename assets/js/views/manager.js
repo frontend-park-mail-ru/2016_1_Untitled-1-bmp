@@ -1,10 +1,10 @@
 define(function(require) {
-  var Backbone = require('backbone');
+  var View = require('views/base');
   var app = require('app');
 
   var userPanel = require('views/user-panel');
 
-  var ViewManager = Backbone.View.extend({
+  var ViewManager = View.Simple.extend({
     el: $('#page'),
 
     views: [],

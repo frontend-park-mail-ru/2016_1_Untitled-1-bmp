@@ -1,12 +1,12 @@
 define(function(require) {
-  var Backbone = require('backbone');
+  var View = require('views/base');
   var _ = require('underscore');
 
   var GameField = require('models/game/game-field');
 
   var template = require('templates/game-field');
 
-  var GameFieldView = Backbone.View.extend({
+  var GameFieldView = View.Simple.extend({
     initialize: function(props) {
       this.props = props;
       this.model = new GameField(props);

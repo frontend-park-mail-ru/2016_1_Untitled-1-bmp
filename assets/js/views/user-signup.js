@@ -1,12 +1,12 @@
 define(function(require) {
-  var Backbone = require('backbone');
+  var View = require('views/base');
   var _ = require('underscore');
   var app = require('app');
   var alertify = require('alertify');
 
   var template = require('templates/user-signup');
 
-  var UserSignup = Backbone.View.extend({
+  var UserSignup = View.Simple.extend({
     events: {
       'click .js-signup-submit': 'onSubmit'
     },

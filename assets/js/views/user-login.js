@@ -1,5 +1,5 @@
 define(function(require) {
-  var Backbone = require('backbone');
+  var View = require('views/base');
   var _ = require('underscore');
   var app = require('app');
   var alertify = require('alertify');
@@ -9,7 +9,7 @@ define(function(require) {
 
   var CACHE_LOGIN_KEY = 'user-login-guest-login';
 
-  var UserLogin = Backbone.View.extend({
+  var UserLogin = View.Simple.extend({
 
     events: {
       'click .js-login-guest-submit': 'onSubmitGuest',
