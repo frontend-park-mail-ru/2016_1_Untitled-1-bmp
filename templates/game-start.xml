@@ -14,23 +14,30 @@
                 Перетащите корабли на поле. <br /> Чтобы повернуть корабль на поле, кликните на него.
             </div>
             <div class="page-game-start__fields">
-                <div class="page-game-start__ships js-ships">
-                    <fest:for iterate="data.ships" index="k" value="ship">
-                        <div class="page-game-start__ship-line js-ship-line">
-                            <fest:for from="1" to="ship.count" index="k1">
-                                <div>
-                                    <fest:attributes>
-                                        <fest:attribute name="class">
-                                            js-ship page-game-start__ship page-game-start__ship_<fest:value>ship.decks</fest:value>
-                                        </fest:attribute>
-                                        <fest:attribute name="data-decks">
-                                            <fest:value>ship.decks</fest:value>
-                                        </fest:attribute>
-                                    </fest:attributes>
-                                </div>
-                            </fest:for>
-                        </div>
-                    </fest:for>
+                <div class="page-game-start__ships">
+                    <div class="js-ships">
+                        <fest:for iterate="data.ships" index="k" value="ship">
+                            <div class="page-game-start__ship-line js-ship-line">
+                                <fest:for from="1" to="ship.count" index="k1">
+                                    <div>
+                                        <fest:attributes>
+                                            <fest:attribute name="class">
+                                                js-ship page-game-start__ship page-game-start__ship_<fest:value>ship.decks</fest:value>
+                                            </fest:attribute>
+                                            <fest:attribute name="data-decks">
+                                                <fest:value>ship.decks</fest:value>
+                                            </fest:attribute>
+                                        </fest:attributes>
+                                    </div>
+                                </fest:for>
+                            </div>
+                        </fest:for>
+                    </div>
+                    <div class="page-game-start__buttons">
+                        <button class="page-game-start__button page-game-start__button_green js-button-ready">Готово</button>
+                        <button class="page-game-start__button js-button-random">Случайное поле</button>
+                        <button class="page-game-start__button page-game-start__button_orange js-button-clear">Сбросить</button>
+                    </div>
                 </div>
                 <div class="page-game-start__field js-field">
                 </div>

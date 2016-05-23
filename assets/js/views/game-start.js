@@ -8,7 +8,10 @@ define(function(require) {
 
   var GameStartView = View.Page.extend({
     events: {
-      'click .js-field .page-game-start__ship': 'onClickShip'
+      'click .js-field .page-game-start__ship': 'onClickShip',
+      'click .js-button-ready': 'onClickReady',
+      'click .js-button-clear': 'onClickClear',
+      'click .js-button-random': 'onClickRandom'
     },
 
     initialize: function() {
@@ -32,7 +35,23 @@ define(function(require) {
       this.fieldView.show();
       this.fieldView.setCaption('Ваше поле');
 
-      dragula({
+      this.$cloneShips = this.$el.find('.js-ships').clone();
+
+      this.$buttonReady = this.$el.find('.js-button-ready');
+      this.$buttonRandom = this.$el.find('.js-button-random');
+      this.$buttonClear = this.$el.find('.js-button-clear');
+
+      this.blockReady();
+
+      this.isRendered = true;
+
+      this.initDragula();
+    },
+
+    initDragula: function() {
+      if(this.dragula) return;
+
+      this.dragula = dragula({
         isContainer: function(el) {
           return $(el).hasClass('js-ship-line') || $(el).is('.game-field__cell[data-x][data-y]');
         },
@@ -83,14 +102,14 @@ define(function(require) {
             // add
             this.fieldView.addShip(targetX, targetY, $(el).data('decks'), false);
           }
+
+          this.blockReady();
       }.bind(this))
       .on('cloned', function(clone, original) {
         if($(original).hasClass('page-game-start__ship_vertical')) {
           $(clone).css('transform', 'rotate(0deg)');
         }
       });
-
-      this.isRendered = true;
     },
 
     show: function(loader) {
@@ -118,9 +137,32 @@ define(function(require) {
       var x = $cell.data('x');
       var y = $cell.data('y');
 
-      if(this.fieldView.rotateShip(x, y)) {
-        $el.toggleClass('page-game-start__ship_vertical');
+      this.fieldView.rotateShip(x, y);
+    },
+
+    blockReady: function(block) {
+      block = block || !this.fieldView.isReady();
+      this.$buttonReady.prop('disabled', block);
+    },
+
+    onClickReady: function(e) {
+      if(!this.fieldView.isReady()) {
+        return;
       }
+
+      console.log(this.fieldView.getShipsData());
+    },
+
+    onClickClear: function(e) {
+      this.fieldView.clear();
+      this.$el.find('.js-ships').empty().append(this.$cloneShips.html());
+      this.blockReady();
+    },
+
+    onClickRandom: function(e) {
+      this.fieldView.setRandom();
+      this.$el.find('.js-ships .js-ship').remove();
+      this.blockReady();
     }
   });
 

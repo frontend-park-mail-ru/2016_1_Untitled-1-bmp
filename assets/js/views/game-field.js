@@ -33,12 +33,34 @@ define(function(require) {
       this.$captionInfo.html(text);
     },
 
+    getCell: function(x, y) {
+      return this.$el.find('[data-x=' + x + '][data-y=' + y + ']');
+    },
+
     canAddShip: function(x, y, length, isVertical) {
       return this.model.checkShip(x, y, length, isVertical);
     },
 
     addShip: function(x, y, length, isVertical) {
-      return this.model.addShip(x, y, length, isVertical);
+      if(this.model.addShip(x, y, length, isVertical)) {
+        var $cell = this.getCell(x, y);
+        $cell.empty();
+
+        var classes = [
+          'js-ship',
+          'page-game-start__ship',
+          'page-game-start__ship_' + length
+        ];
+
+        if(isVertical) {
+          classes.push('page-game-start__ship_vertical');
+        }
+
+        $cell.append($('<div />').addClass(classes.join(' ')).attr('data-decks', length));
+        return true;
+      }
+
+      return false;
     },
 
     canMoveShip: function(x, y, _x, _y) {
@@ -50,11 +72,45 @@ define(function(require) {
     },
 
     removeShip: function(x, y) {
-      return this.model.removeShip(x, y);
+      if(this.model.removeShip(x, y)) {
+        var $cell = this.getCell(x, y);
+        $cell.empty();
+        return true;
+      }
+
+      return false;
     },
 
     rotateShip: function(x, y) {
-      return this.model.rotateShip(x, y);
+      if(this.model.rotateShip(x, y)) {
+        var $cell = this.getCell(x, y);
+        $cell.find('.js-ship').toggleClass('page-game-start__ship_vertical');
+        return true;
+      }
+
+      return false;
+    },
+
+    clear: function() {
+      this.$el.find('.page-game-start__ship').remove();
+      this.model.clear();
+    },
+
+    setRandom: function() {
+      this.clear();
+
+      var newField = GameField.generateRandomField(this.props);
+      _.each(newField.getShips(), function(ship) {
+        this.addShip(ship[0], ship[1], ship[2], ship[3]);
+      }, this);
+    },
+
+    isReady: function() {
+      return this.model.isReady();
+    },
+
+    getShipsData: function() {
+      return this.model.getShips();
     },
 
     show: function() {
