@@ -81,11 +81,11 @@
 
       margin-top: -@cell-size / 2 + 1px;
       .media-bit-large({
-        margin-top: -@cell-size-medium / 2;
+        margin-top: -@cell-size-medium / 2 + 1px;
       });
 
       .media-small({
-        margin-top: -@cell-size-small / 2;
+        margin-top: -@cell-size-small / 2 + 1px;
       });
     }
 
@@ -109,17 +109,25 @@
       transform: rotate(90deg);
       transform-origin: top left;
       left: @cell-size - 1;
+
+      .media-bit-large({
+        left: @cell-size-medium - 1;
+      });
+
+      .media-small({
+        left: @cell-size-small - 1;
+      });
     }
 
     &_1 {
       width: @cell-size - 1;
 
       .media-bit-large({
-        width: @cell-size-medium - 1;
+        width: @cell-size-medium - 0.5;
       });
 
       .media-small({
-        width: @cell-size-small - 1;
+        width: @cell-size-small - 0.5;
       });
     }
 

@@ -88,7 +88,6 @@ define(function(require) {
         if($(original).hasClass('page-game-start__ship_vertical')) {
           $(clone).css('transform', 'rotate(0deg)');
         }
-        console.log(clone);
       });
 
       this.isRendered = true;
@@ -120,7 +119,6 @@ define(function(require) {
       var y = $cell.data('y');
 
       if(this.fieldView.rotateShip(x, y)) {
-        console.log(this.fieldView.model.getShips());
         $el.toggleClass('page-game-start__ship_vertical');
       }
     }
