@@ -33,6 +33,20 @@
                             </div>
                         </fest:for>
                     </div>
+
+                    <div class="page-game-start__modes">
+                        <fest:for iterate="data.modes" index="k" value="mode">
+                            <fest:script> var notIsFirst = k > 0; </fest:script>
+                            <fest:if test="notIsFirst"><fest:space />/<fest:space /></fest:if>
+                            <a href="" class="page-game-start__mode js-mode">
+                                <fest:attributes>
+                                    <fest:attribute name="data-mode"><fest:value>mode.mode</fest:value></fest:attribute>
+                                </fest:attributes>
+                                <fest:value>mode.text</fest:value>
+                            </a>
+                        </fest:for>
+                    </div>
+
                     <div class="page-game-start__buttons">
                         <button class="page-game-start__button page-game-start__button_green js-button-ready">Готово</button>
                         <button class="page-game-start__button js-button-random">Случайное поле</button>

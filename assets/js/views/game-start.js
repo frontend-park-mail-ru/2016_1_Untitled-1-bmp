@@ -1,8 +1,12 @@
 define(function(require) {
+  var _ = require('underscore');
+
   var View = require('views/base');
   var GameProps = require('models/game/game-props');
   var GameFieldView = require('views/game-field');
   var template = require('templates/game-start');
+
+  var gameProvider = require('models/game/game-provider');
 
   var dragula = require('dragula');
 
@@ -11,7 +15,8 @@ define(function(require) {
       'click .js-field .page-game-start__ship': 'onClickShip',
       'click .js-button-ready': 'onClickReady',
       'click .js-button-clear': 'onClickClear',
-      'click .js-button-random': 'onClickRandom'
+      'click .js-button-random': 'onClickRandom',
+      'click .js-mode': 'onSelectMode'
     },
 
     initialize: function() {
@@ -27,7 +32,10 @@ define(function(require) {
       }
 
       var html = this.template({
-        ships: ships
+        ships: ships,
+        modes: _.map(gameProvider.getModes(), function(mode, k) {
+          return _.extend(mode, { mode: k });
+        })
       });
       this.$el.html(html);
 
@@ -42,6 +50,8 @@ define(function(require) {
       this.$buttonClear = this.$el.find('.js-button-clear');
 
       this.blockReady();
+
+      this.$el.find('.js-mode').first().click();
 
       this.isRendered = true;
 
@@ -150,7 +160,7 @@ define(function(require) {
         return;
       }
 
-      console.log(this.fieldView.getShipsData());
+      console.log(this.fieldView.getShipsData(), this.activeMode.data('mode'));
     },
 
     onClickClear: function(e) {
@@ -163,6 +173,15 @@ define(function(require) {
       this.fieldView.setRandom();
       this.$el.find('.js-ships .js-ship').remove();
       this.blockReady();
+    },
+
+    onSelectMode: function(e) {
+      e.preventDefault();
+      var $mode = $(e.target);
+      this.$el.find('.page-game-start__mode_active').removeClass('page-game-start__mode_active');
+      $mode.addClass('page-game-start__mode_active');
+      this.activeMode = $mode;
+      return false;
     }
   });
 

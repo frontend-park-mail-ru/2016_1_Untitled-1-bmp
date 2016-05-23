@@ -7,5 +7,14 @@ define(function(require) {
     }
   });
 
+  GameProviderOffline.getModes = function() {
+    return {
+      bot: {
+        text: 'Бот офлайн',
+        desciption: ''
+      }
+    };
+  };
+
   return GameProviderOffline;
 });

@@ -5,6 +5,10 @@ define(function(require) {
   var template = require('templates/user-panel');
 
   var UserPanel = View.Simple.extend({
+    events: {
+      'click .js-logout': 'onClickLogout'
+    },
+
     initialize: function() {
       this.template = template;
       this.$el = $('.user-panel');
@@ -19,6 +23,7 @@ define(function(require) {
         score: authData.user.get('score')
       });
       this.$el.html(html);
+      this.delegateEvents();
     },
 
     show: function() {
@@ -39,6 +44,12 @@ define(function(require) {
           this.show();
         }.bind(this));
       }
+    },
+
+    onClickLogout: function(e) {
+      e.preventDefault();
+      app.getSession().logout();
+      require('router').go('');
     }
   });
 

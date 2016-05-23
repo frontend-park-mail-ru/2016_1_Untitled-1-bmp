@@ -80,8 +80,40 @@ define(function (require) {
         this.go('user/login');
       }
       else {
-        console.log(gameProvider);
-        // gameView.show(loader);
+        if(app.isOffline()) {
+          gameProvider.once('checkOfflineGame', function(res) {
+            if(!res.exists) {
+              this.go('game/start');
+            }
+            else {
+              alertify.info('У вас есть незаконченная офлайн-игра');
+              // TODO:
+            }
+          }.bind(this));
+
+          loader(function() {
+            gameProvider.checkOfflineGame();
+          });
+        }
+        else {
+          gameProvider.once('checkOnlineGame', function(res) {
+            if(!res.connection) {
+              this.go('');
+              alertify.error('Не удалось подключиться к серверу');
+            }
+            else if(!res.exists) {
+              this.go('game/start');
+            }
+            else {
+              alertify.info('У вас есть незаконченная онлайн-игра');
+              // TODO:
+            }
+          }.bind(this));
+
+          loader(function() {
+            gameProvider.checkOnlineGame();
+          });
+        }
       }
     },
 

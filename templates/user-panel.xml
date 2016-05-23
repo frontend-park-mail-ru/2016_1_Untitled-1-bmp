@@ -12,6 +12,13 @@
                     <fest:space />
                     <fest:value>data.score</fest:value>
                 </li>
+                <li class="user-panel__list-el">
+                    <a href="#logout" class="js-logout">
+                        <i class="glyphicon glyphicon_remove"></i>
+                        <fest:space />
+                        Выйти
+                    </a>
+                </li>
             </fest:if>
         </ul>
     </div>
