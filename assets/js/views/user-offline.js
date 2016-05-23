@@ -2,6 +2,8 @@ define(function(require) {
   var View = require('views/base');
   var _ = require('underscore');
 
+  var app = require('app');
+
   var template = require('templates/user-offline');
 
   var UserOffline = View.Simple.extend({
@@ -29,6 +31,8 @@ define(function(require) {
 
     onClickLogin: function() {
       this.expectAuth = true;
+      var session = app.getSession();
+      session.setOffline();
     },
 
     onAuth: function(result, userView) {

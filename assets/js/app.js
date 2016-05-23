@@ -41,6 +41,16 @@ define(function(require) {
 
     _onAuth: function(result) {
       if(result.result) {
+        if(result.id == 'offline' && this.offline) {
+          this.user.set('id', 'offline');
+          this.user.set('login', 'Гость');
+          this.user.set('score', 0);
+          this.user.set('isAnonymous', true);
+          this.user.set('isOffline', true);
+          this.trigger('auth', this.getAuthData());
+          return;
+        }
+
         this.user.set('id', result.id);
         this.user.fetch({
           success: (function() {
