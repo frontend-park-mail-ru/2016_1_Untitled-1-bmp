@@ -145,4 +145,56 @@ define(function(require) {
     field.clear();
     QUnit.equal(field.getShips().length, 0, 'Поле очищено');
   });
+
+  QUnit.test('Удаление корабля removeShip', function() {
+    var field = fieldCreator();
+
+    QUnit.ok(!field.removeShip(1, 1), 'Несуществующий корабль не удалился');
+
+    field.addShip(1, 1, 1, false);
+    field.addShip(3, 3, 2, true);
+
+    QUnit.equal(field.getShips().length, 2, 'Добавлено два корабля');
+    field.removeShip(1, 1);
+    QUnit.equal(field.getShips().length, 1, 'Удален один корабль');
+
+    var ships = field.getShips();
+
+    QUnit.ok(ships[0][0] == 3
+             && ships[0][1] == 3
+             && ships[0][2] == 2
+             && ships[0][3] === true, 'Удален верный корабль');
+
+     field.removeShip(3, 3);
+     QUnit.equal(field.getShips().length, 0, 'Удален второй корабль');
+  });
+
+  QUnit.test('Сдвиг корабля moveShip', function() {
+    var field = fieldCreator();
+
+    field.addShip(1, 1, 2, false);
+    field.addShip(3, 3, 2, true);
+    QUnit.equal(field.getShips().length, 2, 'Добавлено два корабля');
+
+    QUnit.ok(!field.moveShip(1, 1, 2, 2), 'Нельзя передвинуть корабль на существующий другой');
+    QUnit.ok(!field.moveShip(2, 2, 2, 2), 'Нельзя передвинуть несуществующий корабль');
+    QUnit.ok(!field.moveShip(1, 1, props.getSize(), props.getSize()), 'Нельзя передвинуть корабль, выйдя за границы');
+    QUnit.ok(field.moveShip(1, 1, 2, 1), 'Передвинули корабль');
+    QUnit.ok(field.moveShip(2, 1, 1, 1), 'Передвинули корабль обратно');
+  });
+
+  QUnit.test('Поворот корабля rotateShip', function() {
+    var field = fieldCreator();
+
+    field.addShip(2, 1, 2, false);
+    field.addShip(3, 3, 2, true);
+    field.addShip(props.getSize() - 2, props.getSize() - 1, 3, false);
+    QUnit.equal(field.getShips().length, 3, 'Добавлено три корабля');
+
+    QUnit.ok(!field.rotateShip(2, 1), 'Нельзя повернуть корабль на существующий другой');
+    QUnit.ok(!field.rotateShip(2, 2), 'Нельзя повернуть несуществующий корабль');
+    QUnit.ok(!field.rotateShip(props.getSize() - 2, props.getSize() - 2), 'Нельзя повернуть корабль, выйдя за границы');
+    QUnit.ok(field.rotateShip(3, 3), 'Повернули корабль');
+    QUnit.ok(field.rotateShip(3, 3), 'Повернули корабль обратно');
+  });
 });

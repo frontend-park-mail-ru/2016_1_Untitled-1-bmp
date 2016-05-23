@@ -55,7 +55,6 @@
     background-color: @ship-bg-color;
     border: 2px solid @ship-border-color;
     cursor: move;
-    transition: .5s;
     box-sizing: border-box;
 
     &:hover {
@@ -70,13 +69,24 @@
       height: @cell-size-small;
     });
 
+    .game-field__cell &,
     &_field {
       display: block;
+      z-index: 2;
       position: absolute;
       border-width: 1px;
       &, &:hover {
         background-color: @ship-bg-color;
       }
+
+      margin-top: -@cell-size / 2 + 1px;
+      .media-bit-large({
+        margin-top: -@cell-size-medium / 2;
+      });
+
+      .media-small({
+        margin-top: -@cell-size-small / 2;
+      });
     }
 
     &_selected {
@@ -153,6 +163,7 @@
       position: relative;
       margin: 0;
       margin-top: 1.5em;
+      height: @cell-size;
     }
   }
 

@@ -16,7 +16,7 @@
             <div class="page-game-start__fields">
                 <div class="page-game-start__ships js-ships">
                     <fest:for iterate="data.ships" index="k" value="ship">
-                        <div class="page-game-start__ship-line">
+                        <div class="page-game-start__ship-line js-ship-line">
                             <fest:for from="1" to="ship.count" index="k1">
                                 <div>
                                     <fest:attributes>

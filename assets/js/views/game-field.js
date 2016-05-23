@@ -33,6 +33,30 @@ define(function(require) {
       this.$captionInfo.html(text);
     },
 
+    canAddShip: function(x, y, length, isVertical) {
+      return this.model.checkShip(x, y, length, isVertical);
+    },
+
+    addShip: function(x, y, length, isVertical) {
+      return this.model.addShip(x, y, length, isVertical);
+    },
+
+    canMoveShip: function(x, y, _x, _y) {
+      return this.model.checkMoveShip(x, y, _x, _y);
+    },
+
+    moveShip: function(x, y, _x, _y) {
+      return this.model.moveShip(x, y, _x, _y);
+    },
+
+    removeShip: function(x, y) {
+      return this.model.removeShip(x, y);
+    },
+
+    rotateShip: function(x, y) {
+      return this.model.rotateShip(x, y);
+    },
+
     show: function() {
       this.render();
       this.$el.show();

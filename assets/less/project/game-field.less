@@ -1,9 +1,7 @@
 .game-field {
   margin: 0 auto;
   background-color: rgba(255, 255, 255, .5);
-  ::selection {
-    background: none;
-  }
+  user-select: none;
 
   .media-medium({
     left: -@cell-size-medium / 2;
@@ -15,12 +13,12 @@
   });
 
   &__cell {
+    position: relative;
     width: @cell-size;
     height: @cell-size;
     background-color: @cell-bg-color;
     border: @cell-border-size solid @cell-border-color;
     text-align: center;
-    transition: 1s;
 
     .media-bit-large({
       width: @cell-size-medium;

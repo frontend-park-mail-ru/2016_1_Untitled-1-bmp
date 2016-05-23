@@ -22,6 +22,118 @@ define(function(require) {
       return false;
     },
 
+    removeShip: function(x, y) {
+      for(var i = 0; i < this.ships.length; i++) {
+        if(this.ships[i][0] == x && this.ships[i][1] == y) {
+          this.ships.splice(i, 1);
+          return true;
+        }
+      }
+
+      return false;
+    },
+
+    moveShip: function(x, y, _x, _y) {
+      if(!this.checkMoveShip(x, y, _x, _y)) {
+        return false;
+      }
+
+      for(var i = 0; i < this.ships.length; i++) {
+        if(this.ships[i][0] == x && this.ships[i][1] == y) {
+          this.ships[i][0] = _x;
+          this.ships[i][1] = _y;
+          return true;
+        }
+      }
+
+      return false;
+    },
+
+    checkMoveShip: function(x, y, _x, _y) {
+      var ships = this.ships.slice(0);
+
+      var oldShip = null;
+
+      for(var i = 0; i < ships.length; i++) {
+        if(ships[i][0] == x && ships[i][1] == y) {
+          oldShip = ships[i];
+          ships.splice(i, 1);
+          break;
+        }
+      }
+
+      if(oldShip === null) {
+        return false;
+      }
+
+      var length = oldShip[2],
+          isVertical = oldShip[3];
+
+      var is = this.props.getMaxDeck() >= length
+                && _x > 0 && _x <= this.props.getSize()
+                && _y > 0 && _y <= this.props.getSize()
+                && (isVertical ? _y : _x) + length - 1 <= this.props.getSize();
+
+      if(!is) {
+        return false;
+      }
+
+      return undefined == _.find(ships, function(ship) {
+        return GameField.intersectsShip(ship[0], ship[1], ship[2], ship[3], _x, _y, oldShip[2], oldShip[3]);
+      }, this);
+    },
+
+    rotateShip: function(x, y) {
+      if(!this.checkRotateShip(x, y)) {
+        return false;
+      }
+
+      for(var i = 0; i < this.ships.length; i++) {
+        if(this.ships[i][0] == x && this.ships[i][1] == y) {
+          this.ships[i][3] = !this.ships[i][3]
+          return true;
+        }
+      }
+
+      return false;
+    },
+
+    checkRotateShip: function(x, y) {
+      var ships = this.ships.slice(0);
+
+      var oldShip = null;
+
+      for(var i = 0; i < ships.length; i++) {
+        if(ships[i][0] == x && ships[i][1] == y) {
+          oldShip = ships[i];
+          ships.splice(i, 1);
+          break;
+        }
+      }
+
+      if(oldShip === null) {
+        return false;
+      }
+
+      var x = oldShip[0],
+          y = oldShip[1],
+          length = oldShip[2],
+          isVertical = !oldShip[3];
+
+      var is = this.props.getMaxDeck() >= length
+                && x > 0 && x <= this.props.getSize()
+                && y > 0 && y <= this.props.getSize()
+                && (isVertical ? y : x) + length - 1 <= this.props.getSize();
+
+      if(!is) {
+        return false;
+      }
+
+      return undefined == _.find(ships, function(ship) {
+        return GameField.intersectsShip(ship[0], ship[1], ship[2], ship[3], x, y, oldShip[2], !oldShip[3]);
+      }, this);
+    },
+
     checkShip: function(x, y, length, isVertical) {
       var is = this.props.getMaxDeck() >= length
                 && x > 0 && x <= this.props.getSize()
