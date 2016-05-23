@@ -13,7 +13,7 @@ define(function(require) {
       this.listenTo(this.session, 'logout', this._onLogout.bind(this));
       this.listenTo(this.session, 'offline', this._onOffline.bind(this));
 
-      this.session.listenTo(this.user, 'register', this.session.check.bind(this.session));
+      this.session.listenTo(this.user, 'register', this._onRegister.bind(this));
     },
 
     start: function(cb) {
@@ -58,6 +58,10 @@ define(function(require) {
 
     _onOffline: function() {
       this.offline = true;
+    },
+
+    _onRegister: function() {
+      this.session.check();
     }
   });
 

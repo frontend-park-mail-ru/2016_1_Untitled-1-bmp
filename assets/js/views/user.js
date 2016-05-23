@@ -6,6 +6,7 @@ define(function(require) {
 
   var UserLoginView = require('views/user-login');
   var UserSignupView = require('views/user-signup');
+  var UserOfflineView = require('views/user-offline');
 
   var UserView = View.Page.extend({
     events: {
@@ -18,13 +19,29 @@ define(function(require) {
       this.tabs = {
         login:  {
           view: new UserLoginView(),
-          title: 'Войти'
+          title: 'Вход'
         },
         signup: {
           view: new UserSignupView(),
-          title: 'Зарегистрироваться'
+          title: 'Регистрация'
+        },
+        offline: {
+          view: new UserOfflineView(),
+          title: 'Офлайн'
         }
       };
+
+      this.returnPage = '';
+    },
+
+    setReturnPage: function(page) {
+      this.returnPage = page;
+    },
+
+    returnToPage: function() {
+      var router = require('router');
+      router.go(this.returnPage);
+      this.returnPage = '';
     },
 
     onTabLinkClick: function(e) {
@@ -100,9 +117,9 @@ define(function(require) {
     onAuth: function(result) {
       _.each(this.tabs, function(tab) {
         if(tab.view !== undefined && typeof tab.view.onAuth === 'function') {
-          tab.view.onAuth(result);
+          tab.view.onAuth(result, this);
         }
-      });
+      }, this);
     }
   });
 

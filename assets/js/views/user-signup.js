@@ -82,7 +82,12 @@ define(function(require) {
         user.once('register', (function(result) {
           this.blockButton(false);
           if(!result.result) {
-            this.handleError(result.error);
+            if(result.error) {
+              this.handleError(result.error);
+            }
+            else {
+              alertify.error('Не удалось зарегистрироваться. Может быть, поиграете офлайн?');
+            }
           }
           else {
             this.expectAuth = true;
@@ -93,12 +98,11 @@ define(function(require) {
       }
     },
 
-    onAuth: function(result) {
+    onAuth: function(result, userView) {
       if(result.isAuth && this.expectAuth) {
-        var router = require('router');
         this.expectAuth = false;
         this.clear();
-        router.go('');
+        userView.returnToPage();
       }
     }
   });

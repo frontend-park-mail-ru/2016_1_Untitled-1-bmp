@@ -60,7 +60,7 @@ define(function(require) {
     },
 
     handleError: function(error) {
-      if(this.inputs[error.field] !== undefined) {
+      if(error !== undefined && this.inputs[error.field] !== undefined) {
         this.inputs[error.field].addClass('user-login__field_error');
         alertify.error(error.error);
       }
@@ -93,7 +93,12 @@ define(function(require) {
         session.once('auth', (function(result) {
           this.blockButtons(false);
           if(!result.result) {
-            this.handleError(result.error);
+            if(result.error) {
+              this.handleError(result.error);
+            }
+            else {
+              alertify.error('Не удалось войти. Может быть, поиграете офлайн?');
+            }
           }
           else {
             this.expectAuth = true;
@@ -122,19 +127,18 @@ define(function(require) {
           this.expectAuth = true;
         }
         else {
-          alertify.error('Не удалось войти как гость');
+          alertify.error('Не удалось войти как гость. Может быть, поиграете офлайн?');
         }
       }.bind(this));
 
       user.register(uData);
     },
 
-    onAuth: function(result) {
+    onAuth: function(result, userView) {
       if(result.isAuth && this.expectAuth) {
-        var router = require('router');
         this.expectAuth = false;
         this.clear();
-        router.go('');
+        userView.returnToPage();
       }
     }
   });

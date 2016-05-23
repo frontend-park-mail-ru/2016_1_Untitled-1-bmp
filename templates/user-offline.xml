@@ -1,0 +1,10 @@
+<fest:template xmlns:fest="http://fest.mail.ru" context_name="data">
+    <div class="user-offline">
+        <div class="user-offline__section">
+            При игре офлайн результаты не сохраняются.
+        </div>
+        <div class="user-offline__section">
+            <input class="user-offline__button user-offline__button_green js-login-offline" type="button" value="Играть офлайн" />
+        </div>
+    </div>
+</fest:template>

@@ -12,6 +12,8 @@ define(function (require) {
 
   var viewManager = require('views/manager');
 
+  var gameProvider = require('models/game/game-provider');
+
   var mainView = new MainView();
   var scoreboardView = new ScoreboardView();
   var userView = new UserView();
@@ -73,7 +75,14 @@ define(function (require) {
     },
 
     gameAction: function() {
-      gameView.show(loader);
+      if(!app.getAuthData().isAuth) {
+        userView.setReturnPage('game');
+        this.go('user/login');
+      }
+      else {
+        console.log(gameProvider);
+        // gameView.show(loader);
+      }
     },
 
     gameStartAction: function() {
