@@ -9,7 +9,6 @@ define(function(require) {
   var GameFieldView = require('views/game-field');
 
   var GameView = require('views/game');
-  var viewManager = require('views/manager');
 
   var template = require('templates/game-start');
 
@@ -173,6 +172,7 @@ define(function(require) {
           if(res.result) {
             var view = new GameView();
             view.setGameSession(res.session);
+            var viewManager = require('views/manager');
             viewManager.addView(view);
             view.show(loader);
           }
