@@ -88,7 +88,7 @@ define(function(require) {
         info.id = id;
       }
 
-      return this.send('initGame', info);
+      return this.send('initNewGame', info);
     },
 
     requestShoot: function(x, y) {

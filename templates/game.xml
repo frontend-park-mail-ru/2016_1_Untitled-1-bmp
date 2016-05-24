@@ -6,18 +6,14 @@
                 <h2 class="page-game__header-text">Бой
                     <fest:space />/
                     <fest:space />
-                    <a href="#" class="page-game__header-giveup">сдаться</a>
+                    <a href="#" class="page-game__header-giveup js-giveup">сдаться</a>
                 </h2>
             </div>
-            <div class="page-game__status">
-                Ход соперника
-            </div>
+            <div class="page-game__status js-status"> </div>
             <div class="page-game__fields">
-                <div class="page-game__field">
-                    <fest:include src="game-field.xml" />
+                <div class="page-game__field js-field-my">
                 </div>
-                <div class="page-game__field">
-                    <fest:include src="game-field.xml" />
+                <div class="page-game__field js-field-opponent">
                 </div>
             </div>
         </div>

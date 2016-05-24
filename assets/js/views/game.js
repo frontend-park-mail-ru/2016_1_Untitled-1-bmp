@@ -1,12 +1,20 @@
 define(function(require) {
   var View = require('views/base');
   var template = require('templates/game');
+  var fieldTemplate = require('templates/game-field');
 
   var scene = require('features/scene-chaos');
 
   var GameView = View.Page.extend({
+    gameSession: undefined,
+
     initialize: function() {
       this.template = template;
+      this.fieldTemplate = fieldTemplate;
+    },
+
+    setGameSession: function(gameSession) {
+      this.gameSession = gameSession;
     },
 
     render: function() {

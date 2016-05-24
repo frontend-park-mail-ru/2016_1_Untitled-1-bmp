@@ -1,13 +1,21 @@
 define(function(require) {
   var _ = require('underscore');
 
+  var app = require('app');
+  var loader = require('loader');
+
   var View = require('views/base');
   var GameProps = require('models/game/game-props');
   var GameFieldView = require('views/game-field');
+
+  var GameView = require('views/game');
+  var viewManager = require('views/manager');
+
   var template = require('templates/game-start');
 
   var gameProvider = require('models/game/game-provider');
 
+  var alertify = require('alertify');
   var dragula = require('dragula');
 
   var GameStartView = View.Page.extend({
@@ -160,7 +168,25 @@ define(function(require) {
         return;
       }
 
-      console.log(this.fieldView.getShipsData(), this.activeMode.data('mode'));
+      loader(function(hide) {
+        gameProvider.once('startGameSession', function(res) {
+          if(res.result) {
+            var view = new GameView();
+            view.setGameSession(res.session);
+            viewManager.addView(view);
+            view.show(loader);
+          }
+          else {
+            hide(function() {
+              alertify.error('Не удалось начать игру');
+            });
+          }
+        });
+
+        var ships = this.fieldView.getShipsData();
+        var mode = this.activeMode.data('mode');
+        gameProvider[app.isOffline() ? 'startOfflineGame' : 'startOnlineGame'](ships, mode);
+      }.bind(this));
     },
 
     onClickClear: function(e) {
