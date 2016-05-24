@@ -123,8 +123,7 @@ define(function(require) {
     },
 
     logout: function() {
-      var app = require('app');
-      if(app.isOffline()) {
+      if(cache.get(CACHE_IS_OFFLINE_KEY)) {
         this.set('auth', false);
         this.trigger('logout');
         cache.remove(CACHE_IS_OFFLINE_KEY);
