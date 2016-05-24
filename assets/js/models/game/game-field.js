@@ -181,7 +181,7 @@ define(function(require) {
     getCell: function(x, y) {
     },
 
-    addCell: function(x, y, state) {
+    setCell: function(x, y, state) {
     }
   });
 
@@ -209,6 +209,10 @@ define(function(require) {
     }
 
     return false;
+  };
+
+  GameField.intersectsCell = function(x, y, length, isVertical, _x, _y) {
+    return GameField.intersectsShip(x, y, length, isVertical, _x, _y, 1, false);
   };
 
   GameField.getShipCells = function(x, y, length, isVertical) {

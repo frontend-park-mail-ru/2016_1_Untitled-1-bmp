@@ -16,6 +16,7 @@ define(function(require) {
     checkOnlineGame: function() {
       this.providerOnline.on('message', function(message) {
         if(message.type === 'game_status') {
+          console.log('game exists: ', message.ok);
           this.trigger('checkOnlineGame', {
             connection: true,
             exists: message.ok
@@ -51,6 +52,7 @@ define(function(require) {
       }.bind(this));
       this.providerOnline.connect();
       this.providerOnline.requestInit(ships, mode, id);
+      this.providerOnline.requestStatus();
     },
 
     getModes: function() {

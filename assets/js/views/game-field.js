@@ -113,6 +113,69 @@ define(function(require) {
       return this.model.getShips();
     },
 
+    setCell: function(x, y, state) {
+      var $cell = this.getCell(x, y);
+
+      var classShip = 'game-field__cell_ship';
+      var classWound = 'game-field__cell_wound';
+      var classMiss = 'game-field__cell_miss';
+
+      this.model.setCell(x, y, state);
+
+      $cell.removeClass(classShip);
+      $cell.removeClass(classWound);
+      $cell.removeClass(classMiss);
+
+      switch(state) {
+          case GameField.STATE_SHIP:
+              $cell.addClass(classShip);
+              break;
+          case GameField.STATE_SHIP_WOUND:
+              $cell.addClass(classWound);
+              break;
+          case GameField.STATE_MISS:
+              $cell.addClass(classMiss);
+              break;
+          case GameField.STATE_EMPTY:
+          default:
+              break;
+      }
+    },
+
+    setCellShip: function(x, y) {
+      return this.setCell(x, y, GameField.STATE_SHIP);
+    },
+
+    setCellWound: function(x, y) {
+      return this.setCell(x, y, GameField.STATE_SHIP_WOUND);
+    },
+
+    setCellMiss: function(x, y) {
+      return this.setCell(x, y, GameField.STATE_MISS);
+    },
+
+    setCellEmpty: function(x, y) {
+      return this.setCell(x, y, GameField.STATE_EMPTY);
+    },
+
+    setCellsShip: function(x, y, length, isVertical, asKilled) {
+      asKilled = asKilled || false;
+
+      var cells = GameField.getShipCells(x, y, length, isVertical);
+
+      _.each(cells, function(cell) {
+        this.setCell(cell[0], cell[1], asKilled ? GameField.STATE_SHIP_WOUND : GameField.STATE_SHIP);
+      }, this);
+
+      if(asKilled) {
+        cells = GameField.getShipNearCells(x, y, length, isVertical, this.props);
+
+        _.each(cells, function(cell) {
+          this.setCellMiss(cell[0], cell[1]);
+        }, this);
+      }
+    },
+
     show: function() {
       this.render();
       this.$el.show();

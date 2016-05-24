@@ -21,7 +21,7 @@ define(function(require) {
       try {
         this.ws = new WebSocket('ws://' + window.location.host + '/gameplay');
         this.ws.onopen = this._onOpen.bind(this);
-        this.ws.onclode = this._onClose.bind(this);
+        this.ws.onclose = this._onClose.bind(this);
         this.ws.onmessage = this._onMessage.bind(this);
         this.ws.onerror = function() {
           this.trigger('connection', {
