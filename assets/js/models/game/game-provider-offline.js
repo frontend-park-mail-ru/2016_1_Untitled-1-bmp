@@ -4,6 +4,10 @@ define(function(require) {
   var GameProviderOffline = Backbone.Model.extend({
     initialize: function(props) {
       this.props = props;
+    },
+
+    getProps: function() {
+      return this.props;
     }
   });
 

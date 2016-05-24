@@ -8,6 +8,10 @@ define(function(require) {
       provider.on('message', this._onMessage.bind(this));
     },
 
+    getProps: function() {
+      return this.provider.getProps();
+    },
+
     _onConnection: function(res) {
       console.log('gameSession: connect', res);
     },

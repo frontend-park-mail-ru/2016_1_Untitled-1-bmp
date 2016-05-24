@@ -6,6 +6,10 @@ define(function(require) {
       this.props = props;
     },
 
+    getProps: function() {
+      return this.props;
+    },
+
     connect: function() {
       if(this.isOpen()) {
         this.trigger('connection', {
