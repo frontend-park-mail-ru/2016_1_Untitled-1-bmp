@@ -48,7 +48,7 @@ define(function(require) {
 
       this.fieldViewMy = new this.fieldView(this.gameSession.getProps());
       this.fieldViewMy.show();
-      this.fieldViewMy.setCaption('Ваше поле');
+      this.fieldViewMy.setCaption('Твое поле');
       this.fieldViewOpponent = new this.fieldView(this.gameSession.getProps());
       this.fieldViewOpponent.show();
       this.fieldViewOpponent.setCaption('Поле соперника');
@@ -142,7 +142,7 @@ define(function(require) {
       this.$el.find('.js-field-my').toggleClass('page-game__field_active', !msg.ok);
       this.$el.find('.js-field-opponent').toggleClass('page-game__field_active', msg.ok);
       if(msg.ok) {
-        this.setStatus('Ваш ход');
+        this.setStatus('Твой ход');
       }
       else {
         this.setStatus('Ход соперника');

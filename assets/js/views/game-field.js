@@ -9,8 +9,8 @@ define(function(require) {
   var GameFieldView = View.Simple.extend({
 
     events: {
-      'mouseover .js-cell-active': 'onMouseOverCell',
-      'mouseout .js-cell-active': 'onMouseOutCell',
+      'mouseover .js-cell-game': 'onMouseOverCell',
+      'mouseout .js-cell-game': 'onMouseOutCell',
       'click .js-cell-active': 'onClickCell'
     },
 
@@ -222,7 +222,7 @@ define(function(require) {
 
       var hoverClass = 'game-field__cell_hover';
 
-      this.$el.find('.js-cell-active').each(function(i, el) {
+      this.$el.find('.js-cell-game').each(function(i, el) {
         $(el).toggleClass(hoverClass, $(el).data('x') == x || $(el).data('y') == y);
       });
     },
@@ -234,7 +234,7 @@ define(function(require) {
 
       var hoverClass = 'game-field__cell_hover';
 
-      this.$el.find('.js-cell-active').each(function(i, el) {
+      this.$el.find('.js-cell-game').each(function(i, el) {
         if($(el).data('x') == x || $(el).data('y') == y) {
           $(el).removeClass(hoverClass);
         }

@@ -32,23 +32,16 @@
 
     &_active {
       cursor: pointer;
-    }
-
-    &_hover {
-      &, &:hover {
-        background-color: @cell-bg-color-hover;
+      &.game-field__cell_hover {
+        &, &:hover {
+          background-color: @cell-bg-color-hover;
+        }
       }
     }
 
     &_wait {
       &, &:hover {
-        background-color: darken(@cell-bg-color-hover, 30%) !important;
-      }
-    }
-
-    &_wait {
-      &, &:hover {
-        background-color: @cell-bg-color-wait;
+        background-color: darken(@cell-bg-color-hover, 30%);
       }
     }
 
