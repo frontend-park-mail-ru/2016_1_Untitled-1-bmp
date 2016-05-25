@@ -93,6 +93,7 @@ define(function(require) {
 
     requestGiveUp: function() {
       this.sendMessage('game_over', { ok: false });
+      cache.remove(CACHE_OFFLINE_GAME_STATE);
     },
 
     makeTurn: function() {
