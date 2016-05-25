@@ -236,12 +236,11 @@ define(function(require) {
         }, this);
       }
 
-      if(msg.turn) {
-        this.onMessageTurn({ ok: msg.turn });
-      }
-
       if(!msg.started) {
         this.setStatus('Ожидаем соперника...');
+      }
+      else {
+        this.onMessageTurn({ ok: msg.turn });
       }
     },
 
