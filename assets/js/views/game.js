@@ -8,10 +8,17 @@ define(function(require) {
   var alertify = require('alertify');
   var _ = require('underscore');
 
+  var cache = require('cache');
+
+  var CACHE_LAST_SHOOT = 'game-online-last-shoot';
+
+  var CONNECTION_TRIES_MAX = 15;
+
   var GameView = View.Page.extend({
 
     events: {
-      'click .js-giveup': 'onClickGiveUp'
+      'click .js-giveup': 'onClickGiveUp',
+      'click .js-reload': 'onClickReload'
     },
 
     messages: {
@@ -27,6 +34,8 @@ define(function(require) {
     },
 
     gameSession: undefined,
+
+    connectionTries: 0,
 
     initialize: function() {
       this.template = template;
@@ -106,8 +115,32 @@ define(function(require) {
                       });
     },
 
+    onClickReload: function(e) {
+      e.preventDefault();
+      location.reload();
+    },
+
     onConnection: function(res) {
-      console.log('game view connection', res);
+      if(!res.open) {
+        if(++this.connectionTries >= CONNECTION_TRIES_MAX) {
+          alertify.error('Соединение с сервером разорвано. Для продолжения игры обновите страницу.');
+          var $a = $('<a/>').attr('href', '#').text('обновите страницу');
+          this.setStatus($('<div/>').append('Соединение с сервером разорвано. Для продолжения игры ', $a).html());
+          this.stopListening(this.gameSession);
+          this.gameSession.stop();
+        }
+        else {
+          this.setStatus('Соединение с сервером потеряно. Пытаемся восстановить...');
+          _.debounce(this.gameSession.connect.bind(this.gameSession), 1000)();
+        }
+      }
+      else {
+        if(this.connectionTries > 0) {
+          this.setStatus('Соединение с сервером восстанвлено. Восстанавливаем игру...');
+          this.gameSession.getStatus();
+          this.connectionTries = 0;
+        }
+      }
     },
 
     onMessage: function(msg) {
@@ -125,7 +158,7 @@ define(function(require) {
       }
       else {
         var $a = $('<a/>').attr('href', '#').text('Вернуться в главное меню');
-        this.setStatus('Не удалось начать игру. ' + $a.html());
+        this.setStatus($('<div/>').append('Не удалось начать игру. ', $a).html());
       }
     },
 
@@ -143,6 +176,11 @@ define(function(require) {
       this.$el.find('.js-field-opponent').toggleClass('page-game__field_active', msg.ok);
       if(msg.ok) {
         this.setStatus('Твой ход');
+
+        var cell = cache.get(CACHE_LAST_SHOOT);
+        if(cell) {
+          this.fieldViewOpponent.getCell(cell.x, cell.y).click();
+        }
       }
       else {
         this.setStatus('Ход соперника');
@@ -169,6 +207,10 @@ define(function(require) {
 
     onMessageShoot: function(msg) {
       var field = msg.ok ? this.fieldViewMy : this.fieldViewOpponent;
+
+      if(!msg.ok) {
+        cache.remove(CACHE_LAST_SHOOT);
+      }
 
       var letters = 'АБВГДЕЖЗИКЛМНОПРСТ'.split('');
       var cellName = letters[msg.x - 1] + '' + msg.y;
@@ -257,6 +299,8 @@ define(function(require) {
       this.fieldViewOpponent.setInactive();
 
       this.gameSession.shoot(x, y);
+
+      cache.set(CACHE_LAST_SHOOT, { x: x, y: y });
     },
 
     showUserPanel: function() {
