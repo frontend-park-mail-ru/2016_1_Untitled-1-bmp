@@ -7,7 +7,9 @@ define(function (require) {
       ScoreboardView = require('views/scoreboard'),
       UserView = require('views/user'),
       RulesView = require('views/rules'),
-      GameStartView = require('views/game-start');
+      GameStartView = require('views/game-start'),
+      GameView = require('views/game'),
+      GameInitView = require('views/game-init');
 
   var viewManager;
 
@@ -80,50 +82,14 @@ define(function (require) {
         alertify.message('Авторизуйтесь, чтобы начать игру');
       }
       else {
-        this[app.isOffline() ? '_gameOffline' : '_gameOnline']();
+        var gameInitView = new GameInitView();
+        gameInitView.show(loader);
+        viewManager.addView(gameInitView);
       }
     },
 
     gameStartAction: function() {
       gameStartView.show(loader);
-    },
-
-    _gameOffline: function() {
-      gameProvider.once('checkOfflineGame', function(res) {
-        if(!res.exists) {
-          this.gameStartAction();
-        }
-        else {
-          alertify.info('У вас есть незаконченная офлайн-игра');
-          // TODO:
-        }
-      }.bind(this));
-
-      loader(function() {
-        gameProvider.checkOfflineGame();
-      });
-    },
-
-    _gameOnline: function() {
-      loader(function(hide) {
-        gameProvider.once('checkOnlineGame', function(res) {
-          if(!res.connection) {
-            this.go('');
-            alertify.error('Не удалось подключиться к серверу');
-          }
-          else if(!res.exists) {
-            this.gameStartAction();
-          }
-          else {
-            this.goSilent('');
-            hide(function() {
-              alertify.notify('У вас есть незаконченная онлайн-игра');
-            });
-            // TODO:
-          }
-        }.bind(this));
-        gameProvider.checkOnlineGame();
-      }.bind(this));
     }
   });
 

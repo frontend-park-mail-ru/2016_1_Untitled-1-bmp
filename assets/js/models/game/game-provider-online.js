@@ -37,7 +37,7 @@ define(function(require) {
     },
 
     isOpen: function() {
-      return this.ws && this.ws.readyState == WebSocket.OPEN;
+      return !!(this.ws && this.ws.readyState == WebSocket.OPEN);
     },
 
     disconnect: function() {
@@ -53,6 +53,7 @@ define(function(require) {
     },
 
     _onClose: function() {
+      this.ws.onopen = this.ws.onclose = this.ws.onerror = this.ws.onmessage = function() {};
       this.trigger('connection', {
         open: false,
         close: true
@@ -64,18 +65,21 @@ define(function(require) {
     },
 
     send: function(action, data) {
-      if(this.isOpen()) {
-        data = data || {};
-        try {
-          this.ws.send(
-            JSON.stringify(_.extend(data, { action: action }))
-          );
-          return true;
+      this.once('connection', function(res) {
+        if(res.open) {
+          data = data || {};
+          try {
+            this.ws.send(
+              JSON.stringify(_.extend(data, { action: action }))
+            );
+            return true;
+          }
+          catch(e) {
+            return false;
+          }
         }
-        catch(e) {
-          return false;
-        }
-      }
+      }, this);
+      this.connect();
     },
 
     requestStatus: function() {

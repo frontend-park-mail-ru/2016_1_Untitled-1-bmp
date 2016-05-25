@@ -36,8 +36,8 @@ define(function(require) {
     setGameSession: function(gameSession) {
       this.gameSession = gameSession;
 
-      this.gameSession.on('connection', this.onConnection.bind(this));
-      this.gameSession.on('message', this.onMessage.bind(this));
+      this.listenTo(this.gameSession, 'connection', this.onConnection.bind(this));
+      this.listenTo(this.gameSession, 'message', this.onMessage.bind(this));
 
       this.render();
     },
@@ -150,6 +150,15 @@ define(function(require) {
     },
 
     onMessageOver: function(msg) {
+      this.stopListening(this.gameSession);
+      this.gameSession.stop();
+
+      var result = msg.ok ? 'Вы победили!' : 'Вы проиграли!';
+
+      alertify.alert('Конец игры', result,
+                    function() {
+                      router.go('');
+                    }.bind(this));
     },
 
     onMessageShoot: function(msg) {
@@ -190,6 +199,14 @@ define(function(require) {
         }, this);
       }
 
+      if(msg.killedShips) {
+        _.each(msg.killedShips, function(ship) {
+          var args = ship.splice(0);
+          args.push(true);
+          this.fieldViewMy.setCellsShip.apply(this.fieldViewMy, args);
+        }, this);
+      }
+
       if(msg.shoots) {
         _.each(msg.shoots, function(shoot) {
           var isWound = shoot[2];
@@ -210,6 +227,10 @@ define(function(require) {
           var isWound = shoot[2];
           this.fieldViewOpponent[isWound ? 'setCellWound' : 'setCellMiss'](shoot[0], shoot[1]);
         }, this);
+      }
+
+      if(msg.turn) {
+        this.onMessageTurn({ ok: msg.turn });
       }
     },
 

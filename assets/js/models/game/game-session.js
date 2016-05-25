@@ -6,11 +6,11 @@ define(function(require) {
   var GameSession = Backbone.Model.extend({
     initialize: function(provider) {
       this.provider = provider;
-      this.provider.on('connection', this._onConnection.bind(this));
-      this.provider.on('message', this._onMessage.bind(this));
+      this.listenTo(this.provider, 'connection', this._onConnection.bind(this));
+      this.listenTo(this.provider, 'message', this._onMessage.bind(this));
 
       this.queue = new Queue(1500);
-      this.queue.on('handle', this._onHandle.bind(this));
+      this.listenTo(this.queue, 'handle', this._onHandle.bind(this));
     },
 
     getProps: function() {
@@ -47,6 +47,10 @@ define(function(require) {
     _onHandle: function(msg) {
       console.log('gameSession: handle', msg);
       this.trigger('message', msg);
+    },
+
+    stop: function() {
+      this.stopListening();
     }
   });
 
