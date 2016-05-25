@@ -106,7 +106,18 @@ define(function(require) {
           return cell[0] == expected[0] && cell[1] == expected[1];
         });
         return !res;
-      }), 'Все ожидаемые клетки найдены'
+      }), 'Все ожидаемые клетки найдены (вертикально)'
+    );
+
+    cells = GameField.getShipNearCells(2, 2, 1, true, props);
+
+    QUnit.ok(expect.length == cells.length
+       && undefined == _.find(expect, function(expected) {
+        var res = _.find(cells, function(cell) {
+          return cell[0] == expected[0] && cell[1] == expected[1];
+        });
+        return !res;
+      }), 'Все ожидаемые клетки найдены (горизонтально)'
     );
   });
 

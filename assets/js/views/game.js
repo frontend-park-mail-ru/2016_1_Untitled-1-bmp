@@ -137,6 +137,7 @@ define(function(require) {
     },
 
     onMessageTurn: function(msg) {
+      if(this.scene) this.scene.action();
       this.fieldViewOpponent.setActive(msg.ok);
       this.$el.find('.js-field-my').toggleClass('page-game__field_active', !msg.ok);
       this.$el.find('.js-field-opponent').toggleClass('page-game__field_active', msg.ok);
