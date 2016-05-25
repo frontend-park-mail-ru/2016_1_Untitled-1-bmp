@@ -251,7 +251,7 @@ define(function(require) {
           if(y < props.getSize()) {
             cells.push([_x, y + 1]);
           }
-          if(_x == _x - 1 || _x == _x + length) {
+          if(_x == x - 1 || _x == x + length) {
             cells.push([_x, y]);
           }
         }
