@@ -7,6 +7,13 @@ define(function(require) {
   var template = require('templates/game-field');
 
   var GameFieldView = View.Simple.extend({
+
+    events: {
+      'mouseover .js-cell-active': 'onMouseOverCell',
+      'mouseout .js-cell-active': 'onMouseOutCell',
+      'click .js-cell-active': 'onClickCell'
+    },
+
     initialize: function(props) {
       this.props = props;
       this.model = new GameField(props);
@@ -119,14 +126,21 @@ define(function(require) {
       var classShip = 'game-field__cell_ship';
       var classWound = 'game-field__cell_wound';
       var classMiss = 'game-field__cell_miss';
+      var classWait = 'game-field__cell_wait';
 
       this.model.setCell(x, y, state);
 
       $cell.removeClass(classShip);
       $cell.removeClass(classWound);
       $cell.removeClass(classMiss);
+      $cell.removeClass(classWait);
+
+      $cell.trigger('mouseout');
 
       switch(state) {
+          case 'wait':
+              $cell.addClass(classWait);
+              break;
           case GameField.STATE_SHIP:
               $cell.addClass(classShip);
               break;
@@ -140,6 +154,10 @@ define(function(require) {
           default:
               break;
       }
+    },
+
+    setCellWait: function(x, y) {
+      return this.setCell(x, y, 'wait');
     },
 
     setCellShip: function(x, y) {
@@ -174,6 +192,66 @@ define(function(require) {
           this.setCellMiss(cell[0], cell[1]);
         }, this);
       }
+    },
+
+    setActive: function(active) {
+      if(active === undefined) {
+        active = true;
+      }
+
+      var classShip = 'game-field__cell_ship';
+      var classWound = 'game-field__cell_wound';
+      var classMiss = 'game-field__cell_miss';
+      var classActive = 'game-field__cell_active js-cell-active';
+
+      this.$el.find('.js-cell-game').each(function(i, el) {
+        $(el).toggleClass(classActive,
+                          active && !($(el).hasClass(classShip) || $(el).hasClass(classWound) || $(el).hasClass(classMiss))
+                         );
+      });
+    },
+
+    setInactive: function() {
+      return this.setActive(false);
+    },
+
+    onMouseOverCell: function(e) {
+      var $cell = $(e.target);
+      var x = $cell.data('x');
+      var y = $cell.data('y');
+
+      var hoverClass = 'game-field__cell_hover';
+
+      this.$el.find('.js-cell-active').each(function(i, el) {
+        $(el).toggleClass(hoverClass, $(el).data('x') == x || $(el).data('y') == y);
+      });
+    },
+
+    onMouseOutCell: function(e) {
+      var $cell = $(e.target);
+      var x = $cell.data('x');
+      var y = $cell.data('y');
+
+      var hoverClass = 'game-field__cell_hover';
+
+      this.$el.find('.js-cell-active').each(function(i, el) {
+        if($(el).data('x') == x || $(el).data('y') == y) {
+          $(el).removeClass(hoverClass);
+        }
+      });
+    },
+
+    onClickCell: function(e) {
+      var $cell = $(e.target);
+      var x = $cell.data('x');
+      var y = $cell.data('y');
+
+      this.setCellWait(x, y);
+
+      this.trigger('shoot', {
+        x: x,
+        y: y
+      });
     },
 
     show: function() {

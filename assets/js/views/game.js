@@ -38,6 +38,8 @@ define(function(require) {
 
       this.gameSession.on('connection', this.onConnection.bind(this));
       this.gameSession.on('message', this.onMessage.bind(this));
+
+      this.render();
     },
 
     render: function() {
@@ -51,10 +53,13 @@ define(function(require) {
       this.fieldViewOpponent.show();
       this.fieldViewOpponent.setCaption('Поле соперника');
 
+      this.fieldViewOpponent.on('shoot', this.onShoot.bind(this));
+
       this.$el.find('.js-field-my').empty().append(this.fieldViewMy.$el);
       this.$el.find('.js-field-opponent').empty().append(this.fieldViewOpponent.$el);
 
       this.$status = this.$el.find('.js-status');
+      this.setStatus('Загрузка...');
 
       this.scene = scene(this.$el.find('.scene-chaos'));
 
@@ -125,15 +130,49 @@ define(function(require) {
     },
 
     onMessageStart: function(msg) {
+      this.setStatus('Начинаем игру...');
+      if(msg.opponentName) {
+        this.fieldViewOpponent.setCaption('Поле ' + msg.opponentName);
+      }
     },
 
     onMessageTurn: function(msg) {
+      this.fieldViewOpponent.setActive(msg.ok);
+      this.$el.find('.js-field-my').toggleClass('page-game__field_active', !msg.ok);
+      this.$el.find('.js-field-opponent').toggleClass('page-game__field_active', msg.ok);
+      if(msg.ok) {
+        this.setStatus('Ваш ход');
+      }
+      else {
+        this.setStatus('Ход соперника');
+      }
     },
 
     onMessageOver: function(msg) {
     },
 
     onMessageShoot: function(msg) {
+      var field = msg.ok ? this.fieldViewMy : this.fieldViewOpponent;
+
+      var letters = 'АБВГДЕЖЗИКЛМНОПРСТ'.split('');
+      var cellName = letters[msg.x - 1] + '' + msg.y;
+      var shootResult = '';
+
+      if(msg.status == 'killed') {
+        field.setCellsShip(msg.startX, msg.startY, msg.length, msg.isVertical, true);
+        shootResult = 'убил';
+      }
+      else if(msg.status == 'wound') {
+        field.setCellWound(msg.x, msg.y);
+        shootResult = 'ранил';
+      }
+      else if(msg.status == 'miss') {
+        field.setCellMiss(msg.x, msg.y);
+        shootResult = 'промазал';
+      }
+
+      var who = msg.ok ? 'Соперник' : 'Ты';
+      this.setStatus(who + ' ' + shootResult + ': ' + cellName);
     },
 
     onMessageError: function(msg) {
@@ -150,11 +189,25 @@ define(function(require) {
         }, this);
       }
 
+      if(msg.shoots) {
+        _.each(msg.shoots, function(shoot) {
+          var isWound = shoot[2];
+          this.fieldViewMy[isWound ? 'setCellWound' : 'setCellMiss'](shoot[0], shoot[1]);
+        }, this);
+      }
+
       if(msg.opponentShips) {
         _.each(msg.opponentShips, function(ship) {
           var args = ship.splice(0);
           args.push(true);
           this.fieldViewOpponent.setCellsShip.apply(this.fieldViewOpponent, args);
+        }, this);
+      }
+
+      if(msg.opponentShoots) {
+        _.each(msg.opponentShoots, function(shoot) {
+          var isWound = shoot[2];
+          this.fieldViewOpponent[isWound ? 'setCellWound' : 'setCellMiss'](shoot[0], shoot[1]);
         }, this);
       }
     },
@@ -164,6 +217,15 @@ define(function(require) {
     },
 
     onMessageTooLong: function(msg) {
+    },
+
+    onShoot: function(data) {
+      var x = data.x;
+      var y = data.y;
+
+      this.fieldViewOpponent.setInactive();
+
+      this.gameSession.shoot(x, y);
     },
 
     showUserPanel: function() {
