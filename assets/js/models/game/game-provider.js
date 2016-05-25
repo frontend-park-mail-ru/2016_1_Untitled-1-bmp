@@ -14,13 +14,14 @@ define(function(require) {
     },
 
     checkOnlineGame: function() {
-      this.providerOnline.on('message', function(message) {
+      this.listenTo(this.providerOnline, 'message', function(message) {
         if(message.type === 'game_status') {
           this.trigger('checkOnlineGame', {
             connection: true,
             exists: message.ok,
             session: message.ok ? new GameSession(this.providerOnline) : undefined
           });
+          this.stopListening(this.providerOnline, 'message');
         }
       }.bind(this));
 

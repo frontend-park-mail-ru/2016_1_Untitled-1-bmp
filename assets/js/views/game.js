@@ -158,7 +158,6 @@ define(function(require) {
 
       alertify.alert('Конец игры', result,
                     function() {
-                      this.session.stop();
                       router.go('');
                     }.bind(this));
 
