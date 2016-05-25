@@ -51,6 +51,7 @@ define(function(require) {
       _.each(this.inputs, function(item) {
         item.val('');
       });
+      this.inputs['guest-login'].val(cache.get(CACHE_LOGIN_KEY, ''));
     },
 
     clearErrors: function() {
