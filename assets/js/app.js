@@ -13,7 +13,7 @@ define(function(require) {
       this.listenTo(this.session, 'logout', this._onLogout.bind(this));
       this.listenTo(this.session, 'offline', this._onOffline.bind(this));
 
-      this.session.listenTo(this.user, 'register', this._onRegister.bind(this));
+      this.listenTo(this.user, 'register', this._onRegister.bind(this));
     },
 
     start: function(cb) {
