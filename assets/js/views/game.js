@@ -154,11 +154,18 @@ define(function(require) {
       this.gameSession.stop();
 
       var result = msg.ok ? 'Вы победили!' : 'Вы проиграли!';
+      var router = require('router');
 
       alertify.alert('Конец игры', result,
                     function() {
+                      this.session.stop();
                       router.go('');
                     }.bind(this));
+
+      if(msg.score) {
+        var app = require('app');
+        app.getUser().set('score', msg.score);
+      }
     },
 
     onMessageShoot: function(msg) {
@@ -231,6 +238,10 @@ define(function(require) {
 
       if(msg.turn) {
         this.onMessageTurn({ ok: msg.turn });
+      }
+
+      if(!msg.started) {
+        this.setStatus('Ожидаем соперника...');
       }
     },
 

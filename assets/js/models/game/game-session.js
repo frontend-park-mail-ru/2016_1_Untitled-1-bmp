@@ -9,7 +9,7 @@ define(function(require) {
       this.listenTo(this.provider, 'connection', this._onConnection.bind(this));
       this.listenTo(this.provider, 'message', this._onMessage.bind(this));
 
-      this.queue = new Queue(1500);
+      this.queue = new Queue(700);
       this.listenTo(this.queue, 'handle', this._onHandle.bind(this));
     },
 
