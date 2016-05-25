@@ -168,7 +168,7 @@ define(function(require) {
       }
 
       loader(function(hide) {
-        gameProvider.once('startGameSession', function(res) {
+        gameProvider.once('startGame', function(res) {
           if(res.result) {
             var view = new GameView();
             view.setGameSession(res.session);

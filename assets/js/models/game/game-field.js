@@ -176,12 +176,35 @@ define(function(require) {
 
 
     getCells: function() {
+      return this.cells.splice(0);
     },
 
     getCell: function(x, y) {
+      for(var i = 0; i < this.cells.length; i++) {
+        if(this.cells[i].x === x && this.cells[i].y === y) {
+          return this.cells[i].state;
+        }
+      }
+
+      for(var i = 0; i < this.ships.length; i++) {
+        var ship = this.ships[i];
+        if(GameField.intersectsCell(ship[0], ship[1], ship[2], ship[3], x, y)) {
+          return GameField.STATE_SHIP;
+        }
+      }
+
+      return GameField.STATE_EMPTY;
     },
 
     setCell: function(x, y, state) {
+      for(var i = 0; i < this.cells.length; i++) {
+        if(this.cells[i].x === x && this.cells[i].y === y) {
+          this.cells[i].state = state;
+          return;
+        }
+      }
+
+      this.cells.push({ x: x, y: y, state: state});
     }
   });
 

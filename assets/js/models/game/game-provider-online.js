@@ -40,12 +40,6 @@ define(function(require) {
       return !!(this.ws && this.ws.readyState == WebSocket.OPEN);
     },
 
-    disconnect: function() {
-      if(this.isOpen()) {
-        this.ws.close();
-      }
-    },
-
     _onOpen: function() {
       this.trigger('connection', {
         open: true
@@ -65,21 +59,30 @@ define(function(require) {
     },
 
     send: function(action, data) {
-      this.once('connection', function(res) {
-        if(res.open) {
-          data = data || {};
-          try {
-            this.ws.send(
-              JSON.stringify(_.extend(data, { action: action }))
-            );
-            return true;
-          }
-          catch(e) {
-            return false;
-          }
+      var _action = function() {
+        data = data || {};
+        try {
+          this.ws.send(
+            JSON.stringify(_.extend(data, { action: action }))
+          );
+          return true;
         }
-      }, this);
-      this.connect();
+        catch(e) {
+          return false;
+        }
+      }.bind(this);
+
+      if(this.isOpen()) {
+        this.once('connection', function(res) {
+          if(res.open) {
+            _action();
+          }
+        }, this);
+        this.connect();
+      }
+      else {
+        _action();
+      }
     },
 
     requestStatus: function() {

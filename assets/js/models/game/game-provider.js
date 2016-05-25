@@ -13,47 +13,60 @@ define(function(require) {
       this.providerOffline = new GameProviderOffline(this.props);
     },
 
-    checkOnlineGame: function() {
-      this.listenTo(this.providerOnline, 'message', function(message) {
+    checkGame: function(provider) {
+      this.listenTo(provider, 'message', function(message) {
         if(message.type === 'game_status') {
-          this.trigger('checkOnlineGame', {
+          this.trigger('checkGame', {
             connection: true,
             exists: message.ok,
-            session: message.ok ? new GameSession(this.providerOnline) : undefined
+            session: message.ok ? new GameSession(provider) : undefined
           });
-          this.stopListening(this.providerOnline, 'message');
+          this.stopListening(provider, 'message');
         }
       }.bind(this));
 
-      this.providerOnline.once('connection', function(res) {
+      provider.once('connection', function(res) {
         if(res.open) {
-          this.providerOnline.requestStatus();
+          provider.requestStatus();
         }
         else {
-          this.trigger('checkOnlineGame', {
+          this.trigger('checkGame', {
             connection: false,
             exists: false
           });
         }
       }.bind(this));
 
-      this.providerOnline.connect();
+      provider.connect();
+    },
+
+    checkOnlineGame: function() {
+      return this.checkGame(this.providerOnline);
     },
 
     checkOfflineGame: function() {
+      return this.checkGame(this.providerOffline);
     },
 
-    startOnlineGame: function(ships, mode, id) {
-      var session = new GameSession(this.providerOnline);
-      this.providerOnline.once('connection', function(res) {
-        this.trigger('startGameSession', {
+    startGame: function(provider, ships, mode, id) {
+      var session = new GameSession(provider);
+      provider.once('connection', function(res) {
+        this.trigger('startGame', {
                        result: res.open,
                        session: session
         });
       }.bind(this));
-      this.providerOnline.connect();
-      this.providerOnline.requestInit(ships, mode, id);
-      this.providerOnline.requestStatus();
+      provider.connect();
+      provider.requestInit(ships, mode, id);
+      provider.requestStatus();
+    },
+
+    startOnlineGame: function(ships, mode, id) {
+      return this.startGame(this.providerOnline, ships, mode, id);
+    },
+
+    startOfflineGame: function(ships, mode, id) {
+      return this.startGame(this.providerOffline, ships, mode, id);
     },
 
     getModes: function() {

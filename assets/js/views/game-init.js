@@ -45,9 +45,9 @@ define(function(require) {
       });
     },
 
-    _online: function() {
+    _game: function(method) {
       loader(function(hide) {
-        gameProvider.once('checkOnlineGame', function(res) {
+        gameProvider.once('checkGame', function(res) {
           if(!res.connection) {
             router.go('');
             alertify.error('Не удалось подключиться к серверу');
@@ -67,11 +67,19 @@ define(function(require) {
                             );
           }
         }, this);
-        gameProvider.checkOnlineGame();
+
+        if(typeof gameProvider[method] === 'function') {
+          gameProvider[method].call(gameProvider);
+        }
       }.bind(this));
     },
 
+    _online: function() {
+      return this._game('checkOnlineGame');
+    },
+
     _offline: function() {
+      return this._game('checkOfflineGame');
     },
 
     hide: function() {

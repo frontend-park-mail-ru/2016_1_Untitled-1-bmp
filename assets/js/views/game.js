@@ -10,7 +10,7 @@ define(function(require) {
 
   var cache = require('cache');
 
-  var CACHE_LAST_SHOOT = 'game-online-last-shoot';
+  var CACHE_LAST_SHOOT = 'game-last-shoot';
 
   var CONNECTION_TRIES_MAX = 15;
 
@@ -137,8 +137,8 @@ define(function(require) {
       else {
         if(this.connectionTries > 0) {
           this.setStatus('Соединение с сервером восстанвлено. Восстанавливаем игру...');
-          this.gameSession.getStatus();
           this.connectionTries = 0;
+          this.gameSession.getStatus();
         }
       }
     },
@@ -190,6 +190,8 @@ define(function(require) {
     onMessageOver: function(msg) {
       this.stopListening(this.gameSession);
       this.gameSession.stop();
+
+      cache.remove(CACHE_LAST_SHOOT);
 
       var result = msg.ok ? 'Вы победили!' : 'Вы проиграли!';
       var router = require('router');
