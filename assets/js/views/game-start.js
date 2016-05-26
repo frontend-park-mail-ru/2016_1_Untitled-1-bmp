@@ -145,6 +145,11 @@ define(function(require) {
 
     hide: function() {
       this.$el.hide();
+      if(this.isRendered && this.isShown) {
+        this.fieldView.clear();
+        this.$el.find('.js-ships').empty().append(this.$cloneShips.html());
+        this.blockReady();
+      }
       this.isShown = false;
     },
 
