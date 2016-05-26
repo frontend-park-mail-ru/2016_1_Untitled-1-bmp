@@ -118,7 +118,6 @@ define(function(require) {
       }
       else if(cellState == GameField.STATE_SHIP) {
         state.opponentField.setCell(x, y, GameField.STATE_SHIP_WOUND);
-        console.warn('after', x, y, state.opponentField.getCells());
         state.turn = true;
         var isKilled = state.opponentField.isShipKilled(x, y);
 
@@ -215,8 +214,6 @@ define(function(require) {
         }
         else {
           var availableShoots = [];
-          console.log(shoots);
-          debugger;
           if(shoots.length == 1) {
             var shoot = shoots[0];
             availableShoots.push([shoot.x, shoot.y - 1]);
