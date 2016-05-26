@@ -196,62 +196,120 @@ define(function(require) {
         return;
       }
 
-      if(!state.latestShoots || state.latestShoots.length == 0) {
-        while(true) {
-          var x = Math.floor(Math.random() * this.props.getSize()) + 1;
-          var y = Math.floor(Math.random() * this.props.getSize()) + 1;
+      var validator = function(x, y) {
+        return !(x > this.props.getSize() || y > this.props.getSize() || x < 1 || y < 1)
+        && state.field.getCell(x, y) != GameField.STATE_MISS && state.field.getCell(x, y) != GameField.STATE_SHIP_WOUND;
+      }.bind(this);
 
-          if(x > this.props.getSize() || y > this.props.getSize()) {
+      var iter = 0;
+      while(true) {
+        if(++iter > 10000) {
+          return;
+        }
+
+        var x, y;
+        var shoots = state.latestShoots;
+        if(!shoots || shoots.length == 0) {
+          x = Math.floor(Math.random() * this.props.getSize()) + 1;
+          y = Math.floor(Math.random() * this.props.getSize()) + 1;
+        }
+        else {
+          var availableShoots = [];
+          console.log(shoots);
+          debugger;
+          if(shoots.length == 1) {
+            var shoot = shoots[0];
+            availableShoots.push([shoot.x, shoot.y - 1]);
+            availableShoots.push([shoot.x, shoot.y + 1]);
+            availableShoots.push([shoot.x - 1, shoot.y]);
+            availableShoots.push([shoot.x + 1, shoot.y]);
+          }
+          else {
+            var isVertical = (shoots[0].x === shoots[1].x);
+            var min = this.props.getSize();
+            var max = 0;
+
+            _.each(shoots, function(shoot) {
+              if(isVertical) {
+                if(shoot.y < min)
+                  min = shoot.y;
+                if(shoot.y > max) {
+                  max = shoot.y;
+                }
+              }
+              else {
+                if(shoot.x < min)
+                  min = shoot.x;
+                if(shoot.x > max) {
+                  max = shoot.x;
+                }
+              }
+            }, this);
+
+            var constVar = isVertical ? shoots[0].x : shoots[0].y;
+            availableShoots.push([isVertical ? constVar : min - 1, isVertical ? min - 1 : constVar]);
+            availableShoots.push([isVertical ? constVar : max + 1, isVertical ? max + 1 : constVar]);
+          }
+
+          var realShoots = availableShoots.filter(function(cell) {
+            return validator(cell[0], cell[1]);
+          });
+
+          var index = Math.floor(Math.random() * realShoots.length);
+          if(index >= realShoots.length) {
             continue;
           }
 
-          var cellState = state.field.getCell(x, y);
+          var realShoot = realShoots[index];
+          x = realShoot[0];
+          y = realShoot[1];
+        }
 
-          if(cellState === GameField.STATE_MISS || cellState === GameField.STATE_SHIP_WOUND) {
-            continue;
-          }
+        if(!validator(x, y)) {
+          continue;
+        }
 
-          if(cellState == GameField.STATE_EMPTY) {
-            state.field.setCell(x, y, GameField.STATE_MISS);
+        var cellState = state.field.getCell(x, y);
+
+        if(cellState == GameField.STATE_EMPTY) {
+          state.field.setCell(x, y, GameField.STATE_MISS);
+          state.turn = true;
+          this._setState(state);
+          this.sendMessage('shoot_result', { ok: true, x: x, y: y, status: 'miss' });
+          _.defer(function() { this.makeTurn(); }.bind(this));
+          break;
+        }
+        else if(cellState == GameField.STATE_SHIP) {
+          state.field.setCell(x, y, GameField.STATE_SHIP_WOUND);
+          state.latestShoots.push({ x: x, y: y});
+          state.turn = false;
+          var isKilled = state.field.isShipKilled(x, y);
+
+          var info = {
+            ok: true,
+            x: x,
+            y: y
+          };
+          if(isKilled) {
             state.latestShoots = [];
-            state.turn = true;
-            this._setState(state);
-            this.sendMessage('shoot_result', { ok: true, x: x, y: y, status: 'miss' });
-            _.defer(function() { this.makeTurn(); }.bind(this));
-            break;
-          }
-          else if(cellState == GameField.STATE_SHIP) {
-            state.field.setCell(x, y, GameField.STATE_SHIP_WOUND);
-            state.latestShoots = [];
-            state.turn = false;
-            var isKilled = state.field.isShipKilled(x, y);
+            var ship = state.field.findShipByCell(x, y);
+            info.status = 'killed';
+            info.startX = ship[0];
+            info.startY = ship[1];
+            info.length = ship[2];
+            info.isVertical = ship[3];
 
-            var info = {
-              ok: true,
-              x: x,
-              y: y
-            };
-            if(isKilled) {
-              var ship = state.field.findShipByCell(x, y);
-              info.status = 'killed';
-              info.startX = ship[0];
-              info.startY = ship[1];
-              info.length = ship[2];
-              info.isVertical = ship[3];
-              console.warn('here', ship);
-
-              _.each(GameField.getShipNearCells(ship[0], ship[1], ship[2], ship[3], this.props), function(cell) {
-                state.field.setCell(cell[0], cell[1], GameField.STATE_MISS);
-              }, this);
-            }
-            else {
-              info.status = 'wound';
-            }
-            this._setState(state);
-            this.sendMessage('shoot_result', info);
-            _.defer(function() { this.makeTurn(); }.bind(this));
-            break;
+            _.each(GameField.getShipNearCells(ship[0], ship[1], ship[2], ship[3], this.props), function(cell) {
+              state.field.setCell(cell[0], cell[1], GameField.STATE_MISS);
+            }, this);
           }
+          else {
+            info.status = 'wound';
+          }
+          this._setState(state);
+          this.sendMessage('shoot_result', info);
+          _.defer(function() { this.makeTurn(); }.bind(this));
+          break;
         }
       }
     },

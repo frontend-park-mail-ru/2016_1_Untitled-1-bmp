@@ -153,6 +153,7 @@ define(function(require) {
     },
 
     onMessageInit: function(msg) {
+      cache.remove(CACHE_LAST_SHOOT);
       if(msg.ok) {
         this.setStatus('Ожидаем соперника...');
       }
