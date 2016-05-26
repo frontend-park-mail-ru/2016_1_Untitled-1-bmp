@@ -223,6 +223,13 @@ define(function(require) {
       }, this);
 
       return !notKilled;
+    },
+
+    isKilled: function() {
+      var notKilledShip = _.find(this.ships, function(ship) {
+        return !this.isShipKilled(ship[0], ship[1]);
+      }, this);
+      return !notKilledShip;
     }
   });
 

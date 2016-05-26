@@ -64,6 +64,10 @@ define(function(require) {
     },
 
     requestInit: function(ships, mode, id) {
+      if(this.exists()) {
+        return;
+      }
+
       var currentField = new GameField(this.props);
       _.each(ships, function(ship) {
         currentField.addShip.apply(currentField, ship);
@@ -88,6 +92,10 @@ define(function(require) {
     },
 
     requestShoot: function(x, y) {
+      if(!this.exists()) {
+        return;
+      }
+
       var state = this._getState();
 
       if(!state.turn) {
@@ -141,11 +149,47 @@ define(function(require) {
     },
 
     requestGiveUp: function() {
+      if(!this.exists()) {
+        return;
+      }
+
       this._finish(false);
     },
 
-    makeTurn: function() {
+    checkGameOver: function() {
+      if(!this.exists()) {
+        return;
+      }
+
       var state = this._getState();
+
+      var field = state.field;
+      var opponentField = state.opponentField;
+
+      if(field.isKilled()) {
+        this._finish(false);
+        return true;
+      }
+
+      if(opponentField.isKilled()) {
+        this._finish(true);
+        return true;
+      }
+
+      return false;
+    },
+
+    makeTurn: function() {
+      if(!this.exists()) {
+        return;
+      }
+
+      var state = this._getState();
+
+      if(this.checkGameOver()) {
+        return;
+      }
+
       this.sendMessage('game_turn', { ok: state.turn });
 
       if(state.turn) {
@@ -263,7 +307,12 @@ define(function(require) {
     },
 
     _finish: function(win) {
-      this.sendMessage('game_over', { ok: !!win });
+      var score = require('app').getUser().get('score');
+      if(win) {
+        score++;
+        cache.set('user-is-offline-score', score);
+      }
+      this.sendMessage('game_over', { ok: !!win, score: score });
       cache.remove(CACHE_OFFLINE_GAME_STATE);
     }
   });
