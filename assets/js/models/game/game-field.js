@@ -176,7 +176,7 @@ define(function(require) {
 
 
     getCells: function() {
-      return this.cells.splice(0);
+      return this.cells.slice(0);
     },
 
     getCell: function(x, y) {
@@ -186,11 +186,8 @@ define(function(require) {
         }
       }
 
-      for(var i = 0; i < this.ships.length; i++) {
-        var ship = this.ships[i];
-        if(GameField.intersectsCell(ship[0], ship[1], ship[2], ship[3], x, y)) {
-          return GameField.STATE_SHIP;
-        }
+      if(this.findShipByCell(x, y)) {
+        return GameField.STATE_SHIP;
       }
 
       return GameField.STATE_EMPTY;
@@ -205,6 +202,27 @@ define(function(require) {
       }
 
       this.cells.push({ x: x, y: y, state: state});
+    },
+
+    findShipByCell: function(x, y) {
+      return _.find(this.ships, function(ship) {
+        if(GameField.intersectsCell(ship[0], ship[1], ship[2], ship[3], x, y)) {
+          return true;
+        }
+      });
+    },
+
+    isShipKilled: function(x, y) {
+      var ship = this.findShipByCell(x, y);
+      var cells = GameField.getShipCells.apply(GameField, ship);
+      var notKilled = _.find(cells, function(cell) {
+        var cellState = this.getCell(cell[0], cell[1]);
+        if(cellState === GameField.STATE_SHIP) {
+          return true;
+        }
+      }, this);
+
+      return !notKilled;
     }
   });
 
@@ -235,7 +253,11 @@ define(function(require) {
   };
 
   GameField.intersectsCell = function(x, y, length, isVertical, _x, _y) {
-    return GameField.intersectsShip(x, y, length, isVertical, _x, _y, 1, false);
+    return !!_.find(GameField.getShipCells(x, y, length, isVertical), function(cell) {
+      if(cell[0] == _x && cell[1] == _y) {
+        return true;
+      }
+    });
   };
 
   GameField.getShipCells = function(x, y, length, isVertical) {
