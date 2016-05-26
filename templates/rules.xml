@@ -3,7 +3,22 @@
     <div class="wrapper wrapper_wide">
         <a href="#" class="page-rules__button-back">←</a>
         <div class="page-rules">
-            <h5>#Rules</h5>
+            <h5>Правила игры</h5>
+            <p>
+                Игра для двух персон. У каждого игрока есть поле 10x10 клеточек, на котором необходимо разместить 10 кораблей: 
+                <ul class="page-rules__list">
+                    <li class="page-rules__list-el">один - с 4 палубами</li>
+                    <li class="page-rules__list-el">два - с 3 палубами</li>
+                    <li class="page-rules__list-el">три - с 2 палубами</li>
+                    <li class="page-rules__list-el">четыре - с 1 палубой</li>
+                </ul>
+            </p>
+            <p>
+                Каждый ход - выстрел по полю соперника. Попал - стреляешь еще раз. Промазал - ходит соперник.
+            </p>
+            <p>
+                <b class="page-rules__important">Задача - "убить" все корабли соперника раньше, чем это сделает он.</b>
+            </p>
         </div>
     </div>
 </fest:template>
