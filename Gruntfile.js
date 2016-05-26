@@ -242,6 +242,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('dev', ['concurrent:dev']);
   grunt.registerTask('prod', ['fest', 'copy:css', 'less:prod', 'copy:fonts', 'copy:img', 'copy:js_dev', 'copy:offline', 'jade:prod', 'requirejs:prod', 'postcss:dev']);
-  grunt.registerTask('default', ['dev']);
+  grunt.registerTask('prod-server', ['prod', 'shell']);
+  grunt.registerTask('default', ['prod-server']);
   grunt.registerTask('test', ['fest', 'jade:dev', 'copy:js_dev', 'copy:css', 'qunit:all']);
 };
