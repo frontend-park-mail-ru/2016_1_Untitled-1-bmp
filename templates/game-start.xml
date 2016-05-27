@@ -1,0 +1,61 @@
+<fest:template xmlns:fest="http://fest.mail.ru" context_name="data">
+    <fest:include src="scene-chaos.xml" />
+    <div class="wrapper">
+        <div class="page-game-start">
+            <div class="page-game-start__header">
+                <h2 class="page-game-start__header-text">
+                    Начать игру
+                    <fest:space />/
+                    <fest:space />
+                    <a href="#" class="page-game-start__header-exit">уйти</a>
+                </h2>
+            </div>
+            <div class="page-game-start__help">
+                Перетащите корабли на поле. <br /> Чтобы повернуть корабль на поле, кликните на него.
+            </div>
+            <div class="page-game-start__fields">
+                <div class="page-game-start__ships">
+                    <div class="js-ships">
+                        <fest:for iterate="data.ships" index="k" value="ship">
+                            <div class="page-game-start__ship-line js-ship-line">
+                                <fest:for from="1" to="ship.count" index="k1">
+                                    <div>
+                                        <fest:attributes>
+                                            <fest:attribute name="class">
+                                                js-ship page-game-start__ship page-game-start__ship_<fest:value>ship.decks</fest:value>
+                                            </fest:attribute>
+                                            <fest:attribute name="data-decks">
+                                                <fest:value>ship.decks</fest:value>
+                                            </fest:attribute>
+                                        </fest:attributes>
+                                    </div>
+                                </fest:for>
+                            </div>
+                        </fest:for>
+                    </div>
+
+                    <div class="page-game-start__modes">
+                        <fest:for iterate="data.modes" index="k" value="mode">
+                            <fest:script> var notIsFirst = k > 0; </fest:script>
+                            <fest:if test="notIsFirst"><fest:space />/<fest:space /></fest:if>
+                            <a href="" class="page-game-start__mode js-mode">
+                                <fest:attributes>
+                                    <fest:attribute name="data-mode"><fest:value>mode.mode</fest:value></fest:attribute>
+                                </fest:attributes>
+                                <fest:value>mode.text</fest:value>
+                            </a>
+                        </fest:for>
+                    </div>
+
+                    <div class="page-game-start__buttons">
+                        <button class="page-game-start__button page-game-start__button_green js-button-ready">Готово</button>
+                        <button class="page-game-start__button js-button-random">Случайное поле</button>
+                        <button class="page-game-start__button page-game-start__button_orange js-button-clear">Сбросить</button>
+                    </div>
+                </div>
+                <div class="page-game-start__field js-field">
+                </div>
+            </div>
+        </div>
+    </div>
+</fest:template>

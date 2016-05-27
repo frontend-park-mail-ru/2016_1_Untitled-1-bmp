@@ -1,0 +1,59 @@
+.page-game {
+  &__header {
+    &-text {
+      text-align: center;
+    }
+
+    &-giveup {
+      color: @color-orange;
+      &:hover, &:focus {
+        color: lighten(@color-orange, 20%);
+        border-color: @color-orange;
+      }
+    }
+  }
+
+  &__status {
+    width: 100%;
+    max-width: 20em;
+    text-align: center;
+    margin: 1em auto;
+    padding: .5em;
+    border: 1px dashed @color-gray;
+    background-color: @color-white;
+
+    font-size: 1.5em;
+  }
+
+  &__fields {
+    .clearfix();
+
+    .media-large({
+      margin-top: 5%;
+    });
+  }
+
+  &__field {
+    width: 47%;
+    margin: .5em 1.5%;
+    float: left;
+    box-sizing: border-box;
+    border: 3px dashed lighten(@color-green, 100%);
+
+    .media-medium({
+      transition: .5s;
+      width: 100%;
+      float: none;
+      margin: .5em;
+    });
+
+    .media-small({
+      transition: .5s;
+      margin: 0;
+    });
+
+    &_active {
+      border: 3px dashed lighten(@color-green, 30%);
+    }
+  }
+}

@@ -1,0 +1,23 @@
+.user-panel {
+  position: fixed;
+  z-index: 99;
+  top: 1em;
+  right: 1em;
+  background-color: @over-scene-bg-color;
+  border-radius: @over-scene-border-radius-small;
+
+  font-size: @font-size-small;
+
+  .clearfix();
+
+  &__list {
+    list-style: none;
+
+    &-el {
+      display: block;
+      float: left;
+      margin-left: 2px;
+      padding: 2px;
+    }
+  }
+}

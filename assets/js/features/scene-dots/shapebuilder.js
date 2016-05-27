@@ -1,7 +1,7 @@
 define(function(require) {
   var DotState = require('./dotstate');
 
-  var ShapeBuilder = function() {
+  var ShapeProcessor = function() {
     this.gap = 13;
     this.fontSize = 500;
     this.fontFamily = 'Avenir, Helvetica Neue, Helvetica, Arial, sans-serif';
@@ -9,19 +9,14 @@ define(function(require) {
     this.canvas = document.createElement('canvas');
     this.context = this.canvas.getContext('2d');
 
-    window.addEventListener('resize', this.onResize.bind(this));
-    this.onResize();
+    this.canvas.width = Math.floor(window.innerWidth / this.gap) * this.gap;
+    this.canvas.height = Math.floor(window.innerHeight / this.gap) * this.gap;
+    this.context.fillStyle = 'black';
+    this.context.textBaseline = 'middle';
+    this.context.textAlign = 'center';
   };
 
-  ShapeBuilder.prototype = {
-    onResize: function() {
-      this.canvas.width = Math.floor(window.innerWidth / this.gap) * this.gap;
-      this.canvas.height = Math.floor(window.innerHeight / this.gap) * this.gap;
-      this.context.fillStyle = 'black';
-      this.context.textBaseline = 'middle';
-      this.context.textAlign = 'center';
-    },
-
+  ShapeProcessor.prototype = {
     process: function() {
       var pixels = this.context.getImageData(0, 0, this.canvas.width, this.canvas.height).data;
       var dots = [];
@@ -126,5 +121,17 @@ define(function(require) {
     }
   };
 
-  return ShapeBuilder;
+  var shapeBuilder = function(method, methodArgs) {
+    return function() {
+      var processor = new ShapeProcessor();
+
+      if(typeof processor[method] == 'function') {
+        return processor[method].apply(processor, methodArgs);
+      }
+
+      return null;
+    };
+  };
+
+  return shapeBuilder;
 });

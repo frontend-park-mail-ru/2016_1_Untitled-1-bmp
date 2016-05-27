@@ -1,0 +1,92 @@
+.scene-chaos {
+  position: fixed;
+  z-index: -1;
+
+  width: 100%;
+  height: 100%;
+
+  opacity: .6;
+
+  &__element {
+    position: fixed;
+    font-size: 1.9em;
+    transition: 1s;
+    &:extend(.glyphicon);
+
+    &:nth-child(3n+1) {
+      font-size: 1.2em;
+    }
+
+    &:nth-child(4n+2) {
+      font-size: 3em;
+    }
+
+    &:nth-child(3n) {
+      opacity: .4;
+    }
+
+    &:nth-child(3n+2) {
+      opacity: .8;
+    }
+
+    &_1 {
+      top: 72%;
+      left: 70%;
+      &:extend(.glyphicon_king all);
+    }
+
+    &_2 {
+      top: 75%;
+      left: 30%;
+      &:extend(.glyphicon_knight all);
+    }
+
+    &_3 {
+      top: 40%;
+      left: 19%;
+      &:extend(.glyphicon_alert all);
+    }
+
+    &_4 {
+      top: 20%;
+      left: 13%;
+      &:extend(.glyphicon_fire all);
+    }
+
+    &_5 {
+      top: 77%;
+      left: 50%;
+      &:extend(.glyphicon_plane all);
+    }
+
+    &_6 {
+      top: 60%;
+      left: 80%;
+      &:extend(.glyphicon_flag all);
+    }
+
+    &_7 {
+      top: 34%;
+      left: 66%;
+      &:extend(.glyphicon_home all);
+    }
+
+    &_8 {
+      top: 84%;
+      left: 82%;
+      &:extend(.glyphicon_globe all);
+    }
+
+    &_9 {
+      top: 15%;
+      left: 70%;
+      &:extend(.glyphicon_send all);
+    }
+
+    &_10 {
+      top: 38%;
+      left: 50%;
+      &:extend(.glyphicon_screenshot all);
+    }
+  }
+}

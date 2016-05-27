@@ -2,65 +2,94 @@ define(function (require) {
   var Backbone = require('backbone');
   var _ = require('underscore');
   var app = require('app');
+  var alertify = require('alertify');
   var MainView = require('views/main'),
       ScoreboardView = require('views/scoreboard'),
+      UserView = require('views/user'),
+      RulesView = require('views/rules'),
+      GameStartView = require('views/game-start'),
       GameView = require('views/game'),
-      LoginView = require('views/login'),
-      SignupView = require('views/signup');
+      GameInitView = require('views/game-init');
 
-  var viewManager = require('views/manager');
+  var viewManager;
 
   var mainView = new MainView();
   var scoreboardView = new ScoreboardView();
-  var gameView = new GameView();
-  var loginView = new LoginView();
-  var signupView = new SignupView();
+  var userView = new UserView();
+  var rulesView = new RulesView();
+  var gameStartView = new GameStartView();
 
-  _.each([mainView,
-         scoreboardView,
-         gameView,
-         loginView,
-         signupView], function(view) {
-           viewManager.addView(view);
-  });
+  var gameProvider = require('models/game/game-provider');
+
+  var loader = require('loader');
 
   var Router = Backbone.Router.extend({
     routes: {
       'scoreboard': 'scoreboardAction',
-      'game':       'gameAction',
-      'login':      'loginAction',
-      'logout':     'logoutAction',
-      'signup':     'signupAction',
-      '*default':   'defaultAction',
+      'rules': 'rulesAction',
+      'user/:tab': 'userAction',
+      'game': 'gameAction',
+      '*default': 'defaultAction',
+    },
+
+    init: function() {
+      viewManager = require('views/manager');
+
+      _.each([mainView,
+             scoreboardView,
+             userView,
+             rulesView,
+             gameStartView
+      ], function(view) {
+        viewManager.addView(view);
+      });
     },
 
     go: function(where) {
       return this.navigate(where, { trigger: true });
     },
 
-    defaultAction: function () {
-      mainView.show();
+    goSilent: function(where) {
+      return this.navigate(where, { trigger: false });
     },
 
-    scoreboardAction: function () {
-      scoreboardView.show();
+    defaultAction: function() {
+      mainView.show(loader);
     },
 
-    gameAction: function () {
-      gameView.show();
+    scoreboardAction: function() {
+      scoreboardView.show(loader);
     },
 
-    loginAction: function () {
-      loginView.show();
+    rulesAction: function() {
+      rulesView.show(loader);
     },
 
-    logoutAction: function () {
-      app.getSession().logout();
-      this.go('');
+    userAction: function(tab) {
+      if(app.getAuthData().isAuth) {
+        this.go('');
+        alertify.error('Вы уже авторизованы, мой дорогой!');
+        return;
+      }
+      userView.show(loader);
+      userView.tab(tab);
     },
 
-    signupAction: function () {
-      signupView.show();
+    gameAction: function() {
+      if(!app.getAuthData().isAuth) {
+        userView.setReturnPage('game');
+        this.go('user/login');
+        alertify.message('Авторизуйтесь, чтобы начать игру');
+      }
+      else {
+        var gameInitView = new GameInitView();
+        gameInitView.show(loader);
+        viewManager.addView(gameInitView);
+      }
+    },
+
+    gameStartAction: function() {
+      gameStartView.show(loader);
     }
   });
 

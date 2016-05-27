@@ -1,0 +1,44 @@
+.game-field-creator {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  .clearfix();
+
+  &__button {
+    margin-top: 2em;
+    margin-left: .5em;
+    .button();
+  }
+
+
+  &__ships {
+    float: left;
+    text-align: left;
+    width: 350px;
+
+    &-help {
+      &:extend(h5);
+      margin-bottom: 1.5em;
+    }
+  }
+
+  &__modes {
+    margin-top: 1em;
+  }
+
+  &__mode {
+    &:extend(h5);
+    color: @color-blue-light;
+    &_active {
+      &, &:hover {
+        color: @color-blue;
+        border-bottom: 1px solid @color-blue;
+      }
+    }
+  }
+
+  &__field {
+    margin-left: 3em;
+    float: left;
+  }
+}

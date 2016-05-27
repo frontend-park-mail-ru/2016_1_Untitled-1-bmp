@@ -1,12 +1,12 @@
 define(function(require) {
-  var Backbone = require('backbone');
+  var ViewBase = require('views/base');
   var _ = require('underscore');
   var sinon = require('sinon');
 
   var manager = require('views/manager');
   var app = require('app');
 
-  var View = Backbone.View.extend({
+  var View = ViewBase.Page.extend({
     show: function() {
       this.trigger('show');
     },
@@ -29,7 +29,7 @@ define(function(require) {
   var view5 = new ViewWithAuth();
   var view6 = new ViewWithAuth();
 
-  var ViewEmpty = Backbone.View.extend({
+  var ViewEmpty = ViewBase.Page.extend({
   });
 
   var view7 = new ViewEmpty();

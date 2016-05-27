@@ -1,0 +1,22 @@
+<fest:template xmlns:fest="http://fest.mail.ru" context_name="data">
+    <div class="scene-dots">
+        <div class="scene-dots__wrapper"></div>
+        <canvas class="scene-dots__canvas"></canvas>
+        <div class="scene-dots__overlay">
+            <a href="#" class="scene-dots__button-back">←</a>
+            <h3 class="scene-dots__title"><fest:value>data.title</fest:value></h3>
+            <a href="#" class="scene-dots__button-previous">
+                <span class="scene-dots__button-previous-text">
+                    «
+                </span>
+            </a>
+            <h2 class="scene-dots__name">
+            </h2>
+            <a href="#" class="scene-dots__button-next">
+                <span class="scene-dots__button-next-text">
+                    »
+                </span>
+            </a>
+        </div>
+    </div>
+</fest:template>

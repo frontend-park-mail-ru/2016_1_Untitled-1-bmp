@@ -1,0 +1,34 @@
+<fest:template xmlns:fest="http://fest.mail.ru" context_name="data">
+    <table class="game-field">
+        <thead>
+            <tr>
+                <td class="game-field__cell game-field__cell_header_none"></td>
+                <fest:for from="1" to="data.size" index="column">
+                    <td class="game-field__cell game-field__cell_header_top">
+                        <fest:value>data.letters[column - 1]</fest:value>
+                    </td>
+                </fest:for>
+            </tr>
+        </thead>
+        <fest:for from="1" to="data.size" index="row">
+            <tr>
+                <td class="game-field__cell game-field__cell_header_left">
+                    <fest:value>row</fest:value>
+                </td>
+                <fest:for from="1" to="data.size" index="column">
+                    <td class="game-field__cell js-cell-game">
+                        <fest:attributes>
+                            <fest:attribute name="data-x"><fest:value>column</fest:value></fest:attribute>
+                            <fest:attribute name="data-y"><fest:value>row</fest:value></fest:attribute>
+                        </fest:attributes>
+                    </td>
+                </fest:for>
+            </tr>
+        </fest:for>
+    </table>
+    <div class="game-field__caption">
+        <h4 class="game-field__caption-field js-caption"><fest:value>data.caption</fest:value></h4>
+        <h4 class="game-field__caption-info js-caption-info"><fest:value>data.captionInfo</fest:value></h4>
+    </div>
+
+</fest:template>

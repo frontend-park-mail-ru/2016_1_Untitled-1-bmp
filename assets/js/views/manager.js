@@ -1,8 +1,10 @@
 define(function(require) {
-  var Backbone = require('backbone');
+  var View = require('views/base');
   var app = require('app');
 
-  var ViewManager = Backbone.View.extend({
+  var userPanel = require('views/user-panel');
+
+  var ViewManager = View.Simple.extend({
     el: $('#page'),
 
     views: [],
@@ -28,11 +30,11 @@ define(function(require) {
     },
 
     onChangeView: function(newView) {
-      var views = _.filter(this.views, function(view) {
-        return view != newView;
-      });
+      this.handleViewsEvent('hide', [], _.without(this.views, newView));
 
-      return this.handleViewsEvent('hide', [], views);
+      var showUserPanel = typeof newView.showUserPanel !== 'function'
+                          || newView.showUserPanel();
+      userPanel[showUserPanel ? 'show' : 'hide']();
     },
 
     onAuth: function(result) {

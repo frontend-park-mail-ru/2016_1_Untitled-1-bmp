@@ -1,5 +1,4 @@
 define(function(require) {
-  var $ = require('jquery');
   var Backbone = require('backbone');
   var Session = require('models/session');
   var User = require('models/user');
@@ -7,16 +6,18 @@ define(function(require) {
   var App = Backbone.Model.extend({
     session: new Session(),
     user: new User(),
+    offline: false,
 
     initialize: function() {
       this.listenTo(this.session, 'auth', this._onAuth.bind(this));
       this.listenTo(this.session, 'logout', this._onLogout.bind(this));
+      this.listenTo(this.session, 'offline', this._onOffline.bind(this));
 
-      this.session.listenTo(this.user, 'register', (function() {
-        this.session.check();
-      }).bind(this));
+      this.listenTo(this.user, 'register', this._onRegister.bind(this));
+    },
 
-      this.session.check();
+    start: function(cb) {
+      this.session.check(cb);
     },
 
     getSession: function() {
@@ -25,6 +26,10 @@ define(function(require) {
 
     getUser: function() {
       return this.user;
+    },
+
+    isOffline: function() {
+      return this.offline;
     },
 
     getAuthData: function() {
@@ -36,6 +41,16 @@ define(function(require) {
 
     _onAuth: function(result) {
       if(result.result) {
+        if(result.id == 'offline' && this.offline) {
+          this.user.set('id', 'offline');
+          this.user.set('login', 'Гость');
+          this.user.set('score', cache.get('user-is-offline-score', 0));
+          this.user.set('isAnonymous', true);
+          this.user.set('isOffline', true);
+          this.trigger('auth', this.getAuthData());
+          return;
+        }
+
         this.user.set('id', result.id);
         this.user.fetch({
           success: (function() {
@@ -49,6 +64,14 @@ define(function(require) {
       this.user.clear();
       this.session.clear();
       this.trigger('auth', this.getAuthData());
+    },
+
+    _onOffline: function() {
+      this.offline = true;
+    },
+
+    _onRegister: function() {
+      this.session.check();
     }
   });
 

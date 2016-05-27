@@ -5,6 +5,7 @@ define(function(require) {
     'models/score.test',
     'models/user.test',
     'models/session.test',
+    'models/game/game-field.test',
     'collections/scoreboard.test',
     'views/manager.test'
   ];

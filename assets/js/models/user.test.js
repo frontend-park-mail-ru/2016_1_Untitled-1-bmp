@@ -19,7 +19,10 @@ define(function(require) {
       [{ login: '123', password: '123', email: 'le-me@ya.ru' }, 'Короткий пароль', ['password']],
       [{ login: '', password: '' }, 'Пустой пароль и email', ['password', 'email']],
       [{ login: 'my-login', email: 'le-me@yandex.ru' }, 'Валидный кейс без пароля', []],
-      [{ login: 'my-login', email: 'le-me@yandex.ru', password: 'trusting' }, 'Валидный кейс с паролем', []]
+      [{ login: 'my-login', email: 'le-me@yandex.ru', password: 'trusting' }, 'Валидный кейс с паролем', []],
+      [{ isAnonymous: true }, 'Все поля пустые (аноним)', []],
+      [{ isAnonymous: true, login: '' }, 'Пустой логин (аноним)', []],
+      [{ isAnonymous: true, login: 'le-me' }, 'С логином (аноним)', []]
     ];
 
     _.each(toTest, function(item) {

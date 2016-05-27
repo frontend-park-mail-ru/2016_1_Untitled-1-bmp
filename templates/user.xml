@@ -1,0 +1,35 @@
+<fest:template xmlns:fest="http://fest.mail.ru" context_name="data">
+    <fest:include src="scene-ship.xml" />
+    <div class="wrapper wrapper_wide">
+        <a href="#" class="page-user__button-back">←</a>
+        <div class="page-user">
+            <div class="page-user__tab-menu">
+                <fest:for iterate="data.tabs" index="i" value="tab">
+                    <fest:script>var isNotFirst = i > 0;</fest:script>
+                    <fest:if test="isNotFirst">
+                        <span class="page-user__tab-menu-div">
+                            <fest:space />
+                            /
+                            <fest:space />
+                        </span>
+                    </fest:if>
+                    <a class="page-user__tab-menu-el js-tab-link" href="#">
+                        <fest:attributes>
+                            <fest:attribute name="data-tab"><fest:value>tab.key</fest:value></fest:attribute>
+                        </fest:attributes>
+                        <fest:value>tab.title</fest:value>
+                    </a>
+                </fest:for>
+            </div>
+            <div class="page-user__tabs">
+                <fest:for iterate="data.tabs" index="i" value="tab">
+                    <div class="page-user__tab js-tab">
+                        <fest:attributes>
+                            <fest:attribute name="data-tab"><fest:value>tab.key</fest:value></fest:attribute>
+                        </fest:attributes>
+                    </div>
+                </fest:for>
+            </div>
+        </div>
+    </div>
+</fest:template>

@@ -1,34 +1,58 @@
 define(function(require) {
-  var Backbone = require('backbone');
+  var View = require('views/base');
   var template = require('templates/main');
-  var app = require('app');
 
-  var MainView = Backbone.View.extend({
+  var MainView = View.Page.extend({
     initialize: function() {
       this.template = template;
-      this.render();
+
+      this.links = {
+        game: {
+          url: '#game',
+          modifier: 'play',
+          text: 'Играть'
+        },
+        scoreboard: {
+          url: '#scoreboard',
+          modifier: 'records',
+          text: 'Рекорды'
+        },
+        rules: {
+          url: '#rules',
+          modifier: 'rules',
+          text: 'Правила'
+        }
+      };
     },
 
     render: function() {
-      var authData = app.getAuthData();
       var html = this.template({
-        isAuth: authData.isAuth,
-        userLogin: authData.user.get('login')
+        links: _.map(this.links, function(link, key) {
+          return _.extend(link, { key: key });
+        })
       });
       this.$el.html(html);
+
+      this.isRendered = true;
     },
 
-    show: function() {
-      this.trigger('show');
-      this.$el.show();
+    show: function(loader) {
+      if(this.isShown) return;
+
+      loader(function(cb) {
+        this.trigger('show');
+
+        if(!this.isRendered) this.render();
+
+        this.$el.show();
+        this.isShown = true;
+        cb();
+      }.bind(this));
     },
 
     hide: function() {
       this.$el.hide();
-    },
-
-    onAuth: function() {
-      this.render();
+      this.isShown = false;
     }
   });
 

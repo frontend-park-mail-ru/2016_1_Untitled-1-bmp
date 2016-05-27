@@ -2,6 +2,10 @@ define(function(require) {
   var $ = require('jquery');
   var Backbone = require('backbone');
 
+  var cache = require('cache');
+
+  var CACHE_IS_OFFLINE_KEY = 'session-is-offline';
+
   var Session = Backbone.Model.extend({
     defaults: {
       auth: false
@@ -41,20 +45,51 @@ define(function(require) {
       }
     },
 
-    check: function() {
+    check: function(cb) {
+      cb = cb || function() {};
+
+      if(cache.get(CACHE_IS_OFFLINE_KEY)) {
+        this.setOffline(cb);
+        return;
+      }
+
       this.set('id', null);
       this.fetch({
         success: (function(obj, result) {
           this.set('auth', true);
+
+          if(result.isOffline) {
+            this.trigger('offline');
+          }
+
           this.trigger('auth', {
             result: true,
             id: result.id
           });
+          cb();
         }).bind(this),
         error: (function(obj, result) {
           this.set('auth', false);
+          cb();
         }).bind(this)
       });
+    },
+
+    setOffline: function(cb) {
+      cb = cb || function() {};
+
+      if(this.get('auth')) {
+        return;
+      }
+
+      this.set('auth', true);
+      this.trigger('offline');
+      this.trigger('auth', {
+        result: true,
+        id: 'offline'
+      });
+      cache.set(CACHE_IS_OFFLINE_KEY, true);
+      cb();
     },
 
     isAuthorized: function() {
@@ -88,6 +123,13 @@ define(function(require) {
     },
 
     logout: function() {
+      if(cache.get(CACHE_IS_OFFLINE_KEY)) {
+        this.set('auth', false);
+        this.trigger('logout');
+        cache.remove(CACHE_IS_OFFLINE_KEY);
+        return;
+      }
+
       this.destroy({
         success: (function(data) {
           this.set('auth', false);

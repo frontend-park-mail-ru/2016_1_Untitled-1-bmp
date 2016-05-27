@@ -4,8 +4,14 @@ define(function(require) {
 
   var ScoreBoard = Backbone.Collection.extend({
     model: model,
+    url: '/api/scoreboard',
+
     comparator: function(item) {
       return -item.get('score');
+    },
+
+    getTop: function() {
+      return this.fetch();
     }
   });
 
